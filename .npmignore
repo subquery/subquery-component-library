@@ -1,0 +1,9 @@
+# Ignore everything
+**/*
+
+# Only pack dist
+!/dist/**/*
+
+# Exclude stories from dist
+**/*.stories.js
+**/*.stories.jsx
