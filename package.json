@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "repository": "git@github.com:subquery/react-ui.git",
   "author": "Scott Twiname <skott.twiname@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "build": "tsc -d && yarn copy-css",
