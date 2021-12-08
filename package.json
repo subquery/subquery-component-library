@@ -14,7 +14,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",
-    "prepare": "husky install && yarn build"
+    "prepare": "yarn build && husky install"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
