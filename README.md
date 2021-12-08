@@ -10,3 +10,5 @@ Basic React UI components for use in SubQuery frontend projects
 
 Storybook is used for development and provides a way to see the components as well as their documentation
 `yarn storybook`
+
+You can view the components here https://subquery.github.io/react-ui/
