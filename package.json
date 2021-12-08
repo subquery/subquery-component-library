@@ -7,7 +7,6 @@
   "repository": "git@github.com:subquery/react-ui.git",
   "author": "Scott Twiname <skott.twiname@gmail.com>",
   "license": "Apache-2.0",
-  "private": true,
   "scripts": {
     "build": "tsc -d && yarn copy-css",
     "copy-css": "copyfiles -u 1 src/**/*.module.css dist/",
