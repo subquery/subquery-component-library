@@ -22,14 +22,18 @@
   --sq-info: #3aa0ff;
 
   /* RGB versions to allow adding opacity */
-  --sq-gray500-rgb: 145, 158, 171;
-
   --sq-success-rgb: 101, 205, 69;
   --sq-warning-rgb: 248, 124, 79;
   --sq-error-rgb: 241, 88, 91;
   --sq-info-rgb: 58, 160, 255;
 
-  --icon-size: 178px;
+  /* Sizes */
+
+  --sq-font-medium: 14px;
+  --sq-line-medium: 22px;
+
+  --sq-font-body: 16px;
+  --sq-line-body: 24px;
 }
 
 /* ICONS */
