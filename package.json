@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc -d && yarn copy-css",
     "copy-css": "copyfiles -u 1 src/**/*.module.css dist/",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",
     "prepare": "yarn build && husky install"
