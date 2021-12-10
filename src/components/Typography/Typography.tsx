@@ -7,10 +7,14 @@ import styles from './Typography.module.css';
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'body' | 'medium' | 'small' | 'overline';
   className?: string;
-};
+} & React.HTMLProps<HTMLParagraphElement>;
 
-const Typography: React.FC<Props> = ({ children, variant = 'body', className }) => {
-  return <p className={[styles.t, styles[variant], className].join(' ')}>{children}</p>;
+const Typography: React.FC<Props> = ({ children, variant = 'body', className, ...rest }) => {
+  return (
+    <p {...rest} className={[styles.t, styles[variant], className].join(' ')}>
+      {children}
+    </p>
+  );
 };
 
 export default Typography;

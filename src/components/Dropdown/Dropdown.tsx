@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
+import { Typography } from '..';
 import styles from './Dropdown.module.css';
 
 type Item = {
@@ -26,9 +27,9 @@ const DropdownItem: React.FC<{ item: Item; className?: string; onClick?: () => v
   if (!item) return null;
 
   return (
-    <span key={item.key} className={[styles.listItem, className].join(' ')} onClick={onClick}>
+    <Typography key={item.key} className={[styles.listItem, className].join(' ')} onClick={onClick}>
       {item.label ?? item.key}
-    </span>
+    </Typography>
   );
 };
 
@@ -62,6 +63,7 @@ const Dropdown: React.FC<Props> = (props) => {
 
   return (
     <div className={[styles.container, props.className].join(' ')}>
+      {/* TODO use button here */}
       <div
         className={[styles.dropdown, props.dropdownClass].filter(Boolean).join(' ')}
         tabIndex={0}

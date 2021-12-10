@@ -14,5 +14,10 @@ const Template: ComponentStory<typeof Dropdown> = (args) => <Dropdown {...args} 
 export const Default = Template.bind({});
 
 Default.args = {
-  items: [{ key: '1', label: 'Item One' }, { key: '2' }, { key: '3', label: 'Item 3' }],
+  items: [
+    { key: '1', label: 'Item One' },
+    { key: '2' },
+    { key: '3', label: 'Item 3' },
+    { key: '4', label: 'Four fore for 4' }, // Longer than the width when closed
+  ],
 };
