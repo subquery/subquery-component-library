@@ -1,0 +1,36 @@
+.container {
+  border-radius: 8px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  box-shadow: var(--sq-shadow);
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.icon-error {
+  color: var(--sq-error);
+}
+
+.icon-info {
+  color: var(--sq-info);
+}
+
+.icon-warning {
+  color: var(--sq-warning);
+}
+
+.icon-success {
+  color: var(--sq-success);
+}
+
+.icon-loading {
+}
+
+.text {
+  padding-left: 8px;
+}

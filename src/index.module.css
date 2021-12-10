@@ -28,6 +28,8 @@
   --sq-error-rgb: 241, 88, 91;
   --sq-info-rgb: 58, 160, 255;
 
+  --sq-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+
   /* Sizes */
 
   --sq-font-medium: 14px;
