@@ -22,6 +22,7 @@
   --sq-info: #3aa0ff;
 
   /* RGB versions to allow adding opacity */
+  --sq-gray500-rgb: 145, 158, 171;
   --sq-success-rgb: 101, 205, 69;
   --sq-warning-rgb: 248, 124, 79;
   --sq-error-rgb: 241, 88, 91;

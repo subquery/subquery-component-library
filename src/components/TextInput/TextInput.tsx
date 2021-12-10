@@ -31,7 +31,7 @@ const TextInput: React.FC<Props> = ({ variant = 'large', base = 'input', label, 
   return (
     <div>
       {label && (
-        <label htmlFor={rest.name}>
+        <label htmlFor={rest.id}>
           <Typography className={styles.label}>{label}</Typography>
         </label>
       )}
