@@ -6,7 +6,8 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    'storybook-css-modules-preset'
+    'storybook-css-modules-preset',
+    "storybook-zeplin/register"
   ],
   "framework": "@storybook/react"
 }
