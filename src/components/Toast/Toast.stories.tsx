@@ -7,6 +7,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 export default {
   title: 'Toast',
   component: Toast,
+  parameters: {
+    zeplinLink: 'https://app.zeplin.io/styleguide/61b2d0301695d44e531bd6d2/components?coid=61b2d7f4a13b194d1b841269',
+  },
 } as ComponentMeta<typeof Toast>;
 
 const Template: ComponentStory<typeof Toast> = (args) => (

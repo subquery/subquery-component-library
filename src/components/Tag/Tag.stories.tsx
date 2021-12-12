@@ -7,6 +7,9 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 export default {
   title: 'Tag',
   component: Tag,
+  parameters: {
+    zeplinLink: 'https://app.zeplin.io/styleguide/61b2d0301695d44e531bd6d2/components?coid=61b2d7d35c1f714bf4c9ff99',
+  },
 } as ComponentMeta<typeof Tag>;
 
 const Template: ComponentStory<typeof Tag> = (args) => (
