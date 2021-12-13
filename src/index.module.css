@@ -1,8 +1,12 @@
 :root {
   --sq-primary-pink: #ff4581;
   --sq-primary-blue: #4388dd;
-  --sq-gradient: linear-gradient(293.04deg, var(--sq-primary-pink) 4.09%, var(--sq-primary-blue) 70.16%);
-  --sq-background-gradient: linear-gradient(293.04deg, rgba(255, 69, 129, 0.1) 4.09%, rgba(67, 136, 221, 0.1) 70.16%);
+  --sq-gradient: linear-gradient(96.26deg, var(--sq-primary-blue) 13.8%, var(--sq-primary-pink) 82.83%);
+  --sq-background-gradient: linear-gradient(
+    96.26deg,
+    rgba(var(--sq-primary-blue-rgb), 0.08) 13.8%,
+    rgba(var(--sq-primary-pink-rgb), 0.08) 82.83%
+  );
 
   /* Gray */
   --sq-gray100: #f9fafb;
@@ -22,6 +26,8 @@
   --sq-info: #3aa0ff;
 
   /* RGB versions to allow adding opacity */
+  --sq-primary-blue-rgb: 67, 136, 221;
+  --sq-primary-pink-rgb: 255, 69, 129;
   --sq-gray500-rgb: 145, 158, 171;
   --sq-success-rgb: 101, 205, 69;
   --sq-warning-rgb: 248, 124, 79;

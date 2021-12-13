@@ -1,13 +1,11 @@
 .button {
   display: inline-flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 12px 12px;
+  flex-shrink: 0;
 
-  font-size: 16px;
-  line-height: 24px;
-  font-family: Futura;
+  font-family: 'Inter', sans-serif;
 
   border-radius: 50px;
   border-width: 0;
@@ -20,48 +18,83 @@
   text-decoration: none;
 }
 
-.button i {
-  font-size: 25px;
+/* Add padding if leftItem exists */
+.button span:not(:first-child) {
+  padding-left: 6px;
+}
+
+/* Add padding if rightItem exists */
+.button span:not(:last-child) {
+  padding-right: 6px;
+}
+
+.small {
+  font-size: 12px;
+  line-height: 16px;
+  padding: 6px 12px;
+}
+
+.small i {
+  font-size: 12px;
+}
+
+.medium {
+  font-size: 14px;
+  line-height: 18px;
+  padding: 10px 16px;
+}
+
+.medium i {
+  font-size: 14px;
+}
+
+.large {
+  font-size: 16px;
+  line-height: 16px;
+  padding: 16px 32px;
+}
+
+.large i {
+  font-size: 16px;
 }
 
 .primary {
   color: white;
+}
+
+.primary-gradient {
   background: var(--sq-gradient);
-  background-size: 200% 100%;
+  background-size: 150% 100%;
   background-position: 50% 0;
 }
 
-.primary:hover {
-  background-position: 80% 0;
+.primary-gradient:hover {
+  background-position: 100% 0;
+}
+
+.primary-standard {
+  background: var(--sq-primary-blue);
+}
+
+.primary-standard:hover {
+  background: #69a0e4; /* Not from the global theming */
 }
 
 .secondary {
   position: relative;
 }
 
-.secondary :is(span, p) {
+.secondary-gradient :is(span, p, i) {
   background: var(--sq-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.secondary i {
-  background: var(--sq-gradient);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.secondary:hover {
+.secondary-gradient:hover {
   background: var(--sq-background-gradient);
 }
 
-.secondary i:before {
-  display: inline;
-}
-
-.secondary::before {
+.secondary-gradient::before {
   content: '';
   position: absolute;
   top: 0;
@@ -69,9 +102,105 @@
   right: 0;
   bottom: 0;
   border-radius: 50px;
-  padding: 2px;
+  padding: 1px;
   background: var(--sq-gradient);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
+}
+
+.secondary-standard {
+  color: var(--sq-primary-blue);
+  border: 1px solid var(--sq-primary-blue);
+}
+
+.secondary-standard:hover {
+  background: rgba(var(--sq-primary-blue-rgb), 0.1);
+}
+
+.link {
+}
+
+.link-small {
+}
+
+.link-medium {
+  padding: 6px 10px;
+}
+
+.link-large {
+  padding: 10px 12px;
+}
+
+.link-gradient:hover {
+  background: var(--sq-background-gradient);
+}
+
+.link-gradient :is(span, p, i) {
+  background: var(--sq-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.link-standard {
+  color: var(--sq-primary-blue);
+}
+
+.link-standard:hover {
+  background: rgba(var(--sq-primary-blue-rgb), 0.1);
+}
+
+.link-text {
+  padding: 0;
+  border-radius: 0;
+}
+
+.link-text:hover {
+  padding: 0;
+  border-radius: 0;
+}
+
+.link-text-gradient:hover {
+  background: unset;
+  position: relative;
+}
+
+.link-text-gradient:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--sq-primary-pink);
+  background: var(--sq-gradient);
+}
+
+.link-text-standard:hover {
+  background: unset;
+  text-decoration-color: var(--sq-primary-blue);
+  text-decoration: underline;
+}
+
+.disabled {
+  cursor: not-allowed;
+  color: var(--sq-gray400);
+}
+
+.disabled-primary {
+  background: var(--sq-gray200);
+}
+
+.disabled-secondary {
+  border: 1px solid var(--sq-gray300);
+}
+
+.disabled-link {
+  padding: 0;
+  border-radius: 0;
+}
+
+.stories:not(:last-child) {
+  margin-bottom: 8px;
+  margin-right: 8px;
 }

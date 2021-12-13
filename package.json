@@ -41,6 +41,7 @@
     "typescript-plugin-css-modules": "^3.4.0"
   },
   "dependencies": {
+    "clsx": "^1.1.1",
     "eslint-plugin-react": "^7.27.1",
     "react-jazzicon": "^0.1.3"
   },
