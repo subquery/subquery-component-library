@@ -8,6 +8,7 @@ export { default as Dropdown } from './Dropdown';
 export { default as Modal } from './Modal';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Spinner } from './Spinner';
+export * as Table from './Table';
 export { default as Tag } from './Tag';
 export { default as TextInput } from './TextInput';
 export { default as Toast } from './Toast';
