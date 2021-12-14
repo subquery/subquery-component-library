@@ -30,6 +30,10 @@
   padding-bottom: 8px;
 }
 
+.container:not(:first-child) {
+  padding-top: 8px;
+}
+
 .error {
   border-color: var(--sq-error);
 }

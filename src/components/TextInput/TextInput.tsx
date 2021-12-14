@@ -16,10 +16,10 @@ type BaseProps = {
 };
 
 type Props<T = BaseProps> = {
-  label: OptionalProp<string>;
+  label?: OptionalProp<string>;
   variant?: 'large' | 'medium';
   base?: keyof T;
-  error: OptionalProp<string>;
+  error?: OptionalProp<string>;
   containerClassName?: string;
 } & T[keyof T];
 
@@ -39,7 +39,7 @@ const TextInput: React.FC<Props> = ({
   );
 
   return (
-    <div className={containerClassName}>
+    <div className={clsx(styles.container, containerClassName)}>
       {label && (
         <label htmlFor={rest.id}>
           <Typography className={styles.label}>{label}</Typography>

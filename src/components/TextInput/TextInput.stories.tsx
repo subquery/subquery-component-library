@@ -51,3 +51,11 @@ Error.args = {
   value: 'Something',
   error: "Please input passenger's name or delete this field.",
 };
+
+export const Multiple = () => (
+  <>
+    <Input label="Input 1" />
+
+    <Input label="Input 2" />
+  </>
+);
