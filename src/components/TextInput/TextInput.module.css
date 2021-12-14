@@ -43,6 +43,7 @@
 }
 
 .errorText {
+  text-transform: capitalize;
   color: var(--sq-error);
 }
 
