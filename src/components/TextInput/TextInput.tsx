@@ -4,6 +4,7 @@
 import clsx from 'clsx';
 import * as React from 'react';
 import { Typography } from '..';
+import { OptionalProp } from '../../utils';
 import styles from './TextInput.module.css';
 
 type InputProps = React.HTMLProps<HTMLInputElement>;
@@ -15,10 +16,10 @@ type BaseProps = {
 };
 
 type Props<T = BaseProps> = {
-  label?: string;
+  label: OptionalProp<string>;
   variant?: 'large' | 'medium';
   base?: keyof T;
-  error?: string;
+  error: OptionalProp<string>;
   containerClassName?: string;
 } & T[keyof T];
 
