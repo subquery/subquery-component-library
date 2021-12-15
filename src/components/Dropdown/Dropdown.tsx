@@ -34,7 +34,16 @@ const DropdownItem: React.FC<{ item: Item; className?: string; onClick?: () => v
   );
 };
 
-const Dropdown: React.FC<Props> = ({ selected, onSelected, className, listClassName, items, children, ...rest }) => {
+const Dropdown: React.FC<Props> = ({
+  selected,
+  onSelected,
+  className,
+  listClassName,
+  dropdownClass,
+  items,
+  children,
+  ...rest
+}) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const toggleOpen = () => setIsOpen((open) => !open);
@@ -63,12 +72,12 @@ const Dropdown: React.FC<Props> = ({ selected, onSelected, className, listClassN
 
   return (
     <div className={clsx(styles.container, className)}>
-      {/* TODO use button here */}
       <Button
         type="secondary"
         size="medium"
         colorScheme="gradient"
         {...rest}
+        className={dropdownClass}
         label={!children ? items[selected ?? 0].label : undefined}
         onClick={toggleOpen}
         leftItem={children}

@@ -44,7 +44,7 @@ const Button: React.VFC<Props> = ({
       {...rest}
     >
       {leftItem}
-      <span>{label}</span>
+      {label && <span>{label}</span>}
       {rightItem}
     </a>
   );
