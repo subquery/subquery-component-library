@@ -21,6 +21,7 @@ Default.args = {
     { key: '3', label: 'Item 3' },
     { key: '4', label: 'Four fore for 4' }, // Longer than the width when closed
   ],
+  selected: 1,
 };
 
 export const ButtonStyles = Template.bind({});
@@ -46,4 +47,5 @@ CustomComponent.args = {
     { key: '4', label: 'Four fore for 4' }, // Longer than the width when closed
   ],
   children: <Address address="0xFf64d3F6efE2317EE2807d223a0Bdc4c0c49dfDB" />,
+  colorScheme: 'gradient',
 };

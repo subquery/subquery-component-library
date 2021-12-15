@@ -3,19 +3,6 @@
   position: relative;
 }
 
-.dropdown {
-  border-radius: 100px;
-  border: 1px solid var(--sq-gray300);
-  padding: 5px 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.chevron {
-  padding-left: 10px;
-}
-
 .list {
   margin-top: 10px;
   padding: 4px 0;
@@ -36,13 +23,14 @@
   white-space: nowrap;
 }
 
-.selected {
-  background: rgba(67, 136, 221, 0.08);
+.listItem:hover {
+  background: var(--sq-gray100);
 }
 
-.itemClosed {
-  padding: 5px 0;
-  font-size: 14px;
-  line-height: 14px;
-  font-family: Assistant;
+.selected {
+  background: rgba(var(--sq-primary-blue-rgb), 0.08);
+}
+
+.children {
+  padding-right: 6px;
 }

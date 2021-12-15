@@ -75,12 +75,12 @@ const Dropdown: React.FC<Props> = ({
       <Button
         type="secondary"
         size="medium"
-        colorScheme="gradient"
+        colorScheme="standard"
         {...rest}
         className={dropdownClass}
-        label={!children ? items[selected ?? 0].label : undefined}
+        label={!children ? items[selected ?? 0].label ?? items[selected ?? 0].key : undefined}
         onClick={toggleOpen}
-        leftItem={children}
+        leftItem={<div className={styles.children}>{children}</div>}
         rightItem={
           <i
             className={`bi-chevron-${isOpen ? 'up' : 'down'}`}
