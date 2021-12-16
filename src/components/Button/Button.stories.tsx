@@ -62,6 +62,16 @@ GradientTextLink.args = {
   label: 'Button',
 };
 
+export const Loading = Template.bind({});
+
+Loading.args = {
+  // type: 'link',
+  type: 'secondary',
+  colorScheme: 'standard',
+  label: 'Button',
+  loading: true,
+};
+
 type ButtonProps = React.ComponentProps<typeof Button>;
 
 const permutations: Array<[NonNullable<ButtonProps['colorScheme']>, NonNullable<ButtonProps['type']>]> = [

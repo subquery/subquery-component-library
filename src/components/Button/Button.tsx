@@ -4,6 +4,7 @@
 import * as React from 'react';
 import styles from './Button.module.css';
 import clsx from 'clsx';
+import Spinner from '../Spinner';
 
 type Props = {
   type?: 'primary' | 'secondary' | 'link';
@@ -16,6 +17,7 @@ type Props = {
   href?: string;
   className?: string;
   disabled?: boolean;
+  loading?: boolean;
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 const Button: React.VFC<Props> = ({
@@ -28,6 +30,7 @@ const Button: React.VFC<Props> = ({
   label,
   onClick,
   disabled,
+  loading,
   ...rest
 }) => {
   return (
@@ -40,10 +43,10 @@ const Button: React.VFC<Props> = ({
         type === 'link' && styles[`link-${size}`],
         className,
       )}
-      onClick={disabled ? undefined : onClick}
+      onClick={disabled || loading ? undefined : onClick}
       {...rest}
     >
-      {leftItem}
+      {leftItem ?? (loading && <Spinner color={type === 'primary' ? 'white' : '#4388dd'} size={12} />)}
       {label && <span>{label}</span>}
       {rightItem}
     </a>
