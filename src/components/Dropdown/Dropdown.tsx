@@ -20,6 +20,10 @@ type Props = {
   listClassName?: string;
 } & React.ComponentProps<typeof Button>;
 
+function getItemsText(item: Item | undefined): string | undefined {
+  return item?.label ?? item?.key;
+}
+
 const DropdownItem: React.FC<{ item: Item; className?: string; onClick?: () => void }> = ({
   item,
   className,
@@ -29,7 +33,7 @@ const DropdownItem: React.FC<{ item: Item; className?: string; onClick?: () => v
 
   return (
     <Typography key={item.key} className={clsx(styles.listItem, className)} onClick={onClick}>
-      {item.label ?? item.key}
+      {getItemsText(item)}
     </Typography>
   );
 };
@@ -70,6 +74,10 @@ const Dropdown: React.FC<Props> = ({
     );
   };
 
+  if (!items?.length) {
+    return null;
+  }
+
   return (
     <div className={clsx(styles.container, className)}>
       <Button
@@ -78,9 +86,9 @@ const Dropdown: React.FC<Props> = ({
         colorScheme="standard"
         {...rest}
         className={dropdownClass}
-        label={!children ? items[selected ?? 0].label ?? items[selected ?? 0].key : undefined}
+        label={!children ? getItemsText(items[selected ?? 0]) : undefined}
         onClick={toggleOpen}
-        leftItem={<div className={styles.children}>{children}</div>}
+        leftItem={children && <div className={styles.children}>{children}</div>}
         rightItem={
           <i
             className={`bi-chevron-${isOpen ? 'up' : 'down'}`}
