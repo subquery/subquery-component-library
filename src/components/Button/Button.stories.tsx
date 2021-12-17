@@ -81,6 +81,9 @@ const permutations: Array<[NonNullable<ButtonProps['colorScheme']>, NonNullable<
   ['standard', 'primary'],
   ['standard', 'secondary'],
   ['standard', 'link'],
+  ['neutral', 'primary'],
+  ['neutral', 'secondary'],
+  ['neutral', 'link'],
 ];
 
 const sizes: Array<Required<ButtonProps['size']>> = ['small', 'medium', 'large'];

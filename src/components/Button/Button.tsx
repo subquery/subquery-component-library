@@ -9,7 +9,7 @@ import Spinner from '../Spinner';
 type Props = {
   type?: 'primary' | 'secondary' | 'link';
   size?: 'large' | 'medium' | 'small';
-  colorScheme?: 'gradient' | 'standard' /* | 'neutral'*/; // TODO add neutral styles
+  colorScheme?: 'gradient' | 'standard' | 'neutral';
   label?: string;
   leftItem?: React.ReactNode;
   rightItem?: React.ReactNode;
