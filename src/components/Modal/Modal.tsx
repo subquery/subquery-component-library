@@ -7,8 +7,8 @@ import styles from './Modal.module.css';
 
 type Props = {
   title: string;
-  submitText: string;
-  onSubmit: () => void;
+  submitText?: string;
+  onSubmit?: () => void;
   cancelText?: string;
   onCancel?: () => void;
 };
@@ -23,7 +23,9 @@ const Modal: React.FC<Props> = ({ title, submitText, onSubmit, cancelText, onCan
       <div className={styles.content}>{children}</div>
       <div className={styles.footer}>
         {onCancel && cancelText && <Button type="secondary" label={cancelText} onClick={onCancel} />}
-        <Button type="primary" label={submitText} onClick={onSubmit} className={styles.submit} />
+        {onSubmit && submitText && (
+          <Button type="primary" label={submitText} onClick={onSubmit} className={styles.submit} />
+        )}
       </div>
     </div>
   );
