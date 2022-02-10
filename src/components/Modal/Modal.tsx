@@ -8,12 +8,23 @@ import styles from './Modal.module.css';
 type Props = {
   title: string;
   submitText?: string;
-  onSubmit?: () => void;
+  onSubmit?: () => void | Promise<void>;
   cancelText?: string;
   onCancel?: () => void;
 };
 
 const Modal: React.FC<Props> = ({ title, submitText, onSubmit, cancelText, onCancel, children }) => {
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await onSubmit?.();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -24,7 +35,13 @@ const Modal: React.FC<Props> = ({ title, submitText, onSubmit, cancelText, onCan
       <div className={styles.footer}>
         {onCancel && cancelText && <Button type="secondary" label={cancelText} onClick={onCancel} />}
         {onSubmit && submitText && (
-          <Button type="primary" label={submitText} onClick={onSubmit} className={styles.submit} />
+          <Button
+            type="primary"
+            label={submitText}
+            onClick={handleSubmit}
+            className={styles.submit}
+            loading={loading}
+          />
         )}
       </div>
     </div>
