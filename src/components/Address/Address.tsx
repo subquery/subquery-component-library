@@ -15,7 +15,7 @@ export function truncateAddress(address: string): string {
 
 type Props = {
   address: string;
-  truncated: boolean;
+  truncated?: boolean;
   size?: 'small' | 'large';
 };
 
