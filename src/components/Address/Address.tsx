@@ -15,10 +15,11 @@ export function truncateAddress(address: string): string {
 
 type Props = {
   address: string;
+  truncated: boolean;
   size?: 'small' | 'large';
 };
 
-const Address: React.FC<Props> = ({ address, size = 'small' }) => {
+const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' }) => {
   const iconSize = React.useMemo(() => {
     switch (size) {
       case 'small':
@@ -33,7 +34,7 @@ const Address: React.FC<Props> = ({ address, size = 'small' }) => {
     <div className={styles.container}>
       <Jazzicon diameter={iconSize} seed={jsNumberForAddress(address)} />
       <Typography variant={size === 'small' ? 'medium' : 'body'} className={styles[size]}>
-        {truncateAddress(address)}
+        {truncated ? truncateAddress(address) : address}
       </Typography>
     </div>
   );
