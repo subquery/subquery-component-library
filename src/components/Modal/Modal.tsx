@@ -13,7 +13,14 @@ type Props = {
   onCancel?: () => void;
 };
 
-const Modal: React.FC<Props> = ({ title, submitText, onSubmit, cancelText, onCancel, children }) => {
+const Modal: React.FC<React.PropsWithChildren<Props>> = ({
+  title,
+  submitText,
+  onSubmit,
+  cancelText,
+  onCancel,
+  children,
+}) => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const handleSubmit = async () => {

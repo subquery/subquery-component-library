@@ -1,14 +1,19 @@
 # SubQuery React UI libray
 
-Basic React UI components for use in SubQuery frontend projects
+## [![package-badge]][package]
 
-## Usage
+## ✨ Features
 
-`yarn add @subql/react-ui`
+- 🌈 A React components lib based on antd and Subquery design system out of the box.
+- 📦 Shared reusable components across Subquery apps.
 
-## Developing
+## 📦 Usage
 
-Storybook is used for development and provides a way to see the components as well as their documentation
-`yarn storybook`
+- `yarn add @subql/componenets`
+- `import { Button } from '@subql/components';`...
 
-You can view the components here https://subquery.github.io/react-ui/
+## ⚙️ Developing
+
+- `yarn`
+- `yarn storybook`
+- [Online Component gallery](https://subquery.github.io/subql-copmonents/)

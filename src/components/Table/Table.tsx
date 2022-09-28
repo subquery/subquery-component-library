@@ -8,7 +8,7 @@ type TableProps = {
   className?: string;
 };
 
-export const Table: React.FC<TableProps> = ({ children, className }) => {
+export const Table: React.FC<React.PropsWithChildren<TableProps>> = ({ children, className }) => {
   return (
     <div className={styles.tableContainer}>
       <table className={[styles.table, className].join(' ')}>{children}</table>
