@@ -16,4 +16,4 @@
 
 - `yarn`
 - `yarn storybook`
-- [Online Component gallery](https://subquery.github.io/react-ui/)
+- [Online Component gallery](https://subquery.github.io/subql-copmonents/)
