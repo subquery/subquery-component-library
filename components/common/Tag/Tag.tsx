@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import Typography from '../Typography';
+import Typography from '../typography';
 import styles from './Tag.module.css';
 
 type Props = {

@@ -4,7 +4,7 @@
 import * as React from 'react';
 import Button from './Button';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '../Table';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '../table';
 import styles from './Button.module.css';
 import { Typography } from '..';
 

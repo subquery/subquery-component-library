@@ -4,7 +4,7 @@
 import * as React from 'react';
 import styles from './Button.module.css';
 import clsx from 'clsx';
-import Spinner from '../Spinner';
+import Spinner from '../spinner';
 
 type Props = {
   type?: 'primary' | 'secondary' | 'link';

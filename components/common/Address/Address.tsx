@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import Typography from '../Typography';
+import Typography from '../typography';
 import styles from './Address.module.css';
 
 export function truncateAddress(address: string): string {
