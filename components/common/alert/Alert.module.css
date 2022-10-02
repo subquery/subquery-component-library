@@ -1,0 +1,64 @@
+.container {
+  border-radius: 8px;
+  border: 1px solid;
+  padding: 9px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-width: 395px; /* Not sure if we want this */
+}
+
+.container-error {
+  border-color: rgba(var(--sq-error-rgb), 0.5);
+  background: rgba(var(--sq-error-rgb), 0.08);
+}
+
+.container-info {
+  border-color: rgba(var(--sq-info-rgb), 0.5);
+  background: rgba(var(--sq-info-rgb), 0.08);
+}
+
+.container-warning {
+  border-color: rgba(var(--sq-warning-rgb), 0.5);
+  background: rgba(var(--sq-warning-rgb), 0.08);
+}
+
+.container-success {
+  border-color: rgba(var(--sq-success-rgb), 0.5);
+  background: rgba(var(--sq-success-rgb), 0.08);
+}
+
+.left {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.icon-error {
+  color: var(--sq-error);
+}
+
+.icon-info {
+  color: var(--sq-info);
+}
+
+.icon-warning {
+  color: var(--sq-warning);
+}
+
+.icon-success {
+  color: var(--sq-success);
+}
+
+.text {
+  padding-left: 6px;
+}
+
+.close {
+  color: var(--sq-gray600);
+  font-size: 24px;
+}

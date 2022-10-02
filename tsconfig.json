@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "dist",
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,12 +20,9 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "jsx": "react-jsx",
-    "plugins": [
-      { "name": "typescript-plugin-css-modules" }
-    ]
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "baseUrl": "."
   },
-  "include": [
-    "src",
-    "types"
-  ]
+  "include": ["components"],
+  "exclude": ["node_modules"]
 }
