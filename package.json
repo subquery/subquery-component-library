@@ -6,7 +6,8 @@
   "author": "Subquery",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "tsc -d",
+    "build": "tsc -d && yarn copy-css",
+    "copy-css": "copyfiles -u 1 components/**/*.module.css dist/",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",

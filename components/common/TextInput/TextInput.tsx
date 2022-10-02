@@ -4,7 +4,7 @@
 import clsx from 'clsx';
 import * as React from 'react';
 import { Typography } from '..';
-import { OptionalProp } from '../../utils';
+import { OptionalProp } from '../../types';
 
 import styles from './TextInput.module.css';
 

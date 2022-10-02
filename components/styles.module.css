@@ -8,6 +8,22 @@
     rgba(var(--sq-primary-pink-rgb), 0.08) 82.83%
   );
 
+  /* Blue */
+  --sq-blue100: #a1c4ee;
+  --sq-blue200: #8eb8eb;
+  --sq-blue300: #7bace7;
+  --sq-blue400: #69a0e4;
+  --sq-blue500: #5694e0;
+  --sq-blue600: #4388dd;
+
+  /* Pink */
+  --sq-pink100: #ffa2c0;
+  --sq-pink200: #ff8fb3;
+  --sq-pink300: #ff7da7;
+  --sq-pink400: #ff6a9a;
+  --sq-pink500: #ff588e;
+  --sq-pink600: #ff4581;
+
   /* Gray */
   --sq-gray100: #f9fafb;
   --sq-gray200: #f4f6f8;

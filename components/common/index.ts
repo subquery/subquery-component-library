@@ -1,8 +1,6 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import './index.module.css';
-
 export { default as Address } from './address';
 export { default as Alert } from './alert';
 export { default as Button } from './button';
