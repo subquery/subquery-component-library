@@ -1,11 +1,12 @@
-import '!style-loader!css-loader!../src/index.module.css';
+import '!style-loader!css-loader!../components/styles.module.css';
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  viewMode: 'story',
+  actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
     },
   },
-}
+};
