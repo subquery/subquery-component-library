@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc -d && yarn copy-css",
-    "copy-css": "copyfiles -u 1 components/**/*.module.css dist/",
+    "copy-css": "copyfiles -u 1 components/**/*.css dist/",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",
@@ -19,6 +19,7 @@
     "@storybook/addon-docs": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-links": "^6.5.12",
+    "@storybook/components": "^6.5.12",
     "@storybook/react": "^6.5.12",
     "@storybook/theming": "^6.5.12",
     "@types/react": "^18.0.21",

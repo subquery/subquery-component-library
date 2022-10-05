@@ -1,7 +1,5 @@
 # SubQuery React UI libray
 
-## [![package-badge]][package]
-
 ## ✨ Features
 
 - 🌈 A React components lib based on antd and Subquery design system out of the box.
