@@ -1,4 +1,4 @@
-import '!style-loader!css-loader!../components/styles.module.css';
+import '!style-loader!css-loader!../components/styles.css';
 
 export const parameters = {
   viewMode: 'story',
