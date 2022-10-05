@@ -1,10 +1,15 @@
 module.exports = {
-  stories: ['../components/**/*.stories.mdx', '../components/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: [
+    '../docs/**/*.stories.mdx',
+    '../components/**/*.stories.mdx',
+    '../components/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     'storybook-css-modules-preset',
-    'storybook-zeplin/register',
+    'storybook-addon-designs',
+    '@storybook/addon-docs',
   ],
   framework: '@storybook/react',
 };

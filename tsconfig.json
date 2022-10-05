@@ -23,6 +23,6 @@
     "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "baseUrl": "."
   },
-  "include": ["components"],
+  "include": ["components", "assets"],
   "exclude": ["node_modules"]
 }

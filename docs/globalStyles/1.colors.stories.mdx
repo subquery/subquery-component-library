@@ -1,0 +1,40 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
+
+<Meta title="Docs/Colors" />
+
+# 🎨 Subquery Colors
+
+The global css variable can be used once you install the `@suql/components`.
+
+<ColorPalette>
+  <ColorItem title="Primary Pink" colors={{ '--sq-primary-pink': '#FF4581' }} />
+  <ColorItem title="Primary Blue" colors={{ '--sq-primary-blue': '#4388DD' }} />
+
+<ColorItem
+  title="theme.color"
+  subtitle="Gray"
+  colors={{
+    '--sq-gray100': '#f9fafb',
+    '--sq-gray200': '#f4f6f8',
+    '--sq-gray300': '#dfe3e8',
+    '--sq-gray400': '#c4cdd5',
+    '--sq-gray500': '#919eab',
+    '--sq-gray600': '#637381',
+    '--sq-gray700': '#454f58',
+    '--sq-gray800': '#212b36',
+    '--sq-gray900': '#1a202c',
+  }}
+/>
+
+<ColorItem
+  title="theme.semantic"
+  subtitle="Semantic"
+  colors={{
+    '--sq-info': '#3aa0ff',
+    '--sq-success': '#65cd45',
+    '--sq-warning': '#f87c4f',
+    '--sq-error': '#f1585b',
+  }}
+/>
+
+</ColorPalette>
