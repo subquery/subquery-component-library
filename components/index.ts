@@ -3,5 +3,9 @@
 
 import './styles.css';
 
+import '../assets/fonts/Inter-Regular.ttf';
+import '../assets/fonts/Inter-Bold.ttf';
+import '../assets/fonts/Inter-SemiBold.ttf';
+
 export * from './app';
 export * from './common';
