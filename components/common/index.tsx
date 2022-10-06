@@ -1,9 +1,17 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { ConfigProvider } from 'antd';
+
+ConfigProvider.config({
+  theme: {
+    primaryColor: '#999999',
+  },
+});
+
 export { default as Address } from './address';
 export { default as Alert } from './alert';
-export { default as Button } from './button';
+export { default as Button, AntdButton } from './button';
 export { default as Dialog } from './dialog';
 export { default as Dropdown } from './dropdown';
 export { default as Modal } from './modal';
