@@ -4,7 +4,7 @@
 import * as React from 'react';
 import Button from './Button';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '../table';
+// import { Table, TableBody, TableCell, TableHead, TableRow } from '../table';
 import styles from './Button.module.css';
 import { Typography } from '..';
 
@@ -88,58 +88,58 @@ const permutations: Array<[NonNullable<ButtonProps['colorScheme']>, NonNullable<
 
 const sizes: Array<Required<ButtonProps['size']>> = ['small', 'medium', 'large'];
 
-export const All = () => {
-  return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Size</TableCell>
-          {permutations.map((p) => (
-            <TableCell key={p[0] + p[1]}>{`${p[0]} ${p[1]}`}</TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {sizes.map((size) => (
-          <TableRow key={size}>
-            <TableCell>
-              <Typography>{size}</Typography>
-            </TableCell>
-            {permutations.map((p) => (
-              <TableCell key={size + p[0] + p[1]}>
-                <div /* style={{ display: 'flex', flexDirection: 'column', flexShrink: 0}}*/>
-                  <Button size={size} colorScheme={p[0]} type={p[1]} label="Button" className={styles.stories} />
-                  <Button
-                    size={size}
-                    colorScheme={p[0]}
-                    type={p[1]}
-                    label="Button"
-                    className={styles.stories}
-                    leftItem={<i className="bi-chat" role="img" aria-label="chat" />}
-                  />
-                  <Button
-                    size={size}
-                    colorScheme={p[0]}
-                    type={p[1]}
-                    label="Button"
-                    className={styles.stories}
-                    rightItem={<i className="bi-chevron-down" role="img" aria-label="chat" />}
-                  />
-                  <Button
-                    size={size}
-                    colorScheme={p[0]}
-                    type={p[1]}
-                    label="Button"
-                    disabled={true}
-                    className={styles.stories}
-                    leftItem={<i className="bi-chat" role="img" aria-label="chat" />}
-                  />
-                </div>
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-};
+// export const All = () => {
+//   return (
+//     <Table>
+//       <TableHead>
+//         <TableRow>
+//           <TableCell>Size</TableCell>
+//           {permutations.map((p) => (
+//             <TableCell key={p[0] + p[1]}>{`${p[0]} ${p[1]}`}</TableCell>
+//           ))}
+//         </TableRow>
+//       </TableHead>
+//       <TableBody>
+//         {sizes.map((size) => (
+//           <TableRow key={size}>
+//             <TableCell>
+//               <Typography>{size}</Typography>
+//             </TableCell>
+//             {permutations.map((p) => (
+//               <TableCell key={size + p[0] + p[1]}>
+//                 <div /* style={{ display: 'flex', flexDirection: 'column', flexShrink: 0}}*/>
+//                   <Button size={size} colorScheme={p[0]} type={p[1]} label="Button" className={styles.stories} />
+//                   <Button
+//                     size={size}
+//                     colorScheme={p[0]}
+//                     type={p[1]}
+//                     label="Button"
+//                     className={styles.stories}
+//                     leftItem={<i className="bi-chat" role="img" aria-label="chat" />}
+//                   />
+//                   <Button
+//                     size={size}
+//                     colorScheme={p[0]}
+//                     type={p[1]}
+//                     label="Button"
+//                     className={styles.stories}
+//                     rightItem={<i className="bi-chevron-down" role="img" aria-label="chat" />}
+//                   />
+//                   <Button
+//                     size={size}
+//                     colorScheme={p[0]}
+//                     type={p[1]}
+//                     label="Button"
+//                     disabled={true}
+//                     className={styles.stories}
+//                     leftItem={<i className="bi-chat" role="img" aria-label="chat" />}
+//                   />
+//                 </div>
+//               </TableCell>
+//             ))}
+//           </TableRow>
+//         ))}
+//       </TableBody>
+//     </Table>
+//   );
+// };

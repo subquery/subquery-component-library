@@ -2,66 +2,34 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import styles from './Table.module.css';
+import { Pagination, Table as AntdTable, PaginationProps, TableProps } from 'antd';
+import clsx from 'clsx';
+import './Table.module.css';
 
-type TableProps = {
-  className?: string;
-};
+interface AntDTableProps {
+  customPagination?: boolean;
+  paginationProps?: PaginationProps;
+  tableProps: any; // TODO: TableProps version issue
+}
 
-export const Table: React.FC<React.PropsWithChildren<TableProps>> = ({ children, className }) => {
+export const Table: React.FC<AntDTableProps> = ({ customPagination = false, paginationProps, tableProps }) => {
+  if (!customPagination) {
+    return <AntdTable {...paginationProps} {...tableProps} />;
+  }
+
   return (
-    <div className={styles.tableContainer}>
-      <table className={[styles.table, className].join(' ')}>{children}</table>
-    </div>
+    <>
+      <AntdTable
+        pagination={false} // offset function get partial data but antD fill from page 1
+        {...tableProps}
+      />
+      <Pagination
+        className={clsx('flex-end', 'verticalMargin')}
+        defaultCurrent={1}
+        showSizeChanger={false}
+        pageSize={10}
+        {...paginationProps}
+      />
+    </>
   );
 };
-
-type TableHeadProps = {
-  className?: string;
-} & React.HTMLProps<HTMLTableSectionElement>;
-
-export const TableHead: React.FC<TableHeadProps> = ({ className, children, ...rest }) => {
-  return (
-    <thead {...rest} className={[styles.head, className].join(' ')}>
-      {children}
-    </thead>
-  );
-};
-
-type TableBodyProps = {
-  className?: string;
-} & React.HTMLProps<HTMLTableSectionElement>;
-
-export const TableBody: React.FC<TableBodyProps> = ({ children, className, ...rest }) => {
-  return (
-    <tbody {...rest} className={[styles.body, className].join(' ')}>
-      {children}
-    </tbody>
-  );
-};
-
-type TableRowProps = {
-  className?: string;
-} & React.HTMLProps<HTMLTableRowElement>;
-
-export const TableRow: React.FC<TableRowProps> = ({ children, className, ...rest }) => {
-  return (
-    <tr {...rest} className={[styles.row, className].join(' ')}>
-      {children}
-    </tr>
-  );
-};
-
-type TableCellProps = {
-  className?: string;
-} & React.HTMLProps<HTMLTableCellElement>;
-
-export const TableCell: React.FC<TableCellProps> = ({ children, className, ...rest }) => {
-  return (
-    <th {...rest} className={[styles.cell, className].join(' ')}>
-      {children}
-    </th>
-  );
-};
-
-export default Table;

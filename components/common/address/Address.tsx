@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import Typography from '../typography';
+import { Typography } from '../typography';
 import styles from './Address.module.css';
 
 export function truncateAddress(address: string): string {
@@ -33,7 +33,7 @@ const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' })
   return (
     <div className={styles.container}>
       <Jazzicon diameter={iconSize} seed={jsNumberForAddress(address)} />
-      <Typography variant={size === 'small' ? 'medium' : 'body'} className={styles[size]}>
+      <Typography variant={size === 'small' ? 'medium' : 'text'} className={styles[size]}>
         {truncated ? truncateAddress(address) : address}
       </Typography>
     </div>

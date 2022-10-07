@@ -79,5 +79,33 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px;
+}
+
+/*
+* For general scenario
+* Naming Convention: FlexDirection - Content - Item
+*/
+.fullWidth {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.col-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.verticalMargin {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.horizontalMargin {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }

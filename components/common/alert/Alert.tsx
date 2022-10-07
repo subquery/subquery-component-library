@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import Typography from '../typography';
+import { Typography } from '../typography';
 import styles from './Alert.module.css';
 
 type State = 'error' | 'success' | 'info' | 'warning';
