@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter-Regular'), url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter-SemiBold';
+  src: local('Inter-SemiBold'), url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter-Bold';
+  src: local('Inter-Bold'), url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+}
+
 :root {
   --sq-primary-pink: #ff4581;
   --sq-primary-blue: #4388dd;
@@ -63,8 +78,34 @@
   --sq-line-body: 24px;
 }
 
-/* ICONS */
-@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css');
+body {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 16px;
+}
 
-/* FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600&family=Open+Sans&display=swap');
+/*
+* For general scenario
+* Naming Convention: FlexDirection - Content - Item
+*/
+.fullWidth {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.col-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.verticalMargin {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.horizontalMargin {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

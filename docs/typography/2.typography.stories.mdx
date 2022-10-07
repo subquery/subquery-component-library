@@ -1,0 +1,21 @@
+import { Meta, Typeset } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Typography" />
+
+export const SampleText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+# Typography
+
+**Font:** Inter, ("'Inter-Bold', 'Inter-SemiBold'")
+
+**Weights:** 400(regular), 600(semi-bold), 800(bold), 900(black)
+
+<Typeset fontSizes={[12, 14, 16, 18, 20, 24, 28, 32]} fontWeight={'600'} sampleText={SampleText} fontFamily={'Inter'} />
+
+```js
+// page.module.css
+.container {
+  fontFamily: 'Inter'; //'Inter-Bold'  'Inter-SemiBold'
+}
+...
+```

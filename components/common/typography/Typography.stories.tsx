@@ -1,7 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Typography from './Typography';
+import { Typography } from '.';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ComponentProps } from 'react';
 
@@ -11,7 +11,6 @@ export default {
 } as ComponentMeta<typeof Typography>;
 
 const variants: Array<ComponentProps<typeof Typography>['variant']> = [
-  undefined,
   'h1',
   'h2',
   'h3',
@@ -19,14 +18,15 @@ const variants: Array<ComponentProps<typeof Typography>['variant']> = [
   'h5',
   'h6',
   'large',
-  'body',
+  'text',
   'medium',
   'small',
   'overline',
 ];
 
-const Template: ComponentStory<React.FC> = () => (
+const VariantTemplate: ComponentStory<React.FC> = (args) => (
   <div>
+    <Typography {...args}>{'Typography with variants'}</Typography>
     {variants.map((v) => (
       <Typography variant={v} key={v}>
         {v}
@@ -35,6 +35,34 @@ const Template: ComponentStory<React.FC> = () => (
   </div>
 );
 
-export const All = Template.bind({});
+export const Default = VariantTemplate.bind({});
 
-All.args = {};
+Default.args = {
+  variant: 'default',
+};
+
+const types: Array<ComponentProps<typeof Typography>['type']> = [
+  'default',
+  'secondary',
+  'success',
+  'warning',
+  'danger',
+];
+
+const TypeTemplate: ComponentStory<React.FC> = (args) => (
+  <div>
+    <Typography {...args}>{'Typography with types'}</Typography>
+    {types.map((v) => (
+      <Typography type={v} key={v}>
+        {v}
+      </Typography>
+    ))}
+  </div>
+);
+
+export const Types = TypeTemplate.bind({});
+
+Types.args = {
+  variant: 'default',
+  type: 'default',
+};

@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Spinner from '../spinner';
-import Typography from '../typography';
+import { Typography } from '../typography';
 import styles from './Toast.module.css';
 
 type State = 'error' | 'success' | 'info' | 'warning' | 'loading';

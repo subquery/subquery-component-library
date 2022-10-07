@@ -1,35 +1,33 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Table, TableHead, TableBody, TableRow, TableCell } from './Table';
+import { TableTitle, TableText, Table } from '.';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
   title: 'Table',
   component: Table,
-} as ComponentMeta<typeof Table>;
+} as ComponentMeta<any>;
 
-const Template: ComponentStory<typeof Table> = (args) => (
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Header 1</TableCell>
-        <TableCell>Header 2</TableCell>
-        <TableCell>Header 3</TableCell>
-        <TableCell>Header 4</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {[1, 2, 3, 4].map((n) => (
-        <TableRow key={n}>
-          {[1, 2, 3, 4].map((m) => (
-            <TableCell key={m}>{`Row ${n}, Col ${m}`}</TableCell>
-          ))}
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-);
+const columns = [
+  {
+    dataIndex: 'id',
+    title: <TableTitle title="id" />,
+    render: (val: string) => <TableText>{val}</TableText>,
+  },
+  {
+    dataIndex: 'text',
+    title: <TableTitle title="content" />,
+    render: (val: string) => <TableText>{val}</TableText>,
+  },
+];
+
+const dataSource = [
+  { id: 0, text: 'text0' },
+  { id: 1, text: 'text1' },
+];
+
+const Template: ComponentStory<any> = (args) => <Table tableProps={{ columns, rowKey: 'id', dataSource }} />;
 
 export const Default = Template.bind({});
 
