@@ -4,7 +4,6 @@
 import * as React from 'react';
 import { Pagination, Table as AntdTable, PaginationProps, TableProps } from 'antd';
 import clsx from 'clsx';
-import './Table.module.css';
 
 interface AntDTableProps {
   customPagination?: boolean;
