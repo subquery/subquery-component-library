@@ -65,4 +65,5 @@ export const Types = TypeTemplate.bind({});
 Types.args = {
   variant: 'default',
   type: 'default',
+  weight: 500,
 };

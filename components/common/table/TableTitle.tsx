@@ -3,7 +3,6 @@
 
 import * as React from 'react';
 import { Typography } from '../typography';
-
 interface TableTitleProps {
   title?: string;
   className?: string;
@@ -22,7 +21,7 @@ export const TableTitle: React.FC<TableTitleProps> = ({
   const children = childrenArg && typeof childrenArg === 'string' ? childrenArg.toUpperCase() : childrenArg;
   const content = title && title.toUpperCase();
   return (
-    <Typography type="secondary" variant="small">
+    <Typography type="secondary" variant="small" weight={600}>
       {content || children}
     </Typography>
   );
