@@ -17,7 +17,7 @@ const columns = [
   },
   {
     dataIndex: 'text',
-    title: <TableTitle title="content" />,
+    title: <TableTitle title="content" tooltip="This is the tooltip for text" />,
     render: (val: string) => <TableText>{val}</TableText>,
   },
 ];

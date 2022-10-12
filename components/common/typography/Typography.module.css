@@ -125,3 +125,11 @@
 .w900 {
   font-weight: 900;
 }
+
+.tooltip {
+  cursor: pointer;
+}
+
+.tooltip:hover {
+  color: var(--sq-gray500);
+}
