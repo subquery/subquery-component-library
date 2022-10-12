@@ -9,3 +9,5 @@ import './styles.css';
 
 export * from './app';
 export * from './common';
+
+export { Tooltip } from 'antd';

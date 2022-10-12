@@ -17,7 +17,7 @@ const columns = [
   },
   {
     dataIndex: 'text',
-    title: <TableTitle title="content" />,
+    title: <TableTitle title="content" tooltip="This is the tooltip for text" />,
     render: (val: string) => <TableText>{val}</TableText>,
   },
 ];
@@ -32,3 +32,9 @@ const Template: ComponentStory<any> = (args) => <Table tableProps={{ columns, ro
 export const Default = Template.bind({});
 
 Default.args = {};
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=578%3A7045',
+  },
+};

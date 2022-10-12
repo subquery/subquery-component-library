@@ -3,26 +3,19 @@
 
 import * as React from 'react';
 import { Typography } from '../typography';
-
 interface TableTitleProps {
   title?: string;
   className?: string;
   tooltip?: string;
-  noTooltipIcon?: boolean;
+  // tooltipIcon?: boolean;
   children?: string | React.ReactNode;
 }
 
-export const TableTitle: React.FC<TableTitleProps> = ({
-  title,
-  children: childrenArg,
-  tooltip,
-  noTooltipIcon,
-  ...props
-}) => {
+export const TableTitle: React.FC<TableTitleProps> = ({ title, children: childrenArg, tooltip, ...props }) => {
   const children = childrenArg && typeof childrenArg === 'string' ? childrenArg.toUpperCase() : childrenArg;
   const content = title && title.toUpperCase();
   return (
-    <Typography type="secondary" variant="small">
+    <Typography type="secondary" variant="small" weight={600} tooltip={tooltip}>
       {content || children}
     </Typography>
   );

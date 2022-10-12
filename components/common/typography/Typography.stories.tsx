@@ -41,6 +41,13 @@ Default.args = {
   variant: 'default',
 };
 
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=43%3A4',
+  },
+};
+
 const types: Array<ComponentProps<typeof Typography>['type']> = [
   'default',
   'secondary',
@@ -65,4 +72,11 @@ export const Types = TypeTemplate.bind({});
 Types.args = {
   variant: 'default',
   type: 'default',
+  weight: 500,
+};
+Types.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=3%3A170',
+  },
 };
