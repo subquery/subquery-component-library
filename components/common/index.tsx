@@ -1,6 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import './antd.css';
 import { ConfigProvider } from 'antd';
 
 // TODO: COLORS util

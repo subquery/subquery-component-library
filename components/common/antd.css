@@ -1,0 +1,12 @@
+/* antd Modal */
+.modalStyle .ant-modal-content {
+  border-radius: 8px;
+}
+
+.modalStyle .ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.modalStyle .ant-modal-footer {
+  border-top: none;
+}

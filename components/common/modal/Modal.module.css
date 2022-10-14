@@ -5,8 +5,3 @@
 .description {
   margin-bottom: 1rem;
 }
-
-/* TODO: */
-.ant-modal-footer {
-  border-top: none;
-}

@@ -53,7 +53,8 @@ export const Modal: React.FC<React.PropsWithChildren<Props>> = ({
       okButtonProps={{ shape: 'round' }}
       confirmLoading={loading}
       {...modalProps}
-      className={styles.container}
+      // className={styles.container}
+      className={'modalStyle'}
     >
       <>
         {sortedDescription}
