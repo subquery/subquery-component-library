@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import { Modal as AntdModal, ModalProps } from 'antd';
+import { Modal as AntdModal, ModalProps as AntdModalProps } from 'antd';
 import { Button, Typography } from '..';
 import styles from './Modal.module.css';
 
-interface Props extends ModalProps {
+export interface ModalProps extends AntdModalProps {
   title?: string;
   description?: string | React.ReactNode;
   submitText?: string;
@@ -16,7 +16,7 @@ interface Props extends ModalProps {
 }
 
 // TODO: modify var of ant to remove footer borderTop
-export const Modal: React.FC<React.PropsWithChildren<Props>> = ({
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   title,
   description,
   submitText,
