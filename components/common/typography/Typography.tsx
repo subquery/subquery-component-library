@@ -18,7 +18,7 @@ export const Typography: React.FC<Props> = ({
   children,
   variant = 'text',
   type = 'default',
-  weight = 500,
+  weight = 400,
   tooltip,
   className,
   ...htmlProps

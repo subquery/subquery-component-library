@@ -2,31 +2,80 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Typography } from '..';
-import Modal from './Modal';
+import React from 'react';
+import { Button, Typography } from '..';
+import { Modal } from './Modal';
 
 export default {
   title: 'Modal',
   component: Modal,
 } as ComponentMeta<typeof Modal>;
 
-const Template: ComponentStory<typeof Modal> = (args) => (
-  <div>
-    <Modal {...args} />
-  </div>
-);
+const Template: ComponentStory<typeof Modal> = (args) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>();
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        label={' Open Modal'}
+      />
+
+      <Modal
+        {...args}
+        open={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+        }}
+      />
+    </div>
+  );
+};
 
 export const Default = Template.bind({});
 
 Default.args = {
-  title: "I'm a modal",
+  title: 'Modal',
   submitText: 'Submit',
   onSubmit: () => {
-    /* nothing */
+    alert('You submit!');
   },
+  description: 'This is simple description',
   children: (
     <div>
-      <Typography>Some body content as placeholder</Typography>
+      <Typography>Hi, I am a modal.</Typography>
     </div>
   ),
+};
+
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
+  },
+};
+
+export const Danger = Template.bind({});
+
+Danger.args = {
+  title: 'Modal',
+  submitText: 'Submit',
+  onSubmit: () => {
+    alert('You submit!');
+  },
+  danger: true,
+  description: 'This is Modal with danger signal',
+  children: (
+    <div>
+      <Typography>Hi, I am a modal.</Typography>
+    </div>
+  ),
+};
+
+Danger.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
+  },
 };

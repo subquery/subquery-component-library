@@ -2,26 +2,37 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
+import { Modal as AntdModal, ModalProps as AntdModalProps } from 'antd';
 import { Button, Typography } from '..';
 import styles from './Modal.module.css';
 
-type Props = {
-  title: string;
+export interface ModalProps extends AntdModalProps {
+  title?: string;
+  description?: string | React.ReactNode;
   submitText?: string;
-  onSubmit?: () => void | Promise<void>;
   cancelText?: string;
+  danger?: boolean;
+  onSubmit?: () => void | Promise<void>;
   onCancel?: () => void;
-};
+}
 
-const Modal: React.FC<React.PropsWithChildren<Props>> = ({
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   title,
+  description,
   submitText,
   onSubmit,
   cancelText,
   onCancel,
   children,
+  danger,
+  ...modalProps
 }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
+  const sortedDescription = description ? (
+    <div className={styles.description}>
+      {typeof description === 'string' ? <Typography>{description}</Typography> : description}
+    </div>
+  ) : undefined;
 
   const handleSubmit = async () => {
     try {
@@ -33,26 +44,26 @@ const Modal: React.FC<React.PropsWithChildren<Props>> = ({
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <Typography variant="large">{title}</Typography>
-        {onCancel && <i className={['bi-x', styles.close].join(' ')} role="img" aria-label="x" onClick={onCancel} />}
-      </div>
-      <div className={styles.content}>{children}</div>
-      <div className={styles.footer}>
-        {onCancel && cancelText && <Button type="secondary" label={cancelText} onClick={onCancel} />}
-        {onSubmit && submitText && (
-          <Button
-            type="primary"
-            label={submitText}
-            onClick={handleSubmit}
-            className={styles.submit}
-            loading={loading}
-          />
-        )}
-      </div>
-    </div>
+    <AntdModal
+      title={
+        <Typography variant={'large'} weight={600}>
+          {title}
+        </Typography>
+      }
+      cancelText={cancelText}
+      okText={submitText}
+      onOk={handleSubmit}
+      onCancel={onCancel}
+      cancelButtonProps={{ shape: 'round' }}
+      okButtonProps={{ shape: 'round', danger }}
+      confirmLoading={loading}
+      {...modalProps}
+      className={'modalStyle'}
+    >
+      <>
+        {sortedDescription}
+        {children}
+      </>
+    </AntdModal>
   );
 };
-
-export default Modal;

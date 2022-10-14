@@ -1,6 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import './antd.css';
 import { ConfigProvider } from 'antd';
 
 // TODO: COLORS util
@@ -15,7 +16,7 @@ export { default as Alert } from './alert';
 export { default as Button, AntdButton } from './button';
 export { default as Dialog } from './dialog';
 export { default as Dropdown } from './dropdown';
-export { default as Modal } from './modal';
+export * from './modal';
 export { default as ProgressBar } from './progressBar';
 export { default as Spinner } from './spinner';
 export * from './table';
