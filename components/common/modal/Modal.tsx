@@ -44,7 +44,11 @@ export const Modal: React.FC<React.PropsWithChildren<Props>> = ({
 
   return (
     <AntdModal
-      title={title}
+      title={
+        <Typography variant={'large'} weight={600}>
+          {title}
+        </Typography>
+      }
       cancelText={cancelText}
       okText={submitText}
       onCancel={onCancel}
