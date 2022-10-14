@@ -10,12 +10,12 @@ export interface ModalProps extends AntdModalProps {
   title?: string;
   description?: string | React.ReactNode;
   submitText?: string;
-  onSubmit?: () => void | Promise<void>;
   cancelText?: string;
+  danger?: boolean;
+  onSubmit?: () => void | Promise<void>;
   onCancel?: () => void;
 }
 
-// TODO: modify var of ant to remove footer borderTop
 export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   title,
   description,
@@ -24,6 +24,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   cancelText,
   onCancel,
   children,
+  danger,
   ...modalProps
 }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -51,13 +52,12 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
       }
       cancelText={cancelText}
       okText={submitText}
+      onOk={handleSubmit}
       onCancel={onCancel}
       cancelButtonProps={{ shape: 'round' }}
-      onOk={handleSubmit}
-      okButtonProps={{ shape: 'round' }}
+      okButtonProps={{ shape: 'round', danger }}
       confirmLoading={loading}
       {...modalProps}
-      // className={styles.container}
       className={'modalStyle'}
     >
       <>

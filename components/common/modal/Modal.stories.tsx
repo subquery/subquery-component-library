@@ -55,3 +55,27 @@ Default.parameters = {
     url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
   },
 };
+
+export const Danger = Template.bind({});
+
+Danger.args = {
+  title: 'Modal',
+  submitText: 'Submit',
+  onSubmit: () => {
+    alert('You submit!');
+  },
+  danger: true,
+  description: 'This is Modal with danger signal',
+  children: (
+    <div>
+      <Typography>Hi, I am a modal.</Typography>
+    </div>
+  ),
+};
+
+Danger.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
+  },
+};
