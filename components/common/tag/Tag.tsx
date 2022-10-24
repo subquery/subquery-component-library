@@ -2,22 +2,26 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
+import { Tag as AntTag, TagProps as AntTagProps, TagType as AntTagType } from 'antd';
 import { Typography } from '../typography';
 import styles from './Tag.module.css';
+import clsx from 'clsx';
 
-type Props = {
-  text: string;
+export interface TagProps extends AntTagProps, Partial<AntTagType> {
+  className?: string;
   state?: 'error' | 'success' | 'info' | 'warning' | 'default';
-};
+}
 
-const Status: React.FC<Props> = ({ text, state = 'default' }) => {
+export const Tag: React.FC<React.PropsWithChildren<TagProps>> = ({
+  children,
+  className,
+  state = 'default',
+  ...props
+}) => {
+  const sortedColor = state === 'info' ? 'processing' : state;
   return (
-    <div className={[styles.container, styles[`container-${state}`]].join(' ')}>
-      <Typography variant="small" className={styles[`text-${state}`]}>
-        {text}
-      </Typography>
-    </div>
+    <AntTag className={clsx(styles.tag, className)} color={sortedColor} {...props}>
+      {children ?? <Typography>{state}</Typography>}
+    </AntTag>
   );
 };
-
-export default Status;

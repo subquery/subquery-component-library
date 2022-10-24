@@ -1,53 +1,39 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Tag from './Tag';
+import { Tag, TagProps } from './Tag';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Typography } from '../typography';
 
 export default {
   title: 'Tag',
   component: Tag,
-  parameters: {
-    zeplinLink: 'https://app.zeplin.io/styleguide/61b2d0301695d44e531bd6d2/components?coid=61b2d7d35c1f714bf4c9ff99',
-  },
 } as ComponentMeta<typeof Tag>;
 
-const Template: ComponentStory<typeof Tag> = (args) => (
+const Template: ComponentStory<typeof Tag> = ({ ...args }) => (
   <div>
-    <Tag {...args} />
+    <Typography variant="text"> Tag</Typography>
+    <Tag {...args}>{args.state ?? 'Tag'}</Tag>
+    <div>
+      <Typography variant="text"> All Preset Tags</Typography>
+      {['info', 'success', 'warning', 'error'].map((status) => (
+        <Tag key={status} state={status as TagProps['state']}>
+          {status}
+        </Tag>
+      ))}
+    </div>
   </div>
 );
 
 export const Default = Template.bind({});
 
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=360%3A5544',
+  },
+};
+
 Default.args = {
-  text: 'Default',
-};
-
-export const ErrorTag = Template.bind({});
-
-ErrorTag.args = {
-  text: 'Error',
-  state: 'error',
-};
-
-export const Success = Template.bind({});
-
-Success.args = {
-  text: 'Success',
   state: 'success',
-};
-
-export const Info = Template.bind({});
-
-Info.args = {
-  text: 'Info',
-  state: 'info',
-};
-
-export const Warning = Template.bind({});
-
-Warning.args = {
-  text: 'Warning',
-  state: 'warning',
 };

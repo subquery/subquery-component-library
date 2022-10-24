@@ -8,6 +8,10 @@ import { ConfigProvider } from 'antd';
 ConfigProvider.config({
   theme: {
     primaryColor: '#4388dd',
+    successColor: '#65cd45',
+    warningColor: '#f87c4f',
+    errorColor: '#f1585b',
+    infoColor: '#3aa0ff',
   },
 });
 
@@ -20,7 +24,7 @@ export * from './modal';
 export { default as ProgressBar } from './progressBar';
 export { default as Spinner } from './spinner';
 export * from './table';
-export { default as Tag } from './tag';
+export * from './tag';
 export { default as TextInput } from './textInput';
 export { default as Toast } from './toast';
 export * from './typography';

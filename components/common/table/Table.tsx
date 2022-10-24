@@ -13,13 +13,14 @@ interface AntDTableProps {
 
 export const Table: React.FC<AntDTableProps> = ({ customPagination = false, paginationProps, tableProps }) => {
   if (!customPagination) {
-    return <AntdTable {...paginationProps} {...tableProps} />;
+    return <AntdTable className={'tableStyle'} {...paginationProps} {...tableProps} />;
   }
 
   return (
     <>
       <AntdTable
         pagination={false} // offset function get partial data but antD fill from page 1
+        className={'tableStyle'}
         {...tableProps}
       />
       <Pagination
