@@ -10,3 +10,8 @@
 .modalStyle .ant-modal-footer {
   border-top: none;
 }
+
+/* table Modal */
+.tableStyle .ant-table-thead > tr > th {
+  background: var(--sq-gray200);
+}
