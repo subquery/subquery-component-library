@@ -8,6 +8,10 @@ import { ConfigProvider } from 'antd';
 ConfigProvider.config({
   theme: {
     primaryColor: '#4388dd',
+    successColor: '#65cd45',
+    warningColor: '#f87c4f',
+    errorColor: '#f1585b',
+    infoColor: '#3aa0ff',
   },
 });
 
