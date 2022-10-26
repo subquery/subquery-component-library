@@ -2,8 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Address } from '..';
-import Dropdown from './Dropdown';
+import { message } from 'antd';
+import { AppstoreOutlined } from '@ant-design/icons';
+import { Dropdown } from './Dropdown';
 
 export default {
   title: 'Dropdown',
@@ -15,37 +16,33 @@ const Template: ComponentStory<typeof Dropdown> = (args) => <Dropdown {...args} 
 export const Default = Template.bind({});
 
 Default.args = {
-  items: [
-    { key: '1', label: 'Item One' },
-    { key: '2' },
-    { key: '3', label: 'Item 3' },
-    { key: '4', label: 'Four fore for 4' }, // Longer than the width when closed
+  label: 'About',
+  menu: [
+    { key: '1', label: 'About Us' },
+    { key: '2', label: 'Grants' },
+    { key: '3', label: 'SubQuery Foundation' },
+    { key: '4', label: 'Careers' },
   ],
-  selected: 1,
+  onMenuItemClick: (item) => message.info(`Click on item ${item?.key}`),
 };
 
-export const ButtonStyles = Template.bind({});
-
-ButtonStyles.args = {
-  items: [
-    { key: '1', label: 'Item One' },
-    { key: '2' },
-    { key: '3', label: 'Item 3' },
-    { key: '4', label: 'Four fore for 4' }, // Longer than the width when closed
-  ],
-  type: 'primary',
-  colorScheme: 'standard',
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/bDNYs55azQGwtTD748mI9A/Subquery-Network-_V-2.0?node-id=50%3A8246',
+  },
 };
 
-export const CustomComponent = Template.bind({});
+export const WithLeftIcon = Template.bind({});
 
-CustomComponent.args = {
-  items: [
-    { key: '1', label: 'Item One' },
-    { key: '2' },
-    { key: '3', label: 'Item 3' },
-    { key: '4', label: 'Four fore for 4' }, // Longer than the width when closed
+WithLeftIcon.args = {
+  label: 'Apps',
+  LeftLabelIcon: <AppstoreOutlined />,
+  menu: [
+    { key: '1', label: 'About Us' },
+    { key: '2', label: 'Grants' },
+    { key: '3', label: 'SubQuery Foundation' },
+    { key: '4', label: 'Careers' },
   ],
-  children: <Address address="0xFf64d3F6efE2317EE2807d223a0Bdc4c0c49dfDB" />,
-  colorScheme: 'gradient',
+  onMenuItemClick: (item) => message.info(`Click on item ${item?.key}`),
 };

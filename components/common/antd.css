@@ -15,3 +15,8 @@
 .tableStyle .ant-table-thead > tr > th {
   background: var(--sq-gray200);
 }
+
+/* Menu */
+.menuStyle .ant-dropdown-menu-item:hover {
+  background: var(--sq-blueHover);
+}

@@ -19,7 +19,7 @@ export { default as Address } from './address';
 export { default as Alert } from './alert';
 export { default as Button, AntdButton } from './button';
 export { default as Dialog } from './dialog';
-export { default as Dropdown } from './dropdown';
+export * from './dropdown';
 export * from './modal';
 export { default as ProgressBar } from './progressBar';
 export { default as Spinner } from './spinner';

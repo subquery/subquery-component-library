@@ -1,105 +1,58 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import clsx from 'clsx';
 import * as React from 'react';
-import { Button, Typography } from '..';
+import clsx from 'clsx';
+import { DropDownProps as AntdDropdownProps, Dropdown as AntdDropdown, Typography, Menu, Space } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
 import styles from './Dropdown.module.css';
 
-type Item = {
-  key: string;
+export interface DropdownProps extends AntdDropdownProps {
   label?: string;
-};
-
-type Props = {
-  items: Item[];
-  selected?: number;
-  onSelected?: (key: string, index: number) => void;
-  className?: string;
-  dropdownClass?: string;
-  listClassName?: string;
-} & React.ComponentProps<typeof Button>;
-
-function getItemsText(item: Item | undefined): string | undefined {
-  return item?.label ?? item?.key;
+  menu: ItemType[];
+  onMenuItemClick?: MenuClickEventHandler;
+  LeftLabelIcon?: React.ReactElement;
+  RightLabelIcon?: React.ReactElement;
 }
 
-const DropdownItem: React.FC<{ item: Item; className?: string; onClick?: () => void }> = ({
-  item,
-  className,
-  onClick,
-}) => {
-  if (!item) return null;
-
-  return (
-    <Typography key={item.key} className={clsx(styles.listItem, className)} onClick={onClick}>
-      {getItemsText(item)}
-    </Typography>
-  );
-};
-
-const Dropdown: React.FC<Props> = ({
-  selected,
-  onSelected,
-  className,
-  listClassName,
-  dropdownClass,
-  items,
-  children,
-  ...rest
+export const Dropdown: React.FC<DropdownProps> = ({
+  label,
+  LeftLabelIcon,
+  RightLabelIcon,
+  menu,
+  onMenuItemClick,
+  ...props
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const sortedLabel = (
+    <Space className={clsx(styles.pointer, isOpen && styles.isOnHover)}>
+      {LeftLabelIcon}
+      <Typography className={styles.colorInherit}>{label ?? 'Dropdown'}</Typography>
+      {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}
+    </Space>
+  );
 
-  const toggleOpen = () => setIsOpen((open) => !open);
-
-  const handleSelected = (key: string, index: number) => {
-    setIsOpen(false);
-    onSelected?.(key, index);
-  };
-
-  const renderOpen = () => {
-    if (!isOpen) return null;
-
-    return (
-      <div className={clsx(styles.list, listClassName)}>
-        {items.map((item, idx) => (
-          <DropdownItem
-            key={item.key}
-            item={item}
-            onClick={() => handleSelected(item.key, idx)}
-            className={selected === idx ? styles.selected : undefined}
-          />
-        ))}
-      </div>
-    );
-  };
-
-  if (!items?.length) {
-    return null;
-  }
+  const sortedMenu = (
+    <Menu
+      onClick={(item) => {
+        onMenuItemClick && onMenuItemClick(item);
+        setIsOpen(false);
+      }}
+      items={menu}
+      className={'menuStyle'}
+    />
+  );
 
   return (
-    <div className={clsx(styles.container, className)}>
-      <Button
-        type="secondary"
-        size="medium"
-        colorScheme="standard"
-        {...rest}
-        className={dropdownClass}
-        label={!children ? getItemsText(items[selected ?? 0]) : undefined}
-        onClick={toggleOpen}
-        leftItem={children && <div className={styles.children}>{children}</div>}
-        rightItem={
-          <i
-            className={`bi-chevron-${isOpen ? 'up' : 'down'}`}
-            role="img"
-            aria-label={`chevron-${isOpen ? 'up' : 'down'}`}
-          />
-        }
-      />
-      {renderOpen()}
-    </div>
+    <AntdDropdown
+      {...props}
+      overlay={sortedMenu}
+      onOpenChange={(openStatus) => {
+        setIsOpen(openStatus);
+      }}
+    >
+      {sortedLabel}
+    </AntdDropdown>
   );
 };
-
-export default Dropdown;
