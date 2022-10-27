@@ -3,17 +3,20 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { DropDownProps as AntdDropdownProps, Dropdown as AntdDropdown, Typography, Menu, Space } from 'antd';
+import { DropDownProps as AntdDropdownProps, Dropdown as AntdDropdown, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
 import styles from './Dropdown.module.css';
+import { Typography } from '../typography';
 
 export interface DropdownProps extends AntdDropdownProps {
   label?: string;
   menu: ItemType[];
+  menuClassName?: string;
   onMenuItemClick?: MenuClickEventHandler;
   LeftLabelIcon?: React.ReactElement;
   RightLabelIcon?: React.ReactElement;
+  active?: boolean;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -21,12 +24,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   LeftLabelIcon,
   RightLabelIcon,
   menu,
+  menuClassName,
+  active,
   onMenuItemClick,
   ...props
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const sortedLabel = (
-    <Space className={clsx(styles.pointer, isOpen && styles.isOnHover)}>
+    <Space className={clsx(styles.pointer, (isOpen || active) && styles.isOnHover)}>
       {LeftLabelIcon}
       <Typography className={styles.colorInherit}>{label ?? 'Dropdown'}</Typography>
       {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}
@@ -40,7 +45,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         setIsOpen(false);
       }}
       items={menu}
-      className={'menuStyle'}
+      className={clsx('menuStyle', menuClassName)}
     />
   );
 
@@ -54,5 +59,22 @@ export const Dropdown: React.FC<DropdownProps> = ({
     >
       {sortedLabel}
     </AntdDropdown>
+  );
+};
+
+export interface MenuWithDescProps {
+  title: string;
+  description: string;
+}
+export const MenuWithDesc = ({ title, description }: MenuWithDescProps) => {
+  return (
+    <>
+      <Typography weight={500} className={styles.title}>
+        {title}
+      </Typography>
+      <Typography variant="small" className={styles.description}>
+        {description}
+      </Typography>
+    </>
   );
 };

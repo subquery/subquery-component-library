@@ -4,7 +4,8 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { message } from 'antd';
 import { AppstoreOutlined } from '@ant-design/icons';
-import { Dropdown } from './Dropdown';
+import { Dropdown, MenuWithDesc } from './Dropdown';
+import styles from './Dropdown.module.css';
 
 export default {
   title: 'Dropdown',
@@ -15,15 +16,12 @@ const Template: ComponentStory<typeof Dropdown> = (args) => <Dropdown {...args} 
 
 export const Default = Template.bind({});
 
+const labels = ['About Us', 'Grants', 'SubQuery Foundation', 'Careers'];
+
 Default.args = {
   label: 'About',
-  menu: [
-    { key: '1', label: 'About Us' },
-    { key: '2', label: 'Grants' },
-    { key: '3', label: 'SubQuery Foundation' },
-    { key: '4', label: 'Careers' },
-  ],
-  onMenuItemClick: (item) => message.info(`Click on item ${item?.key}`),
+  menu: labels.map((label, idx) => ({ key: idx, label })),
+  onMenuItemClick: ({ key }) => message.info(`Click on item: ${labels[parseInt(key)]}`),
 };
 
 Default.parameters = {
@@ -35,14 +33,32 @@ Default.parameters = {
 
 export const WithLeftIcon = Template.bind({});
 
+const detailedLabels = [
+  {
+    title: 'SubQuery Explorer',
+    description:
+      'Explore SubQuery projects built by other teams in the community and hosted on SubQuery’s Managed Service. Get inspired and see what others are building!',
+  },
+  {
+    title: 'SubQuery Managed Service',
+    description:
+      'Use SubQuery’s Managed Service to host your SubQuery project, upgrade existing projects, and view detailed analytics on how your SubQuery Project is operating.',
+  },
+  {
+    title: 'SubQuery Kepler',
+    description:
+      'Decentralise your project with SubQuery Kepler Network, which provides indexed data to the global community in an incentivised and verifiable way. You can join and participate as a Consumer, Delegator, or even as an Indexer.',
+  },
+];
+
 WithLeftIcon.args = {
   label: 'Apps',
   LeftLabelIcon: <AppstoreOutlined />,
-  menu: [
-    { key: '1', label: 'About Us' },
-    { key: '2', label: 'Grants' },
-    { key: '3', label: 'SubQuery Foundation' },
-    { key: '4', label: 'Careers' },
-  ],
+  menu: detailedLabels.map((label, key) => ({
+    key,
+    label: <MenuWithDesc title={label.title} description={label.description} />,
+  })),
+  active: true,
+  menuClassName: styles.menuOverlay,
   onMenuItemClick: (item) => message.info(`Click on item ${item?.key}`),
 };
