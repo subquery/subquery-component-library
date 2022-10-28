@@ -5,9 +5,10 @@
   "repository": "git@github.com:subquery/subql-copmonents.git",
   "author": "Subquery",
   "license": "Apache-2.0",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc -d && yarn copy-css",
-    "copy-css": "copyfiles -u 1 components/**/styles.css dist/",
+    "copy-css": "copyfiles -u 1 components/styles.css components/**/**/*.css dist/", 
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",
