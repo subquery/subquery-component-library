@@ -10,23 +10,23 @@ import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
 import Logo from '../../../assets/logo.svg';
 
-interface AppLink {
+export interface AppLink {
   label: string;
   link: string;
 }
 
-interface DetailedLink {
+export interface DetailedLink {
   label: string;
   description: string;
   link: string;
 }
 
-interface DropdownLink {
+export interface DropdownLink {
   label: string;
   links: DetailedLink[];
 }
 
-interface AppNavigation {
+export interface AppNavigation {
   label: string;
   link?: string;
   dropdown?: AppLink[];
@@ -66,7 +66,7 @@ const renderLink = (to: string, label: string) => {
   );
 };
 
-interface LeftHeaderProps {
+export interface LeftHeaderProps {
   leftElement?: React.ReactNode;
   dropdownLinks?: DropdownLink;
   showDivider?: boolean;
@@ -100,7 +100,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
   );
 };
 
-interface MiddleHeaderProps {
+export interface MiddleHeaderProps {
   middleElement?: React.ReactNode;
   appNavigation?: AppNavigation[];
 }

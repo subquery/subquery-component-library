@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Pagination, Table as AntdTable, PaginationProps, TableProps } from 'antd';
 import clsx from 'clsx';
 
-interface AntDTableProps {
+export interface AntDTableProps {
   customPagination?: boolean;
   paginationProps?: PaginationProps;
   tableProps: any; // TODO: TableProps version issue
