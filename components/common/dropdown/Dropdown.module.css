@@ -9,3 +9,16 @@
 .isOnHover {
   color: var(--sq-primary-blue);
 }
+
+.menuOverlay {
+  max-width: 40%;
+  padding: 1rem;
+}
+
+.title {
+  margin: 0.25rem 0;
+}
+
+.description {
+  color: var(--sq-gray600);
+}
