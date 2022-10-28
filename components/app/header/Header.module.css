@@ -1,0 +1,46 @@
+.header {
+  width: 100%;
+  height: 80px;
+  box-shadow: inset 0px -1px 0px rgba(26, 32, 44, 0.06);
+}
+
+.justifyAround {
+  justify-content: space-around;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+}
+
+.leftElement {
+  margin-left: 2rem;
+}
+
+.appDropdown {
+  margin: 0 1rem;
+}
+
+.menuOverlay {
+  width: 40%;
+  margin: 0 1rem !important;
+  padding: 1rem !important;
+}
+
+.navLink {
+  text-decoration: none;
+  margin: 0 1vw;
+  display: flex;
+  color: var(--gray700);
+  width: fit-content;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+  color: var(--sq-primary-blue);
+}
+
+/* .navLinkCurrent {
+  font-weight: 500;
+  color: var(--sq-info);
+} */

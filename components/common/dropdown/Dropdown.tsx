@@ -9,7 +9,7 @@ import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
 import styles from './Dropdown.module.css';
 import { Typography } from '../typography';
 
-export interface DropdownProps extends AntdDropdownProps {
+export interface DropdownProps extends Partial<AntdDropdownProps> {
   label?: string;
   menu: ItemType[];
   menuClassName?: string;
