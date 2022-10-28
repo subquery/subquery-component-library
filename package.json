@@ -1,6 +1,6 @@
 {
   "name": "@subql/components",
-  "version": "1.0.1-33",
+  "version": "1.0.1-34",
   "description": "React UI components for SubQuery front ends",
   "repository": "git@github.com:subquery/subql-copmonents.git",
   "author": "Subquery",
@@ -8,7 +8,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc -d && yarn copy-css",
-    "copy-css": "copyfiles -u 1 components/styles.css components/**/**/*.css dist/", 
+    "copy-css": "copyfiles -u 1 components/styles.css components/**/**/*.css dist/",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",
