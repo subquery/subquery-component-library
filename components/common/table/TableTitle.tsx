@@ -3,7 +3,8 @@
 
 import * as React from 'react';
 import { Typography } from '../typography';
-interface TableTitleProps {
+
+export interface TableTitleProps {
   title?: string;
   className?: string;
   tooltip?: string;
