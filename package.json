@@ -8,7 +8,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc -d && yarn copy-css",
-    "copy-css": "copyfiles -u 1 components/*.css components/**/*.css components/**/**/*.css dist/", 
+    "copy-css": "copyfiles -u 1 components/styles.css components/**/*.css components/**/**/*.css dist/",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
     "deploy-storybook": "yarn build-storybook && gh-pages -d storybook-static",
