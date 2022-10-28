@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { Typography } from '../typography';
 
-interface TableTextprops {
+export interface TableTextprops {
   content?: string | number | React.ReactNode;
   className?: string;
   tooltip?: string;
