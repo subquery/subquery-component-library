@@ -30,7 +30,9 @@ export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
   const Content = () => (
     <>
       {icon && <div className={styles.icon}>{icon}</div>}
-      <Typography tooltip={tooltip}>{label || children}</Typography>
+      <Typography tooltip={tooltip} className={styles.tabText}>
+        {label || children}
+      </Typography>
     </>
   );
 

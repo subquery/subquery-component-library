@@ -10,9 +10,14 @@
 .tab {
   width: fit-content;
   padding: 8px 6px;
+  color: var(--sq-gray500);
 
   display: flex;
   align-items: center;
+}
+
+.tabText {
+  color: inherit;
 }
 
 .icon {
@@ -20,5 +25,6 @@
 }
 
 .active {
+  color: var(--sq-gray900);
   border-bottom: 2px solid var(--sq-primary-blue);
 }
