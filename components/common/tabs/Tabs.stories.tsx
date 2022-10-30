@@ -1,39 +1,58 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Tag, TagProps } from './Tabs';
+import { Tab, Tabs as AppTabs } from './Tabs';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Typography } from '../typography';
+import { PicCenterOutlined, PaperClipOutlined } from '@ant-design/icons';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 export default {
-  title: 'Tag',
-  component: Tag,
-} as ComponentMeta<typeof Tag>;
+  title: 'Tab',
+  component: Tab,
+} as ComponentMeta<typeof Tab>;
 
-const Template: ComponentStory<typeof Tag> = ({ ...args }) => (
-  <div>
-    <Typography variant="text"> Tag</Typography>
-    <Tag {...args}>{args.state ?? 'Tag'}</Tag>
-    <div>
-      <Typography variant="text"> All Preset Tags</Typography>
-      {['info', 'success', 'warning', 'error'].map((status) => (
-        <Tag key={status} state={status as TagProps['state']}>
-          {status}
-        </Tag>
-      ))}
-    </div>
-  </div>
-);
+const Template: ComponentStory<typeof Tab> = ({ ...args }) => <Tab {...args} />;
 
 export const Default = Template.bind({});
 
 Default.parameters = {
   design: {
     type: 'figma',
-    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=360%3A5544',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=570%3A6619',
   },
 };
 
 Default.args = {
-  state: 'success',
+  label: 'Tab',
+  active: true,
+};
+
+const TabsTemplate: ComponentStory<typeof AppTabs> = ({ ...args }) => <AppTabs {...args} />;
+
+export const Tabs = TabsTemplate.bind({});
+
+Tabs.args = {
+  tabs: [
+    { label: 'Tab 0', icon: <PicCenterOutlined /> },
+    { label: 'Tab 1', icon: <PaperClipOutlined /> },
+  ],
+};
+
+Tabs.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=570%3A6619',
+  },
+};
+
+const TabLinksTemplate: ComponentStory<typeof AppTabs> = ({ ...args }) => (
+  <Router>
+    <AppTabs {...args} />
+  </Router>
+);
+
+export const TabLinks = TabLinksTemplate.bind({});
+
+TabLinks.args = {
+  tabs: [{ label: 'Tab 0', link: '/' }, { label: 'Tab 1' }],
 };

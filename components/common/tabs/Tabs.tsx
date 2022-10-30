@@ -2,24 +2,82 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import { Tag as AntTag, TagProps as AntTagProps, TagType as AntTagType } from 'antd';
+import clsx from 'clsx';
+import { NavLink } from 'react-router-dom';
 import { Typography } from '../typography';
 import styles from './Tabs.module.css';
-import clsx from 'clsx';
 
 export interface TabProps {
   label: string;
   active?: boolean;
   link?: string;
-  onTabClick: (any: any) => void;
+  tooltip?: string;
+  icon?: React.ReactElement;
+  className?: string;
+  onTabClick?: (any: any) => void;
 }
 
-export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({ label, active, link, onTabClick }) => {
-  // const sortedColor = state === 'info' ? 'processing' : state;
-  // return (
-  //   <AntTag className={clsx(styles.tag, className)} color={sortedColor} {...props}>
-  //     {children ?? <Typography>{state}</Typography>}
-  //   </AntTag>
-  // );
-  return <div>label</div>;
+export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
+  label,
+  active,
+  link,
+  tooltip,
+  icon,
+  className,
+  onTabClick,
+  children,
+}) => {
+  const Content = () => (
+    <>
+      {icon && <div className={styles.icon}>{icon}</div>}
+      <Typography tooltip={tooltip}>{label || children}</Typography>
+    </>
+  );
+
+  if (link) {
+    return (
+      <NavLink
+        to={link}
+        className={(isActive) => clsx(styles.pointer, styles.tab, className, (active || isActive) && styles.active)}
+        replace
+      >
+        <Content />
+      </NavLink>
+    );
+  }
+
+  return (
+    <div className={clsx(styles.pointer, styles.tab, className, active && styles.active)} onClick={onTabClick}>
+      <Content />
+    </div>
+  );
+};
+
+export interface TabsPros {
+  tabs: Array<TabProps>;
+  onTabClick?: (any: any) => void;
+  activeTabKey?: number;
+  activeTab?: string;
+}
+
+export const Tabs: React.FC<React.PropsWithChildren<TabsPros>> = ({ tabs, onTabClick, activeTabKey, activeTab }) => {
+  const [activeKey, setActiveKey] = React.useState<number>(activeTabKey || 0);
+
+  return (
+    <div className={styles.tabs}>
+      {tabs.map((tab, idx) => (
+        <Tab
+          key={tab.label}
+          className={styles.tabsItem}
+          active={tab.active || activeTabKey === idx || activeTab === tab.label || activeKey === idx}
+          onTabClick={() => {
+            setActiveKey(idx);
+            onTabClick && onTabClick(idx);
+            tab.onTabClick && tab.onTabClick(idx);
+          }}
+          {...tab}
+        />
+      ))}
+    </div>
+  );
 };

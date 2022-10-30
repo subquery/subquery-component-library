@@ -1,6 +1,24 @@
-.tag {
-  border: 1px solid;
-  padding: 2px 8px;
-  border-radius: 4px;
-  gap: 10px;
+.pointer {
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  column-gap: 0.5rem;
+}
+
+.tab {
+  width: fit-content;
+  padding: 8px 6px;
+
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.active {
+  border-bottom: 2px solid var(--sq-primary-blue);
 }
