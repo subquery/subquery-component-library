@@ -1,0 +1,30 @@
+.pointer {
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  column-gap: 0.5rem;
+}
+
+.tab {
+  width: fit-content;
+  padding: 8px 6px;
+  color: var(--sq-gray500);
+
+  display: flex;
+  align-items: center;
+}
+
+.tabText {
+  color: inherit;
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.active {
+  color: var(--sq-gray900);
+  border-bottom: 2px solid var(--sq-primary-blue);
+}
