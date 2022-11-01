@@ -24,6 +24,7 @@ export * from './modal';
 export { default as ProgressBar } from './progressBar';
 export { default as Spinner } from './spinner';
 export * from './table';
+export * from './tabs';
 export * from './tag';
 export { default as TextInput } from './textInput';
 export { default as Toast } from './toast';
