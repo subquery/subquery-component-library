@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Header } from './Header';
 
 export default {
-  title: 'Header',
+  title: 'APP/Header',
   component: Header,
 } as ComponentMeta<typeof Header>;
 

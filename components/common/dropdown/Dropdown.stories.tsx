@@ -8,7 +8,7 @@ import { Dropdown, MenuWithDesc } from './Dropdown';
 import styles from './Dropdown.module.css';
 
 export default {
-  title: 'Dropdown',
+  title: 'General/Dropdown',
   component: Dropdown,
 } as ComponentMeta<typeof Dropdown>;
 

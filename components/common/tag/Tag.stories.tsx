@@ -6,7 +6,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Typography } from '../typography';
 
 export default {
-  title: 'Tag',
+  title: 'General/Tag',
   component: Tag,
 } as ComponentMeta<typeof Tag>;
 

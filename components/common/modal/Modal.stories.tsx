@@ -7,7 +7,7 @@ import { Button, Typography } from '..';
 import { Modal } from './Modal';
 
 export default {
-  title: 'Modal',
+  title: 'General/Modal',
   component: Modal,
 } as ComponentMeta<typeof Modal>;
 

@@ -5,7 +5,7 @@ import Dialog from './Dialog';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Dialog',
+  title: 'General/Dialog',
   component: Dialog,
 } as ComponentMeta<typeof Dialog>;
 
