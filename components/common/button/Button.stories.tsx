@@ -9,7 +9,7 @@ import styles from './Button.module.css';
 import { Typography } from '..';
 
 export default {
-  title: 'Button',
+  title: 'General/Button',
   component: Button,
   parameters: {
     zeplinLink: 'https://app.zeplin.io/styleguide/61b2d0301695d44e531bd6d2/components?coid=61b2d2869bdcf54addd0b0d9',

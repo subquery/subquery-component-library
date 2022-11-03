@@ -5,7 +5,7 @@ import Toast from './Toast';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Toast',
+  title: 'General/Toast',
   component: Toast,
   parameters: {
     zeplinLink: 'https://app.zeplin.io/styleguide/61b2d0301695d44e531bd6d2/components?coid=61b2d7f4a13b194d1b841269',

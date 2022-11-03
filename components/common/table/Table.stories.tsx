@@ -5,7 +5,7 @@ import { TableTitle, TableText, Table } from '.';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
-  title: 'Table',
+  title: 'General/Table',
   component: Table,
 } as ComponentMeta<any>;
 

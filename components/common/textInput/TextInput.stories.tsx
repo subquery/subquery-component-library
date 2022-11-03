@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Input from './TextInput';
 
 export default {
-  title: 'Input',
+  title: 'General/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 

@@ -7,7 +7,7 @@ import { PicCenterOutlined, PaperClipOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 export default {
-  title: 'Tab',
+  title: 'General/Tab',
   component: Tab,
 } as ComponentMeta<typeof Tab>;
 
