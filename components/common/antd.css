@@ -20,3 +20,8 @@
 .menuStyle .ant-dropdown-menu-item:hover {
   background: var(--sq-blueHover);
 }
+
+/* Progress grayTheme */
+.grayProgressStyle .ant-progress-inner {
+  height: 4px;
+}
