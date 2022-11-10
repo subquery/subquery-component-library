@@ -21,7 +21,7 @@ export { default as Button, AntdButton } from './button';
 export { default as Dialog } from './dialog';
 export * from './dropdown';
 export * from './modal';
-export { default as ProgressBar } from './progressBar';
+export * from './progressBar';
 export { default as Spinner } from './spinner';
 export * from './table';
 export * from './tabs';
