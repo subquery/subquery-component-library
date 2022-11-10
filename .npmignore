@@ -1,9 +1,7 @@
-# # Ignore everything
-# **/*
-#
-# # Only pack dist
-# !/dist/**/*
-#
-# # Exclude stories from dist
-# **/*.stories.js
-# **/*.stories.jsx
+/dist/**/**/*.stories.js
+/dist/**/**/*.stories.d.js
+.husky
+.github
+.storybook
+/components
+/docs
