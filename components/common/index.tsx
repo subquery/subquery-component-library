@@ -3,15 +3,15 @@
 
 import './antd.css';
 import { ConfigProvider } from 'antd';
+import { COLORS } from '../utilities';
 
-// TODO: COLORS util
 ConfigProvider.config({
   theme: {
-    primaryColor: '#4388dd',
-    successColor: '#65cd45',
-    warningColor: '#f87c4f',
-    errorColor: '#f1585b',
-    infoColor: '#3aa0ff',
+    primaryColor: COLORS.primary,
+    successColor: COLORS.success,
+    warningColor: COLORS.warning,
+    errorColor: COLORS.error,
+    infoColor: COLORS.info,
   },
 });
 
