@@ -6,7 +6,7 @@
 }
 
 .justifyAround {
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .flexCenter {
