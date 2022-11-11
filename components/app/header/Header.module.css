@@ -16,16 +16,19 @@
 
 .leftElement {
   margin-left: 2rem;
+  position: relative;
 }
 
 .appDropdown {
-  margin: 0 1rem;
+  margin: 0 rem;
 }
 
 .menuOverlay {
-  width: 40%;
-  margin: 0 1rem !important;
   padding: 1rem !important;
+}
+
+.menuWithDesc {
+  width: 300px;
 }
 
 .navLink {

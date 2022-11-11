@@ -22,3 +22,7 @@
 .description {
   color: var(--sq-gray600);
 }
+
+.menuWithDesc {
+  width: 100%;
+}

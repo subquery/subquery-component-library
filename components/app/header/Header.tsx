@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { NavLink, BrowserRouter as Router, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Space, Divider } from 'antd';
 import { AppstoreOutlined } from '@ant-design/icons';
 import styles from './Header.module.css';
@@ -73,13 +73,13 @@ export interface LeftHeaderProps {
 }
 const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps) => {
   const sortedDropdownLinks = !leftElement && dropdownLinks && (
-    <div className={styles.leftElement}>
+    <div className={styles.leftElement} id="leftHeader">
       <Dropdown
         label={dropdownLinks.label}
         LeftLabelIcon={<AppstoreOutlined />}
         menu={dropdownLinks.links.map((label, key) => ({
           key,
-          label: <MenuWithDesc title={label.label} description={label.description} />,
+          label: <MenuWithDesc title={label.label} description={label.description} className={styles.menuWithDesc} />,
         }))}
         active
         menuClassName={styles.menuOverlay}
@@ -87,6 +87,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
         onMenuItemClick={({ key }) => {
           window.open(dropdownLinks.links[parseInt(key)]?.link ?? '/', '_blank');
         }}
+        getPopupContainer={() => document.getElementById('leftHeader') as HTMLElement}
       />
     </div>
   );
@@ -150,7 +151,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   children,
 }) => {
   return (
-    <Router>
+    <>
       <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyAround)}>
         <div className={styles.flexCenter}>
           <div>
@@ -165,6 +166,6 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
       </div>
 
       {children}
-    </Router>
+    </>
   );
 };

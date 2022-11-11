@@ -65,16 +65,17 @@ export const Dropdown: React.FC<DropdownProps> = ({
 export interface MenuWithDescProps {
   title: string;
   description: string;
+  className?: string;
 }
-export const MenuWithDesc = ({ title, description }: MenuWithDescProps) => {
+export const MenuWithDesc = ({ title, description, className }: MenuWithDescProps) => {
   return (
-    <>
+    <div className={clsx(styles.menuWithDesc, className)}>
       <Typography weight={500} className={styles.title}>
         {title}
       </Typography>
       <Typography variant="small" className={styles.description}>
         {description}
       </Typography>
-    </>
+    </div>
   );
 };
