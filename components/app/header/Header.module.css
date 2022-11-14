@@ -7,7 +7,7 @@
   height: 80px;
 }
 
-.justifyAround {
+.justifyBetween {
   justify-content: space-between;
 }
 
