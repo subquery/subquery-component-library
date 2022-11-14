@@ -1,8 +1,10 @@
 .header {
   width: 100%;
-  height: 80px;
   box-shadow: inset 0px -1px 0px rgba(26, 32, 44, 0.06);
-  padding: 0 1rem;
+}
+
+.headerHeight {
+  height: 80px;
 }
 
 .justifyAround {
@@ -20,15 +22,15 @@
 }
 
 .appDropdown {
-  margin: 0 rem;
+  margin: 1rem;
 }
 
 .menuOverlay {
   padding: 1rem !important;
 }
 
-.menuWithDesc {
-  width: 300px;
+.dropMenu {
+  width: 300px !important;
 }
 
 .navLink {

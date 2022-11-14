@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { Header } from './Header';
 
 export default {
@@ -10,11 +9,7 @@ export default {
   component: Header,
 } as ComponentMeta<typeof Header>;
 
-const Template: ComponentStory<typeof Header> = (args) => (
-  <Router>
-    <Header {...args} />
-  </Router>
-);
+const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 
 export const Default = Template.bind({});
 
