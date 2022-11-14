@@ -6,6 +6,10 @@
   color: inherit;
 }
 
+.dropdownLabel {
+  height: 100%;
+}
+
 .isOnHover {
   color: var(--sq-primary-blue);
 }
@@ -24,5 +28,5 @@
 }
 
 .menuWithDesc {
-  width: 100%;
+  width: max-content;
 }

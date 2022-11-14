@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Space, Divider } from 'antd';
 import { AppstoreOutlined } from '@ant-design/icons';
+import { BrowserRouter as Router } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
 import Logo from '../../../assets/logo.svg';
@@ -73,17 +74,16 @@ export interface LeftHeaderProps {
 }
 const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps) => {
   const sortedDropdownLinks = !leftElement && dropdownLinks && (
-    <div className={styles.leftElement} id="leftHeader">
+    <div className={clsx(styles.leftElement, styles.headerHeight)} id="leftHeader">
       <Dropdown
         label={dropdownLinks.label}
         LeftLabelIcon={<AppstoreOutlined />}
         menu={dropdownLinks.links.map((label, key) => ({
           key,
-          label: <MenuWithDesc title={label.label} description={label.description} className={styles.menuWithDesc} />,
+          label: <MenuWithDesc title={label.label} description={label.description} className={styles.dropMenu} />,
         }))}
         active
         menuClassName={styles.menuOverlay}
-        placement="bottom"
         onMenuItemClick={({ key }) => {
           window.open(dropdownLinks.links[parseInt(key)]?.link ?? '/', '_blank');
         }}
@@ -109,12 +109,12 @@ const MiddleHeader = ({ middleElement, appNavigation }: MiddleHeaderProps) => {
   const navigate = useNavigate();
 
   const sortedAppNavigation = !middleElement && appNavigation && (
-    <Space className={styles.flexCenter}>
+    <Space className={clsx(styles.flexCenter, styles.headerHeight)}>
       {appNavigation.map((nav) => {
         if (nav.dropdown) {
           const dropdownMenu = nav.dropdown.map((menu) => ({ key: menu.link, label: menu.label }));
           return (
-            <div key={nav.link} className={styles.appDropdown}>
+            <div key={nav.link} className={clsx(styles.appDropdown, styles.headerHeight)}>
               <Dropdown
                 menu={dropdownMenu}
                 label={nav.label}
@@ -151,9 +151,9 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   children,
 }) => {
   return (
-    <>
+    <Router>
       <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyAround)}>
-        <div className={styles.flexCenter}>
+        <div className={clsx(styles.flexCenter, styles.headerHeight)}>
           <div>
             <img src={Logo} alt="SubQuery Logo" width={140} />
           </div>
@@ -166,6 +166,6 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
       </div>
 
       {children}
-    </>
+    </Router>
   );
 };

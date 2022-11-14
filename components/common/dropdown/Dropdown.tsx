@@ -31,7 +31,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const sortedLabel = (
-    <Space className={clsx(styles.pointer, (isOpen || active) && styles.isOnHover)}>
+    <Space className={clsx(styles.dropdownLabel, styles.pointer, (isOpen || active) && styles.isOnHover)}>
       {LeftLabelIcon}
       <Typography className={styles.colorInherit}>{label ?? 'Dropdown'}</Typography>
       {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}
@@ -51,11 +51,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <AntdDropdown
-      {...props}
       overlay={sortedMenu}
       onOpenChange={(openStatus) => {
         setIsOpen(openStatus);
       }}
+      placement="bottomLeft"
+      {...props}
     >
       {sortedLabel}
     </AntdDropdown>
