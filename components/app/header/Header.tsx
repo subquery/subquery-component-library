@@ -5,7 +5,6 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Space, Divider } from 'antd';
-import { AppstoreOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
@@ -32,14 +31,6 @@ export interface AppNavigation {
   label: string;
   link?: string;
   dropdown?: AppLink[];
-}
-
-export interface HeaderProps {
-  dropdownLinks?: DropdownLink;
-  appNavigation?: AppNavigation[];
-  leftElement?: React.ReactElement;
-  middleElement?: React.ReactElement;
-  rightElement?: React.ReactElement;
 }
 
 const isExternalLink = (to: string) => to.startsWith('https') || to.startsWith('http');
@@ -143,17 +134,27 @@ const MiddleHeader = ({ middleElement, appNavigation }: MiddleHeaderProps) => {
   );
 };
 
+export interface HeaderProps {
+  dropdownLinks?: DropdownLink;
+  appNavigation?: AppNavigation[];
+  leftElement?: React.ReactElement;
+  middleElement?: React.ReactElement;
+  rightElement?: React.ReactElement;
+  className?: string;
+}
+
 export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   dropdownLinks,
   appNavigation,
   leftElement,
   middleElement,
   rightElement,
+  className,
   children,
 }) => {
   return (
     <Router>
-      <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyAround)}>
+      <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyBetween, className)}>
         <div className={clsx(styles.flexCenter, styles.headerHeight)}>
           <div>
             <img src={Logo} alt="SubQuery Logo" width={140} />
