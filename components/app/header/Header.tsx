@@ -10,6 +10,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
 import Logo from '../../../assets/logo.svg';
+import AppIcon from '../../../assets/appIcon.svg';
 
 export interface AppLink {
   label: string;
@@ -77,7 +78,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
     <div className={clsx(styles.leftElement, styles.headerHeight)} id="leftHeader">
       <Dropdown
         label={dropdownLinks.label}
-        LeftLabelIcon={<AppstoreOutlined />}
+        LeftLabelIcon={<img src={AppIcon} alt="SubQuery Apps" />}
         menu={dropdownLinks.links.map((label, key) => ({
           key,
           label: <MenuWithDesc title={label.label} description={label.description} className={styles.dropMenu} />,
