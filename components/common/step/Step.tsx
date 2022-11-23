@@ -6,12 +6,12 @@ import { Steps as AntSteps, StepsProps as AntStepsProps } from 'antd';
 import clsx from 'clsx';
 //import styles from '../tag/Tag.module.css';
 
-export interface stepsProps extends AntStepsProps {
+export interface StepsProps extends AntStepsProps {
   titleList?: string[];
   className?: string;
 }
 const { Step } = AntSteps;
-export const Steps: React.FC<React.PropsWithChildren<stepsProps>> = ({
+export const Steps: React.FC<React.PropsWithChildren<StepsProps>> = ({
   size,
   className,
   titleList,

@@ -79,3 +79,22 @@ Danger.parameters = {
     url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
   },
 };
+
+export const Step = Template.bind({});
+
+Step.args = {
+  title: 'Modal',
+  submitText: 'Submit',
+  cancelText: 'close',
+  okText: 'Next',
+  step: { size: 'small', titleList: ['finished', 'ccc'] },
+  danger: false,
+  description: ['Hello World', 'Hello Subquery'],
+};
+
+Step.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
+  },
+};
