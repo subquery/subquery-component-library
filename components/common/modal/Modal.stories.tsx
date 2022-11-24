@@ -117,7 +117,7 @@ Step.args = {
   submitText: 'Submit',
   cancelText: 'close',
   okText: 'Next',
-  steps: { size: 'small', items: ['Finished', 'In Progress', 'Waiting'] },
+  steps: { size: 'small', items: [{ title: 'Finished' }, { title: 'In Progress' }, { title: 'Waiting' }] },
   danger: false,
 };
 

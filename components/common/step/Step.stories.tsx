@@ -33,6 +33,6 @@ Default.parameters = {
 
 Default.args = {
   size: 'small',
-  items: ['Finished', 'In Progress', 'Waiting'],
+  items: [{ title: 'Finished' }, { title: 'In Progress' }, { title: 'Waiting' }],
   current: 1,
 };

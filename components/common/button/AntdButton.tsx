@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button } from 'antd';
-import 'antd/dist/antd.variable.min.css';
+import 'antd/dist/reset.css';
 
 // TODO: to improve
 export const AntdButton = ({ children }: { children: any }) => <Button type="primary">{children}</Button>;
