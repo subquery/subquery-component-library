@@ -11,13 +11,13 @@ export default {
   component: Steps,
 } as ComponentMeta<typeof Steps>;
 
-const Template: ComponentStory<typeof Steps> = ({ current, titleList, ...args }) => (
+const Template: ComponentStory<typeof Steps> = ({ current, items, ...args }) => (
   <div>
     <Typography variant="text"> Small Step</Typography>
-    <Steps titleList={titleList} current={current} {...args}></Steps>
+    <Steps items={items} current={current} {...args}></Steps>
     <div>
       <Typography variant="text"> Default Step</Typography>
-      <Steps titleList={titleList} current={current}></Steps>
+      <Steps items={items} current={current}></Steps>
     </div>
   </div>
 );
@@ -33,6 +33,6 @@ Default.parameters = {
 
 Default.args = {
   size: 'small',
-  titleList: ['Finished', 'In Progress', 'Waiting'],
+  items: ['Finished', 'In Progress', 'Waiting'],
   current: 1,
 };

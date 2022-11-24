@@ -3,25 +3,16 @@
 
 import * as React from 'react';
 import { Steps as AntSteps, StepsProps as AntStepsProps } from 'antd';
-import clsx from 'clsx';
-//import styles from '../tag/Tag.module.css';
 
 export interface StepsProps extends AntStepsProps {
-  titleList?: string[];
+  items?: string[];
   className?: string;
 }
-const { Step } = AntSteps;
-export const Steps: React.FC<React.PropsWithChildren<StepsProps>> = ({
-  size,
-  className,
-  titleList,
-  current,
-  ...props
-}) => {
+export const Steps: React.FC<React.PropsWithChildren<StepsProps>> = ({ size, className, items, current, ...props }) => {
   return (
     <AntSteps className={className} size={size} current={current} {...props}>
-      {titleList?.map((t) => (
-        <Step title={t} key={t}></Step>
+      {items?.map((t) => (
+        <AntSteps.Step title={t} key={t}></AntSteps.Step>
       ))}
     </AntSteps>
   );

@@ -80,16 +80,45 @@ Danger.parameters = {
   },
 };
 
-export const Step = Template.bind({});
+const TemplateStep: ComponentStory<typeof Modal> = (args) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>();
+  const [currStep, setCurrent] = React.useState<number>(0);
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        label={' Open Modal'}
+      />
+
+      <Modal
+        {...args}
+        open={isOpen}
+        currStep={currStep}
+        onOk={() => setCurrent(currStep + 1)}
+        onCancel={() => {
+          if (currStep == 0) {
+            setCurrent(0);
+            setIsOpen(false);
+          } else {
+            setCurrent(currStep - 1);
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+export const Step = TemplateStep.bind({});
 
 Step.args = {
   title: 'Modal',
   submitText: 'Submit',
   cancelText: 'close',
   okText: 'Next',
-  step: { size: 'small', titleList: ['finished', 'ccc'] },
+  steps: { size: 'small', items: ['Finished', 'In Progress', 'Waiting'] },
   danger: false,
-  description: ['Hello World', 'Hello Subquery'],
 };
 
 Step.parameters = {
