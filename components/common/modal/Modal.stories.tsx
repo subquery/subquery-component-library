@@ -79,3 +79,51 @@ Danger.parameters = {
     url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
   },
 };
+
+const TemplateStep: ComponentStory<typeof Modal> = (args) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>();
+  const [currStep, setCurrent] = React.useState<number>(0);
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        label={' Open Modal'}
+      />
+
+      <Modal
+        {...args}
+        open={isOpen}
+        currentStep={currStep}
+        onOk={() => setCurrent(currStep + 1)}
+        onCancel={() => {
+          if (currStep == 0) {
+            setCurrent(0);
+            setIsOpen(false);
+          } else {
+            setCurrent(currStep - 1);
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+export const Step = TemplateStep.bind({});
+
+Step.args = {
+  title: 'Modal',
+  submitText: 'Submit',
+  cancelText: 'close',
+  okText: 'Next',
+  steps: [{ title: 'Purchase' }, { title: 'Finished' }],
+  danger: false,
+};
+
+Step.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/sCAngiTf2mPOWPo9kcoEE7/SubQuery-Design-System?node-id=389%3A5557',
+  },
+};
