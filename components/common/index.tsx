@@ -26,7 +26,7 @@ export { default as Spinner } from './spinner';
 export * from './table';
 export * from './tabs';
 export * from './tag';
-export * from './step';
+export * from './steps';
 export { default as TextInput } from './textInput';
 export { default as Toast } from './toast';
 export * from './typography';

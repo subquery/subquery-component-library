@@ -1,25 +1,29 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Steps } from './Step';
+import { Steps } from './Steps';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Typography } from '../typography';
+import { Space } from 'antd';
 
 export default {
   title: 'General/Step',
   component: Steps,
 } as ComponentMeta<typeof Steps>;
 
-const Template: ComponentStory<typeof Steps> = ({ current, items, ...args }) => (
-  <div>
-    <Typography variant="text"> Small Step</Typography>
-    <Steps items={items} current={current} {...args}></Steps>
+const Template: ComponentStory<typeof Steps> = ({ steps, ...args }) => (
+  <>
+    <div>
+      <Typography variant="text"> Small Step</Typography>
+      <Steps steps={steps} {...args}></Steps>
+    </div>
+    <Space />
     <div>
       <Typography variant="text"> Default Step</Typography>
-      <Steps items={items} current={current}></Steps>
+      <Steps steps={steps} {...args} size="default"></Steps>
     </div>
-  </div>
+  </>
 );
 
 export const Default = Template.bind({});
@@ -32,7 +36,10 @@ Default.parameters = {
 };
 
 Default.args = {
-  size: 'small',
-  items: ['Finished', 'In Progress', 'Waiting'],
+  steps: [
+    { title: 'Purchase', description: 'This is purchase step' },
+    { title: 'In Progress', description: 'This is in progress step' },
+    { title: 'Finished', description: 'This is finished step' },
+  ],
   current: 1,
 };

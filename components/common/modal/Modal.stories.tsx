@@ -95,7 +95,7 @@ const TemplateStep: ComponentStory<typeof Modal> = (args) => {
       <Modal
         {...args}
         open={isOpen}
-        currStep={currStep}
+        currentStep={currStep}
         onOk={() => setCurrent(currStep + 1)}
         onCancel={() => {
           if (currStep == 0) {
@@ -117,7 +117,7 @@ Step.args = {
   submitText: 'Submit',
   cancelText: 'close',
   okText: 'Next',
-  steps: { size: 'small', items: ['Finished', 'In Progress', 'Waiting'] },
+  steps: [{ title: 'Purchase' }, { title: 'Finished' }],
   danger: false,
 };
 

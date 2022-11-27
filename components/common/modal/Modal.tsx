@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import { Modal as AntdModal, ModalProps as AntdModalProps } from 'antd';
-import { Button, Typography, Steps, StepsProps } from '..';
+import { Modal as AntdModal, ModalProps as AntdModalProps, StepsProps, StepProps } from 'antd';
+import { Button, Typography, Steps } from '..';
 import styles from './Modal.module.css';
 
 export interface ModalProps extends AntdModalProps {
@@ -14,9 +14,9 @@ export interface ModalProps extends AntdModalProps {
   danger?: boolean;
   onSubmit?: () => void | Promise<void>;
   onCancel?: () => void;
-  steps?: StepsProps;
-  onStepChange: (step: number) => void;
-  currStep?: number;
+  steps?: Array<StepProps>;
+  stepsProps?: StepsProps;
+  currentStep?: number;
 }
 
 export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
@@ -29,7 +29,8 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   children,
   danger,
   steps,
-  currStep,
+  stepsProps,
+  currentStep,
   ...modalProps
 }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -66,7 +67,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
       className={'modalStyle'}
     >
       <>
-        {steps && <Steps {...steps} current={currStep} />}
+        {steps && <Steps steps={steps} current={currentStep} {...stepsProps} />}
         {sortedDescription}
         {children}
       </>
