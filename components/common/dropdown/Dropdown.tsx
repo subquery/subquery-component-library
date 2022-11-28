@@ -11,7 +11,7 @@ import { Typography } from '../typography';
 
 export interface DropdownProps extends Partial<AntdDropdownProps> {
   label?: string;
-  menu: ItemType[];
+  menuitem: ItemType[];
   menuClassName?: string;
   onMenuItemClick?: MenuClickEventHandler;
   LeftLabelIcon?: React.ReactElement;
@@ -23,7 +23,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   label,
   LeftLabelIcon,
   RightLabelIcon,
-  menu,
+  menuitem,
   menuClassName,
   active,
   onMenuItemClick,
@@ -44,7 +44,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onMenuItemClick && onMenuItemClick(item);
         setIsOpen(false);
       }}
-      items={menu}
+      items={menuitem}
       className={clsx('menuStyle', menuClassName)}
     />
   );

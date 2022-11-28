@@ -20,7 +20,7 @@ const labels = ['About Us', 'Grants', 'SubQuery Foundation', 'Careers'];
 
 Default.args = {
   label: 'About',
-  menu: labels.map((label, idx) => ({ key: idx, label })),
+  menuitem: labels.map((label, idx) => ({ key: idx, label })),
   onMenuItemClick: ({ key }) => message.info(`Click on item: ${labels[parseInt(key)]}`),
 };
 
@@ -54,7 +54,7 @@ const detailedLabels = [
 WithLeftIcon.args = {
   label: 'Apps',
   LeftLabelIcon: <AppstoreOutlined />,
-  menu: detailedLabels.map((label, key) => ({
+  menuitem: detailedLabels.map((label, key) => ({
     key,
     label: <MenuWithDesc title={label.title} description={label.description} />,
   })),

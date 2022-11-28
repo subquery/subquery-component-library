@@ -70,7 +70,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
       <Dropdown
         label={dropdownLinks.label}
         LeftLabelIcon={<img src={AppIcon} alt="SubQuery Apps" />}
-        menu={dropdownLinks.links.map((label, key) => ({
+        menuitem={dropdownLinks.links.map((label, key) => ({
           key,
           label: <MenuWithDesc title={label.label} description={label.description} className={styles.dropMenu} />,
         }))}
@@ -108,7 +108,7 @@ const MiddleHeader = ({ middleElement, appNavigation }: MiddleHeaderProps) => {
           return (
             <div key={nav.link} className={clsx(styles.appDropdown, styles.headerHeight)}>
               <Dropdown
-                menu={dropdownMenu}
+                menuitem={dropdownMenu}
                 label={nav.label}
                 onMenuItemClick={({ key }) => {
                   if (isExternalLink(key)) {
