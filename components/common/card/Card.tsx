@@ -2,26 +2,63 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import { Avatar, Card as AntCard, CardProps as AntCardProps, Tooltip, Tooltip as AntTooltip } from 'antd';
+import {
+  Avatar,
+  Card as AntCard,
+  CardProps as AntCardProps,
+  Tooltip as AntTooltip,
+  Dropdown as AntDrops,
+  Button as AntButton,
+} from 'antd';
 import Meta from 'antd/es/card/Meta';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
 import { Typography } from '../typography';
 import styles from './Card.module.css';
 import clsx from 'clsx';
 
-export interface cardTitle {
+export interface CardTitle {
   title?: string;
   tooltip?: string;
+}
+export interface Item {
+  label: string;
+  key: string;
+}
+
+export interface MenuProps {
+  items: Item[];
+  onClick?: () => void;
+}
+export interface Button {
+  label: string;
+  onClick?: () => void;
 }
 export interface CardProp extends AntCardProps {
   className?: string;
   description?: string;
   icon?: string;
-  cardTitle?: cardTitle;
+  cardTitle?: CardTitle;
+  ellipsis?: MenuProps;
+  button?: Button;
 }
-export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({ cardTitle, description, icon, className }) => {
+export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
+  cardTitle,
+  description,
+  icon,
+  className,
+  ellipsis,
+  button,
+  ...props
+}) => {
   return (
-    <AntCard className={clsx(className, styles.card)}>
+    <AntCard className={clsx(className, styles.card)} {...props}>
+      {ellipsis && (
+        <div>
+          <AntDrops menu={ellipsis}>
+            <MoreOutlined className={styles.ellipsis} />
+          </AntDrops>
+        </div>
+      )}
       <Meta
         avatar={icon && <Avatar src={icon} />}
         title={<CardTitle title={cardTitle?.title} tooltip={cardTitle?.tooltip} />}
@@ -31,11 +68,17 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({ cardTitle, d
           </Typography>
         }
       ></Meta>
+      {button && (
+        <AntButton type="link" onClick={button.onClick} className={styles.button}>
+          {button.label}
+          <RightOutlined />
+        </AntButton>
+      )}
     </AntCard>
   );
 };
 
-export const CardTitle: React.FC<cardTitle> = (props) => {
+export const CardTitle: React.FC<CardTitle> = (props) => {
   return props.tooltip ? (
     <Typography variant="medium" className={clsx(styles.title, props.tooltip)}>
       {props.title?.toUpperCase()}

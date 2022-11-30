@@ -27,6 +27,7 @@ export * from './table';
 export * from './tabs';
 export * from './tag';
 export * from './steps';
+export * from './card';
 export { default as TextInput } from './textInput';
 export { default as Toast } from './toast';
 export * from './typography';

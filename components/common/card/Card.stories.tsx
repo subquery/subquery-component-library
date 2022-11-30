@@ -45,3 +45,60 @@ tooltipIconCard.args = {
   description: '0 SQT',
   cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
 };
+
+export const tooltipIconDropdownCard = Template.bind({});
+tooltipIconDropdownCard.args = {
+  icon: icon,
+  description: '0 SQT',
+  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
+  ellipsis: {
+    items: [
+      {
+        label: '1st menu item',
+        key: '1',
+      },
+      {
+        label: '2nd menu item',
+        key: '2',
+      },
+      {
+        label: '3rd menu item',
+        key: '3',
+      },
+    ],
+    onClick: () => {
+      alert('yes');
+    },
+  },
+};
+
+export const tooltipDropdownButtonCard = Template.bind({});
+tooltipDropdownButtonCard.args = {
+  description: '0 SQT',
+  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
+  button: {
+    label: 'Delegate to an Indexer',
+    onClick: () => {
+      alert('yes');
+    },
+  },
+  ellipsis: {
+    items: [
+      {
+        label: '1st menu item',
+        key: '1',
+      },
+      {
+        label: '2nd menu item',
+        key: '2',
+      },
+      {
+        label: '3rd menu item',
+        key: '3',
+      },
+    ],
+    onClick: () => {
+      alert('yes');
+    },
+  },
+};
