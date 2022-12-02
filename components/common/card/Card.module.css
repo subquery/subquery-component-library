@@ -1,7 +1,4 @@
 .card {
-  /*padding: 24px;*/
-  /*gap: 12px;*/
-
   align-items: flex-start;
   max-width: 260px;
   max-height: 164px;
@@ -53,10 +50,4 @@
   height: 30px;
   color: var(--sq-blue600);
   border-radius: 36px;
-
-  /* Inside auto layout */
-
-  /*flex: none;*/
-  /*order: 2;*/
-  /*flex-grow: 0;*/
 }

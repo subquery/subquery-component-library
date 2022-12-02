@@ -12,11 +12,9 @@ export default {
 } as ComponentMeta<typeof Card>;
 
 const Template: ComponentStory<typeof Card> = ({ ...args }) => (
-  <>
-    <div>
-      <Card {...args}></Card>
-    </div>
-  </>
+  <div>
+    <Card {...args}></Card>
+  </div>
 );
 
 export const Default = Template.bind({});
@@ -51,7 +49,7 @@ tooltipIconDropdownCard.args = {
   icon: icon,
   description: '0 SQT',
   cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
-  ellipsis: {
+  action: {
     items: [
       {
         label: '1st menu item',
@@ -82,7 +80,7 @@ tooltipDropdownButtonCard.args = {
       alert('yes');
     },
   },
-  ellipsis: {
+  action: {
     items: [
       {
         label: '1st menu item',

@@ -7,7 +7,7 @@ import {
   Card as AntCard,
   CardProps as AntCardProps,
   Tooltip as AntTooltip,
-  Dropdown as AntDrops,
+  Dropdown as AntDropdown,
   Button as AntButton,
 } from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -38,7 +38,7 @@ export interface CardProp extends AntCardProps {
   description?: string;
   icon?: string;
   cardTitle?: CardTitle;
-  ellipsis?: MenuProps;
+  action?: MenuProps;
   button?: Button;
 }
 export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
@@ -46,17 +46,17 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
   description,
   icon,
   className,
-  ellipsis,
+  action,
   button,
   ...props
 }) => {
   return (
     <AntCard className={clsx(className, styles.card)} {...props}>
-      {ellipsis && (
+      {action && (
         <div>
-          <AntDrops menu={ellipsis}>
+          <AntDropdown menu={action}>
             <MoreOutlined className={styles.ellipsis} />
-          </AntDrops>
+          </AntDropdown>
         </div>
       )}
       <Meta
