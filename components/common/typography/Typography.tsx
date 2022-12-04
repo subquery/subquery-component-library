@@ -12,6 +12,7 @@ type Props = {
   weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   tooltip?: string;
   className?: string;
+  tooltipIcon?: React.ReactNode;
 } & React.HTMLProps<HTMLParagraphElement>;
 
 export const Typography: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const Typography: React.FC<Props> = ({
   type = 'default',
   weight = 400,
   tooltip,
+  tooltipIcon,
   className,
   ...htmlProps
 }) => {
@@ -33,10 +35,13 @@ export const Typography: React.FC<Props> = ({
           styles[type],
           styles[`w${weight}`],
           tooltip && styles.tooltip,
+          tooltipIcon && styles.tooltipIcon,
           className,
         )}
       >
         {children}
+        &nbsp;
+        {tooltipIcon}
       </p>
     </Tooltip>
   );

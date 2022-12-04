@@ -19,6 +19,7 @@ import clsx from 'clsx';
 export interface CardTitle {
   title?: string;
   tooltip?: string;
+  tooltipIcon?: React.ReactNode;
 }
 export interface Item {
   label: string;
@@ -61,7 +62,17 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
       )}
       <Meta
         avatar={icon && <Avatar src={icon} />}
-        title={<CardTitle title={cardTitle?.title} tooltip={cardTitle?.tooltip} />}
+        title={
+          <Typography
+            variant="small"
+            weight={600}
+            color="secondary"
+            tooltip={cardTitle?.tooltip}
+            tooltipIcon={<InfoCircleOutlined />}
+          >
+            {cardTitle?.title?.toUpperCase()}
+          </Typography>
+        }
         description={
           <Typography variant="h5" className={styles.value}>
             {description?.toUpperCase()}
@@ -75,18 +86,5 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
         </AntButton>
       )}
     </AntCard>
-  );
-};
-
-export const CardTitle: React.FC<CardTitle> = (props) => {
-  return props.tooltip ? (
-    <Typography variant="medium" className={clsx(styles.title, props.tooltip)}>
-      {props.title?.toUpperCase()}
-      <AntTooltip title={props.tooltip} className={styles.tooltip}>
-        <InfoCircleOutlined />
-      </AntTooltip>
-    </Typography>
-  ) : (
-    <Typography className={clsx(styles.title)}>{props.title?.toUpperCase()}</Typography>
   );
 };
