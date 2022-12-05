@@ -3,21 +3,15 @@
 
 import { Card } from './Card';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Typography } from '../typography';
 import icon from '../../../assets/Card-logo.svg';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import * as React from 'react';
 
 export default {
   title: 'General/Card',
   component: Card,
 } as ComponentMeta<typeof Card>;
 
-const Template: ComponentStory<typeof Card> = ({ ...args }) => (
-  <div>
-    <Card {...args}></Card>
-  </div>
-);
+const Template: ComponentStory<typeof Card> = ({ ...args }) => <Card {...args}></Card>;
 
 export const Default = Template.bind({});
 
@@ -30,28 +24,34 @@ Default.parameters = {
 
 Default.args = {
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING' },
+  title: 'You are DELEGATING',
 };
 
 export const tooltipCard = Template.bind({});
 tooltipCard.args = {
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
+  title: 'You are DELEGATING',
+  titleTooltip: 'Delegating',
+  titleTooltipIcon: <InfoCircleOutlined />,
 };
 
 export const tooltipIconCard = Template.bind({});
 tooltipIconCard.args = {
   icon: icon,
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
+  title: 'You are DELEGATING',
+  titleTooltip: 'Delegating',
+  titleTooltipIcon: <InfoCircleOutlined />,
 };
 
 export const tooltipIconDropdownCard = Template.bind({});
 tooltipIconDropdownCard.args = {
   icon: icon,
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
-  action: {
+  title: 'You are DELEGATING',
+  titleTooltip: 'Delegating',
+  titleTooltipIcon: <InfoCircleOutlined />,
+  dropdown: {
     items: [
       {
         label: '1st menu item',
@@ -75,14 +75,16 @@ tooltipIconDropdownCard.args = {
 export const tooltipDropdownButtonCard = Template.bind({});
 tooltipDropdownButtonCard.args = {
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
-  button: {
+  title: 'You are DELEGATING',
+  titleTooltip: 'Delegating',
+  titleTooltipIcon: <InfoCircleOutlined />,
+  action: {
     label: 'Delegate to an Indexer',
     onClick: () => {
       alert('yes');
     },
   },
-  action: {
+  dropdown: {
     items: [
       {
         label: '1st menu item',

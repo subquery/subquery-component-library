@@ -129,9 +129,10 @@
 .tooltip {
   cursor: pointer;
 }
-.tooltipIcon {
+
+/* .tooltipIcon {
   margin: 5px;
-}
+} */
 
 .tooltip:hover {
   color: var(--sq-gray500);

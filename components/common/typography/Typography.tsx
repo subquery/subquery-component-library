@@ -26,23 +26,14 @@ export const Typography: React.FC<Props> = ({
   ...htmlProps
 }) => {
   return (
-    <Tooltip title={tooltip} placement="topLeft">
-      <p
-        {...htmlProps}
-        className={clsx(
-          styles.t,
-          styles[variant],
-          styles[type],
-          styles[`w${weight}`],
-          tooltip && styles.tooltip,
-          className,
-        )}
-      >
-        {children}
-        <Space className={clsx(tooltipIcon && styles.tooltipIcon)} size="small">
-          {tooltipIcon}
-        </Space>
-      </p>
+    <Tooltip title={tooltip} placement="topLeft" className={tooltip && styles.tooltip}>
+      <Space>
+        <p {...htmlProps} className={clsx(styles.t, styles[variant], styles[type], styles[`w${weight}`], className)}>
+          {children}
+        </p>
+
+        {tooltipIcon}
+      </Space>
     </Tooltip>
   );
 };

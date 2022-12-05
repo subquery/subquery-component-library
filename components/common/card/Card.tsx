@@ -2,25 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import {
-  Avatar,
-  Card as AntCard,
-  CardProps as AntCardProps,
-  Tooltip as AntTooltip,
-  Dropdown as AntDropdown,
-  Button as AntButton,
-} from 'antd';
+import { Avatar, Card as AntCard, CardProps as AntCardProps, Dropdown as AntDropdown, Button as AntButton } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import { InfoCircleOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
+import { MoreOutlined, RightOutlined } from '@ant-design/icons';
+import clsx from 'clsx';
 import { Typography } from '../typography';
 import styles from './Card.module.css';
-import clsx from 'clsx';
 
-export interface CardTitle {
-  title?: string;
-  tooltip?: string;
-  tooltipIcon?: React.ReactNode;
-}
 export interface Item {
   label: string;
   key: string;
@@ -28,7 +16,7 @@ export interface Item {
 
 export interface MenuProps {
   items: Item[];
-  onClick?: () => void;
+  onClick?: (itemKey: any) => void;
 }
 export interface Button {
   label: string;
@@ -37,28 +25,32 @@ export interface Button {
 export interface CardProp extends AntCardProps {
   className?: string;
   description?: string;
+  descriptionTooltip?: string;
   icon?: string;
-  cardTitle?: CardTitle;
-  action?: MenuProps;
-  button?: Button;
+  title?: string;
+  titleTooltip?: string;
+  titleTooltipIcon?: React.ReactNode;
+  dropdown?: MenuProps;
+  action?: Button;
 }
 export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
-  cardTitle,
+  title,
+  titleTooltip,
+  titleTooltipIcon,
   description,
+  descriptionTooltip,
   icon,
   className,
+  dropdown,
   action,
-  button,
   ...props
 }) => {
   return (
     <AntCard className={clsx(className, styles.card)} {...props}>
       {action && (
-        <div>
-          <AntDropdown menu={action}>
-            <MoreOutlined className={styles.ellipsis} />
-          </AntDropdown>
-        </div>
+        <AntDropdown menu={dropdown}>
+          <MoreOutlined className={styles.ellipsis} />
+        </AntDropdown>
       )}
       <Meta
         avatar={icon && <Avatar src={icon} />}
@@ -67,21 +59,21 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
             variant="small"
             weight={600}
             color="secondary"
-            tooltip={cardTitle?.tooltip}
-            tooltipIcon={cardTitle?.tooltipIcon}
+            tooltip={titleTooltip}
+            tooltipIcon={titleTooltipIcon}
           >
-            {cardTitle?.title?.toUpperCase()}
+            {title?.toUpperCase()}
           </Typography>
         }
         description={
-          <Typography variant="h5" className={styles.value}>
+          <Typography variant="h5" className={styles.value} tooltip={descriptionTooltip}>
             {description?.toUpperCase()}
           </Typography>
         }
       ></Meta>
-      {button && (
-        <AntButton type="link" onClick={button.onClick} className={styles.button}>
-          {button.label}
+      {action && (
+        <AntButton type="link" onClick={action.onClick} className={styles.button}>
+          {action.label}
           <RightOutlined />
         </AntButton>
       )}
