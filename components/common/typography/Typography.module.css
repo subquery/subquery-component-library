@@ -130,6 +130,10 @@
   cursor: pointer;
 }
 
+/* .tooltipIcon {
+  margin: 5px;
+} */
+
 .tooltip:hover {
   color: var(--sq-gray500);
 }

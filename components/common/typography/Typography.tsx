@@ -4,7 +4,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import styles from './Typography.module.css';
-import { Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
@@ -12,6 +12,7 @@ type Props = {
   weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   tooltip?: string;
   className?: string;
+  tooltipIcon?: React.ReactNode;
 } & React.HTMLProps<HTMLParagraphElement>;
 
 export const Typography: React.FC<Props> = ({
@@ -20,24 +21,19 @@ export const Typography: React.FC<Props> = ({
   type = 'default',
   weight = 400,
   tooltip,
+  tooltipIcon,
   className,
   ...htmlProps
 }) => {
   return (
-    <Tooltip title={tooltip} placement="topLeft">
-      <p
-        {...htmlProps}
-        className={clsx(
-          styles.t,
-          styles[variant],
-          styles[type],
-          styles[`w${weight}`],
-          tooltip && styles.tooltip,
-          className,
-        )}
-      >
-        {children}
-      </p>
+    <Tooltip title={tooltip} placement="topLeft" className={tooltip && styles.tooltip}>
+      <Space>
+        <p {...htmlProps} className={clsx(styles.t, styles[variant], styles[type], styles[`w${weight}`], className)}>
+          {children}
+        </p>
+
+        {tooltipIcon}
+      </Space>
     </Tooltip>
   );
 };
