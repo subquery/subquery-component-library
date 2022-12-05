@@ -4,7 +4,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import styles from './Typography.module.css';
-import { Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
@@ -35,13 +35,13 @@ export const Typography: React.FC<Props> = ({
           styles[type],
           styles[`w${weight}`],
           tooltip && styles.tooltip,
-          tooltipIcon && styles.tooltipIcon,
           className,
         )}
       >
         {children}
-        &nbsp;
-        {tooltipIcon}
+        <Space className={clsx(tooltipIcon && styles.tooltipIcon)} size="small">
+          {tooltipIcon}
+        </Space>
       </p>
     </Tooltip>
   );

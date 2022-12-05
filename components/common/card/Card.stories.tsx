@@ -5,6 +5,8 @@ import { Card } from './Card';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Typography } from '../typography';
 import icon from '../../../assets/Card-logo.svg';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import * as React from 'react';
 
 export default {
   title: 'General/Card',
@@ -34,21 +36,21 @@ Default.args = {
 export const tooltipCard = Template.bind({});
 tooltipCard.args = {
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
+  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
 };
 
 export const tooltipIconCard = Template.bind({});
 tooltipIconCard.args = {
   icon: icon,
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
+  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
 };
 
 export const tooltipIconDropdownCard = Template.bind({});
 tooltipIconDropdownCard.args = {
   icon: icon,
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
+  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
   action: {
     items: [
       {
@@ -73,7 +75,7 @@ tooltipIconDropdownCard.args = {
 export const tooltipDropdownButtonCard = Template.bind({});
 tooltipDropdownButtonCard.args = {
   description: '0 SQT',
-  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating' },
+  cardTitle: { title: 'You are DELEGATING', tooltip: 'Delegating', tooltipIcon: <InfoCircleOutlined /> },
   button: {
     label: 'Delegate to an Indexer',
     onClick: () => {

@@ -68,7 +68,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
             weight={600}
             color="secondary"
             tooltip={cardTitle?.tooltip}
-            tooltipIcon={<InfoCircleOutlined />}
+            tooltipIcon={cardTitle?.tooltipIcon}
           >
             {cardTitle?.title?.toUpperCase()}
           </Typography>
