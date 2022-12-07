@@ -30,7 +30,7 @@ jobs:
           TO_BRANCH: 'release'
 
       - name: Merge
-        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        # if: ${{ github.event.workflow_run.conclusion == 'success' }}
         uses: ridedott/merge-me-action@v2
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
