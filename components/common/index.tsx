@@ -32,3 +32,4 @@ export { default as TextInput } from './textInput';
 export { default as Toast } from './toast';
 export * from './typography';
 export * from './notification';
+export * from './GraphiQL';
