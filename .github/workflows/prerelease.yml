@@ -6,7 +6,7 @@ name: Prerelease
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [release]
+    branches: [master]
 
   workflow_dispatch:
 
@@ -46,7 +46,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
         with:
-          add: 'package.json'
+          # add: 'package.json'
           message: '[SKIP CI] Prerelease'
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
