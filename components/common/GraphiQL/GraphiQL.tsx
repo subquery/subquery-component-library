@@ -1,7 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createGraphiQLFetcher, Fetcher } from '@graphiql/toolkit';
+import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { GraphiQL as GraphiQLPlayground, GraphiQLProps } from 'graphiql';
 import 'graphiql/graphiql.min.css';
 
@@ -10,7 +10,7 @@ export interface IGraphiQL extends GraphiQLProps {
   url: string;
 }
 
-export const GraphiQL: React.FC<IGraphiQL> = ({ bearToken, url, fetcher, defaultQuery }) => {
+export const GraphiQL: React.FC<IGraphiQL> = ({ bearToken, url, fetcher, defaultQuery, ...graphiQLProps }) => {
   const headers = {
     'content-type': 'application/json',
   };
@@ -22,5 +22,5 @@ export const GraphiQL: React.FC<IGraphiQL> = ({ bearToken, url, fetcher, default
     headers: sortedHeaders,
   });
 
-  return <GraphiQLPlayground fetcher={fetcher ?? sortedFetcher} defaultQuery={defaultQuery} />;
+  return <GraphiQLPlayground fetcher={fetcher ?? sortedFetcher} defaultQuery={defaultQuery} {...graphiQLProps} />;
 };
