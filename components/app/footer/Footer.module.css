@@ -1,0 +1,101 @@
+.container {
+  background: var(--sq-primary-blue);
+  padding: 0px 50px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 32px 0px;
+}
+
+.bottom {
+  display: flex;
+  height: 64px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.iconsContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.iconButton {
+  background: white;
+  margin-right: 32px;
+  padding: 16px;
+}
+
+.iconButton:hover {
+  background: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 0 15px;
+  }
+  .iconsContainer {
+    justify-content: flex-start;
+  }
+
+  .iconButton {
+    margin-right: 24px;
+  }
+}
+
+.container :is(span, p) {
+  color: white;
+}
+
+.image {
+  align-self: center;
+  background: var(--sq-primary-blue);
+  width: 35px;
+  margin: -5px;
+}
+
+/* simple style */
+
+.simpleContainer {
+  height: 30vh;
+  display: flex;
+  background: var(--sq-gray100);
+  flex-direction: column;
+}
+
+.simpleIconsContainer {
+  margin: auto;
+  display: flex;
+}
+
+.simpleBottom {
+  margin: auto;
+  padding-bottom: 2vh;
+  height: 2vh;
+}
+
+.simpleIconButton {
+  background: white;
+  margin-right: 32px;
+  padding: 10px;
+}
+
+.simpleImage {
+  align-self: center;
+  width: 9vh;
+  height: 9vh;
+  margin: -5px;
+}
+
+.discord {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+}
