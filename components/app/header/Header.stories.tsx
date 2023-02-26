@@ -58,6 +58,7 @@ const appNavigation = [
 Default.args = {
   dropdownLinks: { label: 'Products', links: detailedLabels },
   appNavigation,
+  logoLink: 'https://project.thechaindata.com/login',
 };
 
 Default.parameters = {
