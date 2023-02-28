@@ -40,8 +40,9 @@ export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
     return (
       <NavLink
         to={link}
-        className={({ isActive }) => clsx(styles.pointer, styles.tab, className, (active || isActive) && styles.active)}
+        className={clsx(styles.pointer, styles.tab, className, active && styles.active)}
         replace
+        onClick={onTabClick}
       >
         <Content />
       </NavLink>
