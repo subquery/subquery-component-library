@@ -5,66 +5,55 @@ import { Button, Typography } from '../../common';
 import * as React from 'react';
 import styles from './Footer.module.css';
 
-// TODO: simple supported: mail, wechat, twitter, medium , github, youtube, telegram, linkedin, bigger one for discord.
 interface LinksProps {
   link: string;
-  icon?: 'mail' | 'wechat' | 'medium' | 'twitter' | 'github' | 'telegram' | 'discord' | 'linkedin';
-  label?: string;
+  icon?: string;
+  alt?: string;
 }
 
-const LinkButton: React.FC<LinksProps> = (props) => {
-  return (
-    <Button
-      type="secondary"
-      label={props.label}
-      href={props.link}
-      className={styles.iconButton}
-      leftItem={<i className={`bi-${props.icon}`} role="img" aria-label={props.icon} />}
-      target="_blank"
-      rel="noreferrer"
-    />
-  );
-};
-
-const LinkButtonSimple: React.FC<LinksProps> = ({ label, link, icon }) => {
-  return (
-    <Button
-      type="primary"
-      label={label}
-      href={link}
-      className={styles.simpleIconButton}
-      leftItem={icon && <img src={`/icons/${icon}.svg`} className={styles.simpleImage} alt={`${icon} logo`} />}
-      target="_blank"
-      rel="noreferrer"
-    />
-  );
-};
-
-const links: React.ComponentProps<typeof LinkButton>[] = [
-  { link: 'mailto:hello@subquery.network', icon: 'mail' },
-  { link: 'https://twitter.com/subquerynetwork', icon: 'wechat' },
-  { link: 'https://medium.com/@subquery', icon: 'medium' },
-  { link: 'https://twitter.com/subquerynetwork', icon: 'twitter' },
-  { link: 'https://github.com/subquery', icon: 'github' },
-  { link: 'https://t.me/subquerynetwork', icon: 'telegram' },
-  { link: 'https://www.linkedin.com/company/subquery', icon: 'linkedin' },
+const links: LinksProps[] = [
+  { link: 'mailto:hello@subquery.network', icon: '/icons/icon_1.svg' },
+  { link: 'https://twitter.com/subquerynetwork', icon: '/icons/icon_3.svg' },
+  { link: 'https://medium.com/@subquery', icon: '/icons/icon_4.svg' },
+  { link: 'https://github.com/OnFinality-io/subql', icon: '/icons/icon_5.svg' },
+  { link: 'https://youtube.com/c/SubQueryNetwork', icon: '/icons/icon_6.svg' },
+  { link: 'https://t.me/subquerynetwork', icon: '/icons/icon_7.svg' },
+  { link: 'https://www.linkedin.com/company/subquery', icon: '/icons/icon_8.svg' },
 ];
+
+export const IconLinks: React.FC = () => (
+  <div className={styles.icons}>
+    {links.map(({ link, icon, alt }) => (
+      <a href={link} key={alt} target="_blank" rel="noreferrer">
+        <img src={icon} alt={alt} className={styles.icon} />
+      </a>
+    ))}
+  </div>
+);
 
 const Default: React.FC = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.top}>
-        <div style={{ display: 'flex', flexGrow: 1 }}>
-          <Typography variant="h4">{'Join The Future'}</Typography>
+    <div className={styles.footerWrapper}>
+      <div className={styles.footer}>
+        <div className={styles.primaryRow}>
+          <div className={styles.contact}>
+            <h5>Join the Future</h5>
+            <IconLinks />
+          </div>
+          <div className={styles.discord}>
+            <Button
+              type="secondary"
+              colorScheme="standard"
+              href="https://discord.com/invite/subquery"
+              leftItem={<img src={'/icons/discord_blue.svg'} alt="discord" />}
+              label={'Get Supported On Discord'}
+              size="large"
+            />
+          </div>
         </div>
-        <div className={styles.iconsContainer}>
-          {links.map((l, i) => (
-            <LinkButton {...l} key={i} />
-          ))}
+        <div className={styles.secondaryRow}>
+          <Typography variant="medium">Subquery © {new Date().getFullYear()}</Typography>
         </div>
-      </div>
-      <div className={styles.bottom}>
-        <Typography variant="medium">Subquery © {new Date().getFullYear()}</Typography>
       </div>
     </div>
   );
@@ -72,22 +61,19 @@ const Default: React.FC = () => {
 
 const Simple: React.FC = () => {
   return (
-    <div className={styles.simpleContainer}>
-      <div className={styles.simpleIconsContainer}>
-        {links.map((l, i) => (
-          <LinkButtonSimple {...l} key={i} />
-        ))}
-        <div>
-          <Button
-            type="secondary"
-            label={'Get support on Discord'}
-            href={'https://discord.com/invite/78zg8aBSMG'}
-            className={styles.simpleIconButton}
-            leftItem={<img src={`/icons/discord.svg`} className={styles.simpleImage} alt={`discord logo`} />}
-            target="_blank"
-            rel="noreferrer"
-          />
-        </div>
+    <div className={styles.container}>
+      <div className={styles.iconsContainer}>
+        <IconLinks />
+        <Button
+          type="primary"
+          colorScheme="neutral"
+          label={'Get support on Discord'}
+          href={'https://discord.com/invite/78zg8aBSMG'}
+          className={styles.simpleIconButton}
+          leftItem={<img src={'/icons/discord.svg'} alt="discord" />}
+          target="_blank"
+          rel="noreferrer"
+        />
       </div>
       <div className={styles.simpleBottom}>
         <Typography variant="medium">Subquery © {new Date().getFullYear()} Contribute</Typography>
