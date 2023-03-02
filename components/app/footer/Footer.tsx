@@ -4,7 +4,6 @@
 import { Button, Typography } from '../../common';
 import * as React from 'react';
 import styles from './Footer.module.css';
-
 interface LinksProps {
   link: string;
   icon?: string;
@@ -76,7 +75,10 @@ const Simple: React.FC = () => {
         />
       </div>
       <div className={styles.simpleBottom}>
-        <Typography variant="medium">Subquery © {new Date().getFullYear()} Contribute</Typography>
+        <Typography variant="medium">
+          Subquery © {new Date().getFullYear()}
+          <a className={styles.bottomLink}>Contribute</a>
+        </Typography>
       </div>
     </div>
   );

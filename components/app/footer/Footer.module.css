@@ -98,7 +98,7 @@
 /* simple style */
 
 .container {
-  height: 30vh;
+  height: 10rem;
   display: flex;
   background: var(--sq-gray100);
   flex-direction: column;
@@ -107,12 +107,23 @@
 .iconsContainer {
   margin: auto;
   display: flex;
-  padding-top: 2vh;
+  padding-top: 2rem;
 }
 
 .simpleBottom {
   margin: auto;
-  padding-bottom: 5vh;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.bottomLink {
+  color: black;
+  text-decoration: underline;
+  padding-left: 10px;
+}
+
+.bottomLink:hover {
+  color: var(--sq-gray800);
 }
 
 .simpleIconButton {
