@@ -1,8 +1,6 @@
 import { addons } from '@storybook/addons';
 import { create } from '@storybook/theming';
 
-import logo from '../assets/logo-light.svg';
-
 const theme = create({
   base: 'light',
 
@@ -19,7 +17,7 @@ const theme = create({
   textMutedColor: '#666666',
 
   brandTitle: 'subquery-components',
-  brandImage: logo,
+  brandImage: '/logo-light.svg',
 });
 
 addons.setConfig({

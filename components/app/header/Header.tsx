@@ -158,7 +158,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
         <div className={clsx(styles.flexCenter, styles.headerHeight)}>
           <div>
             <a href={logoLink ?? '/'}>
-              <img src={Logo} alt="SubQuery Logo" width={140} />
+              <img src={'/logo.svg'} alt="SubQuery Logo" width={140} />
             </a>
           </div>
 
