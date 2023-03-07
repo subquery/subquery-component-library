@@ -76,7 +76,9 @@ const Simple: React.FC = () => {
       <div className={styles.simpleBottom}>
         <Typography variant="medium">
           Subquery © {new Date().getFullYear()}
-          <a className={styles.bottomLink}>Contribute</a>
+          <a href={'https://academy.subquery.network/miscellaneous/contributing.html'} className={styles.bottomLink}>
+            Contribute
+          </a>
         </Typography>
       </div>
     </div>

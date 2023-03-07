@@ -3,7 +3,6 @@
 
 import { Card } from './Card';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import icon from '../../../assets/Card-logo.svg';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
 export default {
@@ -37,7 +36,7 @@ tooltipCard.args = {
 
 export const tooltipIconCard = Template.bind({});
 tooltipIconCard.args = {
-  icon: icon,
+  icon: '/Card-logo.svg',
   description: '0 SQT',
   title: 'You are DELEGATING',
   titleTooltip: 'Delegating',
@@ -46,7 +45,7 @@ tooltipIconCard.args = {
 
 export const tooltipIconDropdownCard = Template.bind({});
 tooltipIconDropdownCard.args = {
-  icon: icon,
+  icon: '/Card-logo.svg',
   description: '0 SQT',
   title: 'You are DELEGATING',
   titleTooltip: 'Delegating',
