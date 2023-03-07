@@ -6,25 +6,24 @@ import * as React from 'react';
 import styles from './Footer.module.css';
 interface LinksProps {
   link: string;
-  icon?: string;
-  alt?: string;
+  icon: string;
 }
 
 const links: LinksProps[] = [
-  { link: 'mailto:hello@subquery.network', icon: '/icons/icon_1.svg' },
-  { link: 'https://twitter.com/subquerynetwork', icon: '/icons/icon_3.svg' },
-  { link: 'https://medium.com/@subquery', icon: '/icons/icon_4.svg' },
-  { link: 'https://github.com/OnFinality-io/subql', icon: '/icons/icon_5.svg' },
-  { link: 'https://youtube.com/c/SubQueryNetwork', icon: '/icons/icon_6.svg' },
-  { link: 'https://t.me/subquerynetwork', icon: '/icons/icon_7.svg' },
-  { link: 'https://www.linkedin.com/company/subquery', icon: '/icons/icon_8.svg' },
+  { link: 'mailto:hello@subquery.network', icon: '/icons/mail.svg' },
+  { link: 'https://twitter.com/subquerynetwork', icon: '/icons/twitter.svg' },
+  { link: 'https://medium.com/@subquery', icon: '/icons/medium.svg' },
+  { link: 'https://github.com/OnFinality-io/subql', icon: '/icons/github.svg' },
+  { link: 'https://youtube.com/c/SubQueryNetwork', icon: '/icons/youtube.svg' },
+  { link: 'https://t.me/subquerynetwork', icon: '/icons/telegram.svg' },
+  { link: 'https://www.linkedin.com/company/subquery', icon: '/icons/linkedin.svg' },
 ];
 
 export const IconLinks: React.FC = () => (
   <div className={styles.icons}>
-    {links.map(({ link, icon, alt }) => (
-      <a href={link} key={alt} target="_blank" rel="noreferrer">
-        <img src={icon} alt={alt} className={styles.icon} />
+    {links.map(({ link, icon }) => (
+      <a href={link} key={link} target="_blank" rel="noreferrer">
+        <img src={icon} className={styles.icon} />
       </a>
     ))}
   </div>

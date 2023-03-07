@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Footer } from './Footer';
 
 export default {
-  title: 'Footer',
+  title: 'APP/Footer',
   component: Footer,
 } as ComponentMeta<typeof Footer>;
 
@@ -19,11 +19,3 @@ const Template: ComponentStory<typeof Footer> = (args) => {
 };
 
 export const Desktop = Template.bind({});
-
-export const Mobile = Template.bind({});
-
-Mobile.parameters = {
-  viewport: {
-    defaultViewport: 'iphonex',
-  },
-};
