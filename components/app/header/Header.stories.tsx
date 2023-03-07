@@ -36,6 +36,8 @@ const detailedLabels = [
   },
 ];
 
+const logoLink = 'https://managedservice.subquery.network/';
+
 const appNavigation = [
   {
     label: 'SubQuery Explorer',
@@ -58,6 +60,7 @@ const appNavigation = [
 Default.args = {
   dropdownLinks: { label: 'Products', links: detailedLabels },
   appNavigation,
+  logoLink,
 };
 
 Default.parameters = {

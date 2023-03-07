@@ -133,6 +133,7 @@ const MiddleHeader = ({ middleElement, appNavigation }: MiddleHeaderProps) => {
 };
 
 export interface HeaderProps {
+  logoLink?: string;
   dropdownLinks?: DropdownLink;
   appNavigation?: AppNavigation[];
   leftElement?: React.ReactElement;
@@ -142,6 +143,7 @@ export interface HeaderProps {
 }
 
 export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
+  logoLink,
   dropdownLinks,
   appNavigation,
   leftElement,
@@ -155,7 +157,9 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
       <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyBetween, className)}>
         <div className={clsx(styles.flexCenter, styles.headerHeight)}>
           <div>
-            <img src={'/logo.svg'} alt="SubQuery Logo" width={140} />
+            <a href={logoLink ?? '/'}>
+              <img src={Logo} alt="SubQuery Logo" width={140} />
+            </a>
           </div>
 
           <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider />

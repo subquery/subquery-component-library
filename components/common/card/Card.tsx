@@ -47,7 +47,7 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
 }) => {
   return (
     <AntCard className={clsx(className, styles.card)} {...props}>
-      {action && (
+      {dropdown && (
         <AntDropdown menu={dropdown}>
           <MoreOutlined className={styles.ellipsis} />
         </AntDropdown>
