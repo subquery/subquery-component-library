@@ -83,16 +83,16 @@
 }
 
 .simpleIconButton {
-  background: white;
+  background: transparent;
 }
 
 .simpleIconButton:hover {
-  background: white;
+  background: transparent;
 }
 
-.simpleBottom {
+.simpleCopyRight {
   margin: auto;
-  padding: 2rem 0;
+  margin-top: 1rem;
 }
 
 .bottomLink {

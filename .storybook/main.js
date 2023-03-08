@@ -12,5 +12,5 @@ module.exports = {
     '@storybook/addon-docs',
   ],
   framework: '@storybook/react',
-  staticDirs: ['../public'],
+  staticDirs: ['../assets'],
 };

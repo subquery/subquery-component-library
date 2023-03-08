@@ -18,4 +18,4 @@ const Template: ComponentStory<typeof Footer> = (args) => {
   );
 };
 
-export const Desktop = Template.bind({});
+export const Default = Template.bind({});
