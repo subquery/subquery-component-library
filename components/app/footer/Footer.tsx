@@ -94,7 +94,7 @@ const Simple: React.FC = () => {
   );
 };
 
-interface IFooter {
+export interface IFooter {
   simple?: boolean;
 }
 
