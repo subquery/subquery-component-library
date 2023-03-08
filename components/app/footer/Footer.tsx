@@ -1,8 +1,17 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, Typography } from '../../common';
 import * as React from 'react';
+import { Button, Typography } from '../../common';
+import discordIcon from '../../../assets/icons/discord.svg';
+import discordBlueIcon from '../../../assets/icons/discord_blue.svg';
+import emailIcon from '../../../assets/icons/mail.svg';
+import twitterIcon from '../../../assets/icons/twitter.svg';
+import mediumIcon from '../../../assets/icons/medium.svg';
+import githubIcon from '../../../assets/icons/github.svg';
+import youtubeIcon from '../../../assets/icons/youtube.svg';
+import telegramIcon from '../../../assets/icons/telegram.svg';
+import linkedinIcon from '../../../assets/icons/linkedin.svg';
 import styles from './Footer.module.css';
 
 const DISCORD_INVITE_URL = 'https://discord.com/invite/subquery';
@@ -19,13 +28,13 @@ interface LinksProps {
 }
 
 const links: LinksProps[] = [
-  { link: 'mailto:hello@subquery.network', icon: '/icons/mail.svg' },
-  { link: 'https://twitter.com/subquerynetwork', icon: '/icons/twitter.svg' },
-  { link: 'https://medium.com/@subquery', icon: '/icons/medium.svg' },
-  { link: 'https://github.com/OnFinality-io/subql', icon: '/icons/github.svg' },
-  { link: 'https://youtube.com/c/SubQueryNetwork', icon: '/icons/youtube.svg' },
-  { link: 'https://t.me/subquerynetwork', icon: '/icons/telegram.svg' },
-  { link: 'https://www.linkedin.com/company/subquery', icon: '/icons/linkedin.svg' },
+  { link: 'mailto:hello@subquery.network', icon: emailIcon },
+  { link: 'https://twitter.com/subquerynetwork', icon: twitterIcon },
+  { link: 'https://medium.com/@subquery', icon: mediumIcon },
+  { link: 'https://github.com/OnFinality-io/subql', icon: githubIcon },
+  { link: 'https://youtube.com/c/SubQueryNetwork', icon: youtubeIcon },
+  { link: 'https://t.me/subquerynetwork', icon: telegramIcon },
+  { link: 'https://www.linkedin.com/company/subquery', icon: linkedinIcon },
 ];
 
 export const IconLinks: React.FC = () => (
@@ -52,7 +61,7 @@ const Default: React.FC = () => {
               type="secondary"
               colorScheme="standard"
               href={DISCORD_INVITE_URL}
-              leftItem={<img src={'/icons/discord_blue.svg'} alt="discord" />}
+              leftItem={<img src={discordBlueIcon} alt="discord" />}
               label={GET_SUPPORT}
               size="large"
             />
@@ -77,12 +86,12 @@ const Simple: React.FC = () => {
           label={GET_SUPPORT}
           href={DISCORD_INVITE_URL}
           className={styles.simpleIconButton}
-          leftItem={<img src={'/icons/discord.svg'} alt="discord" />}
+          leftItem={<img src={discordIcon} alt="discord" />}
           target="_blank"
           rel="noreferrer"
         />
       </div>
-      <div className={styles.simpleBottom}>
+      <div className={styles.simpleCopyRight}>
         <Typography variant="medium">
           {COPYRIGHT}
           <a href={CONTRIBUTE_URL} className={styles.bottomLink}>
