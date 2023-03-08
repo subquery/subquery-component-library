@@ -94,11 +94,7 @@ const Simple: React.FC = () => {
   );
 };
 
-<<<<<<< HEAD
 export interface IFooter {
-=======
-interface IFooter {
->>>>>>> d9e1923 (feat: imporve props for Footer)
   simple?: boolean;
 }
 
