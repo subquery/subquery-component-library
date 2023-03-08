@@ -8,8 +8,6 @@ import { Space, Divider } from 'antd';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
-import Logo from '../../../assets/logo.svg';
-import AppIcon from '../../../assets/appIcon.svg';
 
 export interface AppLink {
   label: string;
@@ -69,7 +67,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
     <div className={clsx(styles.leftElement, styles.headerHeight)} id="leftHeader">
       <Dropdown
         label={dropdownLinks.label}
-        LeftLabelIcon={<img src={AppIcon} alt="SubQuery Apps" />}
+        LeftLabelIcon={<img src={'/appIcon.svg'} alt="SubQuery Apps" />}
         menuitem={dropdownLinks.links.map((label, key) => ({
           key,
           label: <MenuWithDesc title={label.label} description={label.description} className={styles.dropMenu} />,
@@ -160,7 +158,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
         <div className={clsx(styles.flexCenter, styles.headerHeight)}>
           <div>
             <a href={logoLink ?? '/'}>
-              <img src={Logo} alt="SubQuery Logo" width={140} />
+              <img src={'/logo.svg'} alt="SubQuery Logo" width={140} />
             </a>
           </div>
 
