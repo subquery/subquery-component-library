@@ -4,6 +4,15 @@
 import { Button, Typography } from '../../common';
 import * as React from 'react';
 import styles from './Footer.module.css';
+
+const DISCORD_INVITE_URL = 'https://discord.com/invite/subquery';
+const CONTRIBUTE_URL = 'https://academy.subquery.network/miscellaneous/contributing.html';
+
+const GET_SUPPORT = 'Get Supported On Discord';
+const JOIN = 'Join the Future';
+const CONTRIBUTE = 'Contribute';
+const COPYRIGHT = `Subquery © ${new Date().getFullYear()}`;
+
 interface LinksProps {
   link: string;
   icon: string;
@@ -35,22 +44,22 @@ const Default: React.FC = () => {
       <div className={styles.footer}>
         <div className={styles.primaryRow}>
           <div className={styles.contact}>
-            <h5>Join the Future</h5>
+            <h5>{JOIN}</h5>
             <IconLinks />
           </div>
           <div className={styles.discord}>
             <Button
               type="secondary"
               colorScheme="standard"
-              href="https://discord.com/invite/subquery"
+              href={DISCORD_INVITE_URL}
               leftItem={<img src={'/icons/discord_blue.svg'} alt="discord" />}
-              label={'Get Supported On Discord'}
+              label={GET_SUPPORT}
               size="large"
             />
           </div>
         </div>
         <div className={styles.secondaryRow}>
-          <Typography variant="medium">Subquery © {new Date().getFullYear()}</Typography>
+          <Typography variant="medium">{COPYRIGHT}</Typography>
         </div>
       </div>
     </div>
@@ -59,14 +68,14 @@ const Default: React.FC = () => {
 
 const Simple: React.FC = () => {
   return (
-    <div className={styles.container}>
+    <div className={styles.simpleContainer}>
       <div className={styles.iconsContainer}>
         <IconLinks />
         <Button
           type="primary"
           colorScheme="neutral"
-          label={'Get support on Discord'}
-          href={'https://discord.com/invite/78zg8aBSMG'}
+          label={GET_SUPPORT}
+          href={DISCORD_INVITE_URL}
           className={styles.simpleIconButton}
           leftItem={<img src={'/icons/discord.svg'} alt="discord" />}
           target="_blank"
@@ -75,9 +84,9 @@ const Simple: React.FC = () => {
       </div>
       <div className={styles.simpleBottom}>
         <Typography variant="medium">
-          Subquery © {new Date().getFullYear()}
-          <a href={'https://academy.subquery.network/miscellaneous/contributing.html'} className={styles.bottomLink}>
-            Contribute
+          {COPYRIGHT}
+          <a href={CONTRIBUTE_URL} className={styles.bottomLink}>
+            {CONTRIBUTE}
           </a>
         </Typography>
       </div>
