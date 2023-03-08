@@ -94,13 +94,11 @@ const Simple: React.FC = () => {
   );
 };
 
-type FooterStyle = 'Default' | 'Simple';
+interface IFooter {
+  simple?: boolean;
+}
 
-export const Footer: React.FC<{ style: FooterStyle }> = ({ style = 'Default' }) => {
-  return (
-    <>
-      {style === 'Default' && <Default />}
-      {style === 'Simple' && <Simple />}
-    </>
-  );
+export const Footer: React.FC<IFooter> = ({ simple }) => {
+  if (simple) return <Simple />;
+  return <Default />;
 };
