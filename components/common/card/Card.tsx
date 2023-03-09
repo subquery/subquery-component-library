@@ -16,7 +16,7 @@ export interface Item {
 
 export interface MenuProps {
   items: Item[];
-  onClick?: (itemKey: unknown) => void;
+  onClick?: (itemKey: any) => void;
 }
 export interface Button {
   label: string;
