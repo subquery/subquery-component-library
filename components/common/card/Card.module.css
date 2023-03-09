@@ -3,17 +3,12 @@
   max-width: 260px;
   background: white;
   border-radius: 8px;
-
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* justify-content: space-between; */
 }
 
 .value {
   font-weight: 500;
   font-size: 24px;
   height: 36px;
-  /* width: 71px; */
   color: var(--sq-gray900);
   line-height: 36px;
   word-break: keep-all;
