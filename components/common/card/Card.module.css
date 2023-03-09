@@ -1,41 +1,29 @@
 .card {
-  align-items: flex-start;
-  max-width: 260px;
-  max-height: 164px;
+  width: fit-content;
   background: white;
   border-radius: 8px;
+  overflow-x: scroll;
 
+  padding: 0.5rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .value {
   font-weight: 500;
   font-size: 24px;
-  height: 36px;
-  width: 71px;
   color: var(--sq-gray900);
   line-height: 36px;
 }
 
-.ellipsis {
+.menu {
   position: absolute;
-  left: 88.46%;
-  right: 4.62%;
-  top: 10.17%;
-  bottom: 74.58%;
-  font-size: 150%;
+  right: 5px;
+  font-size: 20px;
   color: var(--sq-blue700);
 }
 
 .button {
-  /*padding: 6px 10px 6px 10px;*/
-  /*gap: 20px;*/
-  padding-top: 10px;
-
-  width: 190px;
-  height: 30px;
   color: var(--sq-blue600);
-  border-radius: 36px;
+  padding: 0;
+  margin: 1rem 0;
 }

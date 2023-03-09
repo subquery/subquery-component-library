@@ -22,7 +22,7 @@ export interface Button {
   label: string;
   onClick?: () => void;
 }
-export interface CardProp extends AntCardProps {
+export interface CardProps extends AntCardProps {
   className?: string;
   description?: string;
   descriptionTooltip?: string;
@@ -33,7 +33,7 @@ export interface CardProp extends AntCardProps {
   dropdown?: MenuProps;
   action?: Button;
 }
-export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
+export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   title,
   titleTooltip,
   titleTooltipIcon,
@@ -46,10 +46,10 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
   ...props
 }) => {
   return (
-    <AntCard className={clsx(className, styles.card)} {...props}>
+    <AntCard className={clsx(styles.card, className)} {...props}>
       {dropdown && (
         <AntDropdown menu={dropdown}>
-          <MoreOutlined className={styles.ellipsis} />
+          <MoreOutlined className={styles.menu} />
         </AntDropdown>
       )}
       <Meta

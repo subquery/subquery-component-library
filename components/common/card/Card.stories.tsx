@@ -30,7 +30,7 @@ export const tooltipCard = Template.bind({});
 tooltipCard.args = {
   description: '0 SQT',
   title: 'You are DELEGATING',
-  titleTooltip: 'Delegating',
+  titleTooltip: 'The amount of kSQT that you are delegating to Indexers in the SubQuery Network to earn rewards',
   titleTooltipIcon: <InfoCircleOutlined />,
 };
 
@@ -73,7 +73,7 @@ tooltipIconDropdownCard.args = {
 
 export const tooltipDropdownButtonCard = Template.bind({});
 tooltipDropdownButtonCard.args = {
-  description: '0 SQT',
+  description: '0.000 SQT',
   title: 'You are DELEGATING',
   titleTooltip: 'Delegating',
   titleTooltipIcon: <InfoCircleOutlined />,
