@@ -16,13 +16,13 @@ export interface Item {
 
 export interface MenuProps {
   items: Item[];
-  onClick?: (itemKey: any) => void;
+  onClick?: (itemKey: unknown) => void;
 }
 export interface Button {
   label: string;
   onClick?: () => void;
 }
-export interface CardProp extends AntCardProps {
+export interface CardProps extends AntCardProps {
   className?: string;
   description?: string;
   descriptionTooltip?: string;
@@ -32,10 +32,8 @@ export interface CardProp extends AntCardProps {
   titleTooltipIcon?: React.ReactNode;
   dropdown?: MenuProps;
   action?: Button;
-  customActions?: React.ReactNode;
 }
-export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
-  customActions,
+export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   title,
   titleTooltip,
   titleTooltipIcon,
@@ -48,13 +46,12 @@ export const Card: React.FC<React.PropsWithChildren<CardProp>> = ({
   ...props
 }) => {
   return (
-    <AntCard className={clsx(className, styles.card)} {...props}>
+    <AntCard className={clsx(styles.card, className)} {...props}>
       {dropdown && (
         <AntDropdown menu={dropdown}>
-          <MoreOutlined className={styles.ellipsis} />
+          <MoreOutlined className={styles.menu} />
         </AntDropdown>
       )}
-      {customActions && <div className={styles.custom}>{customActions}</div>}
       <Meta
         avatar={icon && <Avatar src={icon} />}
         title={
