@@ -5,10 +5,9 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Space, Divider } from 'antd';
-import { BrowserRouter as Router } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
-import logo from '../../../assets/logo-light.svg';
+import logo from '../../../assets/logo.svg';
 import appIcon from '../../../assets/appIcon.svg';
 
 export interface AppLink {
@@ -155,7 +154,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   children,
 }) => {
   return (
-    <Router>
+    <>
       <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyBetween, className)}>
         <div className={clsx(styles.flexCenter, styles.headerHeight)}>
           <div>
@@ -172,6 +171,6 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
       </div>
 
       {children}
-    </Router>
+    </>
   );
 };
