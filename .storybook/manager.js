@@ -10,8 +10,8 @@ const theme = create({
   appBorderColor: 'rgba(0,0,0,.1)',
   appBorderRadius: 4,
 
-  fontBase: '"Open Sans", sans-serif',
-  fontCode: 'monospace',
+  fontBase: '"Inter", sans-serif',
+  fontCode: 'Inter',
 
   textColor: '#999999',
   textMutedColor: '#666666',

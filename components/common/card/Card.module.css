@@ -4,7 +4,7 @@
   border-radius: 8px;
   overflow-x: scroll;
 
-  padding: 0.5rem;
+  padding: 0.75rem;
   display: flex;
 }
 
@@ -26,4 +26,9 @@
   color: var(--sq-blue600);
   padding: 0;
   margin: 1rem 0;
+}
+
+.title {
+  color: var(--sq-gray600);
+  font-weight: 600;
 }

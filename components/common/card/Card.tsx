@@ -31,6 +31,7 @@ export interface CardProps extends AntCardProps {
   titleTooltip?: string;
   titleTooltipIcon?: React.ReactNode;
   dropdown?: MenuProps;
+  customDropdown?: React.ReactNode;
   action?: Button;
 }
 export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
@@ -43,12 +44,14 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   className,
   dropdown,
   action,
+  customDropdown,
   ...props
 }) => {
   return (
     <AntCard className={clsx(styles.card, className)} {...props}>
+      {customDropdown && <div className={styles.menu}>{customDropdown}</div>}
       {dropdown && (
-        <AntDropdown menu={dropdown}>
+        <AntDropdown menu={dropdown} trigger={['click']}>
           <MoreOutlined className={styles.menu} />
         </AntDropdown>
       )}
@@ -58,9 +61,9 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
           <Typography
             variant="small"
             weight={600}
-            color="secondary"
             tooltip={titleTooltip}
             tooltipIcon={titleTooltipIcon}
+            className={styles.title}
           >
             {title?.toUpperCase()}
           </Typography>
