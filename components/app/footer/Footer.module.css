@@ -84,6 +84,7 @@
 
 .simpleIconButton {
   background: transparent;
+  color: #212b36;
 }
 
 .simpleIconButton:hover {

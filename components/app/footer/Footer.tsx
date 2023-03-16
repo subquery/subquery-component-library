@@ -82,7 +82,6 @@ const Simple: React.FC = () => {
         <IconLinks />
         <Button
           type="primary"
-          colorScheme="neutral"
           label={GET_SUPPORT}
           href={DISCORD_INVITE_URL}
           className={styles.simpleIconButton}
