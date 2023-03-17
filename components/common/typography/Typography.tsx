@@ -8,7 +8,7 @@ import { Space, Tooltip } from 'antd';
 
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
-  type?: 'default' | 'secondary' | 'success' | 'warning' | 'danger';
+  type?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral';
   weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   tooltip?: string;
   className?: string;
