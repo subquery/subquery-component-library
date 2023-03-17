@@ -63,7 +63,7 @@ const Default: React.FC = () => {
               href={DISCORD_INVITE_URL}
               leftItem={<img src={discordBlueIcon} alt="discord" />}
               label={GET_SUPPORT}
-              size="small"
+              size="medium"
             />
           </div>
         </div>
@@ -81,7 +81,8 @@ const Simple: React.FC = () => {
       <div className={styles.iconsContainer}>
         <IconLinks />
         <Button
-          type="primary"
+          type="link"
+          colorScheme="neutral"
           label={GET_SUPPORT}
           href={DISCORD_INVITE_URL}
           className={styles.simpleIconButton}
