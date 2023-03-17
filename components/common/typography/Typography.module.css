@@ -90,6 +90,10 @@
   color: var(--sq-gray600);
 }
 
+.neutral {
+  color: #919eab;
+}
+
 .w100 {
   font-weight: 100;
 }

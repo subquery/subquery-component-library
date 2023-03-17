@@ -63,7 +63,7 @@ const Default: React.FC = () => {
               href={DISCORD_INVITE_URL}
               leftItem={<img src={discordBlueIcon} alt="discord" />}
               label={GET_SUPPORT}
-              size="large"
+              size="small"
             />
           </div>
         </div>
@@ -91,7 +91,7 @@ const Simple: React.FC = () => {
         />
       </div>
       <div className={styles.simpleCopyRight}>
-        <Typography variant="medium">
+        <Typography variant="small" type="neutral">
           {COPYRIGHT}
           <a href={CONTRIBUTE_URL} className={styles.bottomLink}>
             {CONTRIBUTE}
