@@ -63,8 +63,10 @@
 .icons {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  column-gap: 2rem;
+  grid-gap: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .discordIcon {

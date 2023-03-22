@@ -3,7 +3,16 @@
 
 import * as React from 'react';
 import { Button, Typography } from '../../common';
-import discordIcon from '../../../assets/icons/discord.svg';
+import {
+  BsDiscord,
+  BsFillEnvelopeFill,
+  BsTwitter,
+  BsGithub,
+  BsYoutube,
+  BsMedium,
+  BsTelegram,
+  BsLinkedin,
+} from 'react-icons/bs';
 import discordBlueIcon from '../../../assets/icons/discord_blue.svg';
 import emailIcon from '../../../assets/icons/mail.svg';
 import twitterIcon from '../../../assets/icons/twitter.svg';
@@ -17,31 +26,31 @@ import styles from './Footer.module.css';
 const DISCORD_INVITE_URL = 'https://discord.com/invite/subquery';
 const CONTRIBUTE_URL = 'https://academy.subquery.network/miscellaneous/contributing.html';
 
-const GET_SUPPORT = 'Get Supported On Discord';
+const GET_SUPPORT = 'Get Support On Discord';
 const JOIN = 'Join the Future';
 const CONTRIBUTE = 'Contribute';
 const COPYRIGHT = `Subquery © ${new Date().getFullYear()}`;
 
 interface LinksProps {
   link: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 const links: LinksProps[] = [
-  { link: 'mailto:hello@subquery.network', icon: emailIcon },
-  { link: 'https://twitter.com/subquerynetwork', icon: twitterIcon },
-  { link: 'https://medium.com/@subquery', icon: mediumIcon },
-  { link: 'https://github.com/OnFinality-io/subql', icon: githubIcon },
-  { link: 'https://youtube.com/c/SubQueryNetwork', icon: youtubeIcon },
-  { link: 'https://t.me/subquerynetwork', icon: telegramIcon },
-  { link: 'https://www.linkedin.com/company/subquery', icon: linkedinIcon },
+  { link: 'mailto:hello@subquery.network', icon: <BsFillEnvelopeFill className={styles.icon} /> },
+  { link: 'https://twitter.com/subquerynetwork', icon: <BsTwitter /> },
+  { link: 'https://medium.com/@subquery', icon: <BsMedium /> },
+  { link: 'https://github.com/OnFinality-io/subql', icon: <BsGithub /> },
+  { link: 'https://youtube.com/c/SubQueryNetwork', icon: <BsYoutube /> },
+  { link: 'https://t.me/subquerynetwork', icon: <BsTelegram /> },
+  { link: 'https://www.linkedin.com/company/subquery', icon: <BsLinkedin /> },
 ];
 
 export const IconLinks: React.FC = () => (
   <div className={styles.icons}>
     {links.map(({ link, icon }) => (
       <a href={link} key={link} target="_blank" rel="noreferrer">
-        <img src={icon} className={styles.icon} />
+        <div className={styles.icon}>{icon}</div>
       </a>
     ))}
   </div>
@@ -61,7 +70,7 @@ const Default: React.FC = () => {
               type="secondary"
               colorScheme="standard"
               href={DISCORD_INVITE_URL}
-              leftItem={<img src={discordBlueIcon} alt="discord" />}
+              leftItem={<BsDiscord />}
               label={GET_SUPPORT}
               size="medium"
             />
@@ -86,7 +95,7 @@ const Simple: React.FC = () => {
           label={GET_SUPPORT}
           href={DISCORD_INVITE_URL}
           className={styles.simpleIconButton}
-          leftItem={<img src={discordIcon} alt="discord" />}
+          leftItem={<img src={BsDiscord} alt="discord" />}
           target="_blank"
           rel="noreferrer"
         />
