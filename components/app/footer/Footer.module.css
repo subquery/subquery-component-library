@@ -46,7 +46,6 @@
 
 .discord {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
@@ -105,12 +104,12 @@
 }
 
 .bottomLink:hover {
-  color: var(--sq-gray800);
+  color: var(--sq-gray600);
 }
 
 /* simple */
 .icon {
-  color: var(--sq-gray800);
+  color: var(--sq-gray600);
 }
 
 .icon:hover {
