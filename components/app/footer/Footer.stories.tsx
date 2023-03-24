@@ -19,3 +19,7 @@ const Template: ComponentStory<typeof Footer> = (args) => {
 };
 
 export const Default = Template.bind({});
+
+Default.args = {
+  simple: true,
+};
