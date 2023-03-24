@@ -13,14 +13,6 @@ import {
   BsTelegram,
   BsLinkedin,
 } from 'react-icons/bs';
-import discordBlueIcon from '../../../assets/icons/discord_blue.svg';
-import emailIcon from '../../../assets/icons/mail.svg';
-import twitterIcon from '../../../assets/icons/twitter.svg';
-import mediumIcon from '../../../assets/icons/medium.svg';
-import githubIcon from '../../../assets/icons/github.svg';
-import youtubeIcon from '../../../assets/icons/youtube.svg';
-import telegramIcon from '../../../assets/icons/telegram.svg';
-import linkedinIcon from '../../../assets/icons/linkedin.svg';
 import styles from './Footer.module.css';
 
 const DISCORD_INVITE_URL = 'https://discord.com/invite/subquery';
@@ -37,7 +29,7 @@ interface LinksProps {
 }
 
 const links: LinksProps[] = [
-  { link: 'mailto:hello@subquery.network', icon: <BsFillEnvelopeFill className={styles.icon} /> },
+  { link: 'mailto:hello@subquery.network', icon: <BsFillEnvelopeFill /> },
   { link: 'https://twitter.com/subquerynetwork', icon: <BsTwitter /> },
   { link: 'https://medium.com/@subquery', icon: <BsMedium /> },
   { link: 'https://github.com/OnFinality-io/subql', icon: <BsGithub /> },
@@ -95,7 +87,7 @@ const Simple: React.FC = () => {
           label={GET_SUPPORT}
           href={DISCORD_INVITE_URL}
           className={styles.simpleIconButton}
-          leftItem={<img src={BsDiscord} alt="discord" />}
+          leftItem={<BsDiscord />}
           target="_blank"
           rel="noreferrer"
         />

@@ -63,10 +63,8 @@
 .icons {
   display: flex;
   flex-direction: row;
-  grid-gap: 16px;
-  gap: 16px;
-  flex-wrap: wrap;
-  width: 100%;
+  align-items: center;
+  column-gap: 2rem;
 }
 
 .discordIcon {
@@ -88,11 +86,12 @@
 
 .simpleIconButton {
   background: transparent;
-  color: #212b36;
+  color: var(--sq-gray800);
 }
 
 .simpleIconButton:hover {
   background: transparent;
+  color: #4388dd;
 }
 
 .simpleCopyRight {
@@ -110,3 +109,10 @@
 }
 
 /* simple */
+.icon {
+  color: var(--sq-gray800);
+}
+
+.icon:hover {
+  color: #4388dd;
+}
