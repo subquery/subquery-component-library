@@ -86,7 +86,7 @@
 
 .simpleIconButton {
   background: transparent;
-  color: var(--sq-gray800);
+  color: var(--sq-gray700);
 }
 
 .simpleIconButton:hover {
