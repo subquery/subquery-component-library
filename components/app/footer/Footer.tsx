@@ -26,6 +26,7 @@ const COPYRIGHT = `Subquery © ${new Date().getFullYear()}`;
 interface LinksProps {
   link: string;
   icon: React.ReactNode;
+  allLinks?: boolean;
 }
 
 const links: LinksProps[] = [
@@ -36,15 +37,22 @@ const links: LinksProps[] = [
   { link: 'https://youtube.com/c/SubQueryNetwork', icon: <BsYoutube /> },
   { link: 'https://t.me/subquerynetwork', icon: <BsTelegram /> },
   { link: 'https://www.linkedin.com/company/subquery', icon: <BsLinkedin /> },
+  { link: 'https://discord.com/invite/subquery', icon: <BsDiscord /> },
 ];
 
-export const IconLinks: React.FC = () => (
+export const IconLinks: React.FC<{ allLinks?: boolean }> = ({ allLinks = true }) => (
   <div className={styles.icons}>
-    {links.map(({ link, icon }) => (
-      <a href={link} key={link} target="_blank" rel="noreferrer">
-        <div className={styles.icon}>{icon}</div>
-      </a>
-    ))}
+    {allLinks
+      ? links.map(({ link, icon }) => (
+          <a href={link} key={link} target="_blank" rel="noreferrer">
+            <div className={styles.icon}>{icon}</div>
+          </a>
+        ))
+      : links.slice(0, -1).map(({ link, icon }) => (
+          <a href={link} key={link} target="_blank" rel="noreferrer">
+            <div className={styles.icon}>{icon}</div>
+          </a>
+        ))}
   </div>
 );
 
@@ -55,7 +63,7 @@ const Default: React.FC = () => {
         <div className={styles.primaryRow}>
           <div className={styles.contact}>
             <h5>{JOIN}</h5>
-            <IconLinks />
+            <IconLinks allLinks={false} />
           </div>
           <div className={styles.discord}>
             <Button
@@ -81,16 +89,6 @@ const Simple: React.FC = () => {
     <div className={styles.simpleContainer}>
       <div className={styles.iconsContainer}>
         <IconLinks />
-        <Button
-          type="link"
-          colorScheme="neutral"
-          label={GET_SUPPORT}
-          href={DISCORD_INVITE_URL}
-          className={styles.simpleIconButton}
-          leftItem={<BsDiscord />}
-          target="_blank"
-          rel="noreferrer"
-        />
       </div>
       <div className={styles.simpleCopyRight}>
         <Typography variant="small" type="neutral">
