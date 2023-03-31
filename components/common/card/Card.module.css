@@ -4,7 +4,7 @@
   border-radius: 8px;
   overflow-x: scroll;
 
-  padding: 0.75rem;
+  padding: 0.25rem 0;
   display: flex;
 }
 
@@ -31,4 +31,13 @@
 .title {
   color: var(--sq-gray600);
   font-weight: 600;
+}
+
+.tooltipIcon {
+  color: var(--sq-gray600);
+  font-size: 12px;
+}
+
+.meta {
+  padding-right: 1rem;
 }
