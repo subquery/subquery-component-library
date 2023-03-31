@@ -5,6 +5,7 @@ import * as React from 'react';
 import { Avatar, Card as AntCard, CardProps as AntCardProps, Dropdown as AntDropdown, Button as AntButton } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import { MoreOutlined, RightOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
 import { Typography } from '../typography';
 import styles from './Card.module.css';
@@ -47,6 +48,8 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   customDropdown,
   ...props
 }) => {
+  const sortedTooltipIcon = titleTooltip && (titleTooltipIcon ?? <InfoCircleOutlined className={styles.tooltipIcon} />);
+
   return (
     <AntCard className={clsx(styles.card, className)} {...props}>
       {customDropdown && <div className={styles.menu}>{customDropdown}</div>}
@@ -56,13 +59,14 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
         </AntDropdown>
       )}
       <Meta
+        className={icon && styles.meta}
         avatar={icon && <Avatar src={icon} />}
         title={
           <Typography
             variant="small"
             weight={600}
             tooltip={titleTooltip}
-            tooltipIcon={titleTooltipIcon}
+            tooltipIcon={sortedTooltipIcon}
             className={styles.title}
           >
             {title?.toUpperCase()}
