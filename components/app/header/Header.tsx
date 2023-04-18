@@ -8,7 +8,7 @@ import { Space, Divider } from 'antd';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
-import logo from '../../../assets/logo-light.svg';
+import logo from '../../../assets/logo.svg';
 import appIcon from '../../../assets/appIcon.svg';
 
 export interface AppLink {
