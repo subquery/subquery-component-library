@@ -15,7 +15,7 @@
 
 :root {
   --sq-primary-pink: #ff4581;
-  --sq-primary-blue: #4388dd;
+  --sq-primary-blue: #1677ff;
   --sq-gradient: linear-gradient(96.26deg, var(--sq-primary-blue) 13.8%, var(--sq-primary-pink) 82.83%);
   --sq-background-gradient: linear-gradient(
     96.26deg,

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export const COLORS = {
-  primary: '#4388dd',
+  primary: '#1677ff',
   font: '#212B36',
   success: '#65cd45',
   warning: '#f87c4f',
