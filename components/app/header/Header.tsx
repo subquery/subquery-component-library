@@ -10,6 +10,81 @@ import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
 import logo from '../../../assets/logo.svg';
 import appIcon from '../../../assets/appIcon.svg';
+import { DownOutlined, UpOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
+
+const mobileMenuItems = (dropdownLinks: any, appNavigation: any) => {
+  const [openMenu1, setOpenMenu1] = React.useState(false);
+  const clickMenuBtn1 = () => {
+    setOpenMenu1(!openMenu1);
+  };
+
+  const [openMenu2, setOpenMenu2] = React.useState(false);
+  const clickMenuBtn2 = () => {
+    setOpenMenu2(!openMenu2);
+  };
+
+  const menus = appNavigation.map((item: any) => {
+    if (item.link) {
+      return (
+        <div className={styles.mMenuItem} key={item.label}>
+          <div className={clsx(styles.mMenuTitle, styles.mLine)}>
+            <a href={item.link ?? '/'}>{item.label}</a>
+          </div>
+        </div>
+      );
+    } else if (item.dropdown) {
+      return (
+        <div className={styles.mMenuItem} key={item.label}>
+          <div className={clsx(styles.mMenuTitle, styles.mLine)} onClick={clickMenuBtn2}>
+            <div className={styles.mLeftMenu}>
+              {item.label}
+              <DownOutlined style={{ display: openMenu2 ? 'none' : '' }} />
+              <UpOutlined style={{ display: openMenu2 ? '' : 'none' }} />
+            </div>
+          </div>
+          <div className={styles.mSubMenus} style={{ display: openMenu2 ? '' : 'none' }}>
+            {item.dropdown.map((dropdownItem: any) => {
+              return (
+                <div className={styles.mMenuItem} key={dropdownItem.label}>
+                  <div className={styles.mMenuTitle}>
+                    <div className={styles.mLeftMenu}>
+                      <a href={dropdownItem.link ?? '/'}>{dropdownItem.label}</a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+  });
+
+  menus.unshift(
+    <div className={styles.mMenuItem} key={dropdownLinks.label}>
+      <div className={clsx(styles.mMenuTitle, styles.mLine)} onClick={clickMenuBtn1}>
+        <div className={styles.mLeftMenu} style={{ color: 'var(--sq-primary-blue)' }}>
+          <img src={appIcon} alt="SubQuery Apps" className={styles.mMenusIcon} /> {dropdownLinks.label}
+        </div>
+      </div>
+      <div className={styles.mSubMenus} style={{ display: openMenu1 ? '' : 'none' }}>
+        {dropdownLinks.links.map((dropdownItem: any) => {
+          return (
+            <div className={styles.mMenuItem} key={dropdownItem.label}>
+              <div className={styles.mMenuTitle}>
+                <div className={styles.mLeftMenu}>
+                  <a href={dropdownItem.link ?? '/'}>{dropdownItem.label}</a>
+                </div>
+              </div>
+              <div className={styles.mDescr}>{dropdownItem.description}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>,
+  );
+  return menus;
+};
 
 export interface AppLink {
   label: string;
@@ -154,6 +229,13 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   className,
   children,
 }) => {
+  const items = mobileMenuItems(dropdownLinks, appNavigation);
+
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const clickMenuBtn = () => {
+    setOpenMenu(!openMenu);
+  };
+
   return (
     <Router>
       <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyBetween, className)}>
@@ -169,6 +251,34 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
         </div>
 
         <>{rightElement}</>
+      </div>
+      <div className={styles.mHeader}>
+        <div className={clsx(styles.mMenuTitle, styles.mLine)}>
+          <div className={styles.mLeftMenu}>
+            <a href={logoLink}>
+              <img src={logo} width={140}></img>
+            </a>
+          </div>
+          <div className={styles.mRightMenu}>
+            <MenuOutlined
+              className={styles.mRMenusIcon}
+              width={30}
+              height={30}
+              onClick={clickMenuBtn}
+              style={{ display: openMenu ? 'none' : '' }}
+            />
+            <CloseOutlined
+              className={styles.mRMenusIcon}
+              width={30}
+              height={30}
+              onClick={clickMenuBtn}
+              style={{ display: openMenu ? '' : 'none' }}
+            />
+          </div>
+        </div>
+        <div className={styles.mSubMenus} style={{ display: openMenu ? '' : 'none' }}>
+          {items}
+        </div>
       </div>
 
       {children}
