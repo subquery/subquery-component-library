@@ -60,6 +60,9 @@ const appNavigation = [
 Default.args = {
   dropdownLinks: { label: 'Products', links: detailedLabels },
   appNavigation,
+  rightElement: <p>test right element</p>,
+  //leftElement: <p>test left element</p>,
+  //middleElement: <p>test middle element</p>,
   logoLink,
 };
 

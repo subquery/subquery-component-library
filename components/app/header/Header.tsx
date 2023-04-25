@@ -12,7 +12,13 @@ import logo from '../../../assets/logo.svg';
 import appIcon from '../../../assets/appIcon.svg';
 import { DownOutlined, UpOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 
-const mobileMenuItems = (dropdownLinks: any, appNavigation: any) => {
+const mobileMenuItems = (
+  dropdownLinks?: any,
+  appNavigation?: any,
+  leftItems?: any,
+  rightItems?: any,
+  middleItems?: any,
+) => {
   const [openMenu1, setOpenMenu1] = React.useState(false);
   const clickMenuBtn1 = () => {
     setOpenMenu1(!openMenu1);
@@ -22,6 +28,55 @@ const mobileMenuItems = (dropdownLinks: any, appNavigation: any) => {
   const clickMenuBtn2 = () => {
     setOpenMenu2(!openMenu2);
   };
+
+  if (!appNavigation) {
+    const menus = [];
+    if (leftItems) {
+      menus.push(
+        <div className={styles.mMenuItem} key="leftItems">
+          <div className={clsx(styles.mMenuTitle, styles.mLine)}>{leftItems}</div>
+        </div>,
+      );
+    }
+    if (middleItems) {
+      menus.push(
+        <div className={styles.mMenuItem} key="middleItems">
+          <div className={clsx(styles.mMenuTitle, styles.mLine)}>{middleItems}</div>
+        </div>,
+      );
+    }
+    if (rightItems) {
+      menus.push(
+        <div className={styles.mMenuItem} key="rightItems">
+          <div className={clsx(styles.mMenuTitle, styles.mLine)}>{rightItems}</div>
+        </div>,
+      );
+    }
+    menus.unshift(
+      <div className={styles.mMenuItem} key={dropdownLinks.label}>
+        <div className={clsx(styles.mMenuTitle, styles.mLine)} onClick={clickMenuBtn1}>
+          <div className={styles.mLeftMenu} style={{ color: 'var(--sq-primary-blue)' }}>
+            <img src={appIcon} alt="SubQuery Apps" className={styles.mMenusIcon} /> {dropdownLinks.label}
+          </div>
+        </div>
+        <div className={styles.mSubMenus} style={{ display: openMenu1 ? '' : 'none' }}>
+          {dropdownLinks?.links.map((dropdownItem: any) => {
+            return (
+              <div className={styles.mMenuItem} key={dropdownItem.label}>
+                <div className={styles.mMenuTitle}>
+                  <div className={styles.mLeftMenu}>
+                    <a href={dropdownItem.link ?? '/'}>{dropdownItem.label}</a>
+                  </div>
+                </div>
+                <div className={styles.mDescr}>{dropdownItem.description}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>,
+    );
+    return menus;
+  }
 
   const menus = appNavigation.map((item: any) => {
     if (item.link) {
@@ -60,6 +115,28 @@ const mobileMenuItems = (dropdownLinks: any, appNavigation: any) => {
     }
   });
 
+  if (leftItems) {
+    menus.push(
+      <div className={styles.mMenuItem} key="leftItems">
+        <div className={clsx(styles.mMenuTitle, styles.mLine)}>{leftItems}</div>
+      </div>,
+    );
+  }
+  if (middleItems) {
+    menus.push(
+      <div className={styles.mMenuItem} key="middleItems">
+        <div className={clsx(styles.mMenuTitle, styles.mLine)}>{middleItems}</div>
+      </div>,
+    );
+  }
+  if (rightItems) {
+    menus.push(
+      <div className={styles.mMenuItem} key="rightItems">
+        <div className={clsx(styles.mMenuTitle, styles.mLine)}>{rightItems}</div>
+      </div>,
+    );
+  }
+
   menus.unshift(
     <div className={styles.mMenuItem} key={dropdownLinks.label}>
       <div className={clsx(styles.mMenuTitle, styles.mLine)} onClick={clickMenuBtn1}>
@@ -83,6 +160,7 @@ const mobileMenuItems = (dropdownLinks: any, appNavigation: any) => {
       </div>
     </div>,
   );
+
   return menus;
 };
 
@@ -229,7 +307,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   className,
   children,
 }) => {
-  const items = mobileMenuItems(dropdownLinks, appNavigation);
+  const items = mobileMenuItems(dropdownLinks, appNavigation, leftElement, middleElement, rightElement);
 
   const [openMenu, setOpenMenu] = React.useState(false);
   const clickMenuBtn = () => {
