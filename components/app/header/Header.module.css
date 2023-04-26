@@ -45,3 +45,37 @@
   text-decoration: underline;
   color: var(--sq-primary-blue);
 }
+
+/*
+* Mobile Header
+*/
+
+.menu {
+  cursor: pointer;
+}
+
+.mobileMenuItems {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.mobileMenuItem {
+  padding: 1rem 0;
+}
+
+.mobileDropDown {
+  margin: 0;
+  height: auto;
+  padding: 1rem 0.5rem;
+}
+
+.mobileLeftHeader {
+  margin: 1rem 0 0 0;
+}
+
+.mobileMenuItemBottom {
+  border-bottom: 1px solid #f3f4f4;
+  width: 90vw;
+}
