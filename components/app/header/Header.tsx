@@ -33,6 +33,7 @@ export interface AppNavigation {
   label: string;
   link?: string;
   dropdown?: AppLink[];
+  onClick?: (key: any) => void;
 }
 
 const isExternalLink = (to: string) => to.startsWith('https') || to.startsWith('http');
@@ -137,7 +138,9 @@ const MiddleHeader = ({ middleElement, appNavigation, isMobile }: MiddleHeaderPr
                 label={nav.label}
                 trigger={[isMobile ? 'click' : 'hover']}
                 onMenuItemClick={({ key }) => {
-                  if (isExternalLink(key)) {
+                  if (nav.onClick) {
+                    nav.onClick(key);
+                  } else if (isExternalLink(key)) {
                     window.open(key, '_blank');
                   } else {
                     navigate(key);
