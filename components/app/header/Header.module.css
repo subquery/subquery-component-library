@@ -50,8 +50,15 @@
 * Mobile Header
 */
 
-.menu {
+.menuIcon {
   cursor: pointer;
+}
+
+.mobileMenu {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
 
 .mobileMenuItems {
@@ -68,7 +75,7 @@
 .mobileDropDown {
   margin: 0;
   height: auto;
-  padding: 1rem 0.5rem;
+  padding: 1rem 0.25rem;
 }
 
 .mobileLeftHeader {

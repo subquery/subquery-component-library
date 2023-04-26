@@ -225,10 +225,10 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
             </a>
           </div>
 
-          <MenuIcon onClick={handleMenuClick} size={20} className={styles.menu} />
+          <MenuIcon onClick={handleMenuClick} size={20} className={styles.menuIcon} />
         </div>
         {showMenu && (
-          <div>
+          <div className={styles.mobileMenu}>
             <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider isMobile />
             <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} isMobile />
             <>{rightElement}</>
