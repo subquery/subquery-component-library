@@ -3,6 +3,7 @@
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Header } from './Header';
+import { Button } from 'antd';
 
 export default {
   title: 'APP/Header',
@@ -68,4 +69,11 @@ Default.parameters = {
     type: 'figma',
     url: 'https://www.figma.com/file/bDNYs55azQGwtTD748mI9A/Subquery-Network-_V-2.0?node-id=50%3A8246',
   },
+};
+
+export const WithRightElements = Template.bind({});
+WithRightElements.args = {
+  dropdownLinks: { label: 'Products', links: detailedLabels },
+  rightElement: <Button> Login</Button>,
+  logoLink,
 };
