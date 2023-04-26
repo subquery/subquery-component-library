@@ -3,9 +3,11 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, BrowserRouter as Router } from 'react-router-dom';
 import { Space, Divider } from 'antd';
-import { BrowserRouter as Router } from 'react-router-dom';
+import useScreen from 'use-screen';
+import { AiOutlineMenu } from 'react-icons/ai';
+import { IoCloseSharp } from 'react-icons/io5';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
 import logo from '../../../assets/logo.svg';
@@ -63,10 +65,19 @@ export interface LeftHeaderProps {
   leftElement?: React.ReactNode;
   dropdownLinks?: DropdownLink;
   showDivider?: boolean;
+  isMobile?: boolean;
 }
-const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps) => {
+const LeftHeader = ({ leftElement, dropdownLinks, showDivider, isMobile }: LeftHeaderProps) => {
   const sortedDropdownLinks = !leftElement && dropdownLinks && (
-    <div className={clsx(styles.leftElement, styles.headerHeight)} id="leftHeader">
+    <div
+      className={clsx(
+        styles.leftElement,
+        styles.headerHeight,
+        isMobile && styles.mobileLeftHeader,
+        isMobile && styles.mobileMenuItemBottom,
+      )}
+      id="leftHeader"
+    >
       <Dropdown
         label={dropdownLinks.label}
         LeftLabelIcon={<img src={appIcon} alt="SubQuery Apps" />}
@@ -74,6 +85,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
           key,
           label: <MenuWithDesc title={label.label} description={label.description} className={styles.dropMenu} />,
         }))}
+        trigger={[isMobile ? 'click' : 'hover']}
         active
         menuClassName={styles.menuOverlay}
         onMenuItemClick={({ key }) => {
@@ -88,7 +100,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
     <Space>
       <>{leftElement}</>
       <>{sortedDropdownLinks}</>
-      {showDivider && <Divider type="vertical" />}
+      {showDivider && <Divider type={isMobile ? 'horizontal' : 'vertical'} />}
     </Space>
   );
 };
@@ -96,20 +108,34 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider }: LeftHeaderProps
 export interface MiddleHeaderProps {
   middleElement?: React.ReactNode;
   appNavigation?: AppNavigation[];
+  isMobile?: boolean;
 }
-const MiddleHeader = ({ middleElement, appNavigation }: MiddleHeaderProps) => {
+const MiddleHeader = ({ middleElement, appNavigation, isMobile }: MiddleHeaderProps) => {
   const navigate = useNavigate();
 
   const sortedAppNavigation = !middleElement && appNavigation && (
-    <Space className={clsx(styles.flexCenter, styles.headerHeight)}>
-      {appNavigation.map((nav) => {
+    <Space
+      className={clsx(styles.flexCenter, styles.headerHeight, isMobile && styles.mobileMenuItems)}
+      direction={isMobile ? 'vertical' : 'horizontal'}
+    >
+      {appNavigation.map((nav, idx) => {
+        const showBottomBorder = isMobile && idx !== appNavigation.length - 1;
         if (nav.dropdown) {
           const dropdownMenu = nav.dropdown.map((menu) => ({ key: menu.link, label: menu.label }));
           return (
-            <div key={nav.link} className={clsx(styles.appDropdown, styles.headerHeight)}>
+            <div
+              key={nav.link}
+              className={clsx(
+                styles.appDropdown,
+                styles.headerHeight,
+                isMobile && styles.mobileDropDown,
+                showBottomBorder && styles.mobileMenuItemBottom,
+              )}
+            >
               <Dropdown
                 menuitem={dropdownMenu}
                 label={nav.label}
+                trigger={[isMobile ? 'click' : 'hover']}
                 onMenuItemClick={({ key }) => {
                   if (isExternalLink(key)) {
                     window.open(key, '_blank');
@@ -121,7 +147,14 @@ const MiddleHeader = ({ middleElement, appNavigation }: MiddleHeaderProps) => {
             </div>
           );
         }
-        return <div key={nav.link}>{renderLink(nav.link ?? '/', nav.label)}</div>;
+        return (
+          <div
+            className={clsx(isMobile && styles.mobileMenuItem, showBottomBorder && styles.mobileMenuItemBottom)}
+            key={nav.link}
+          >
+            {renderLink(nav.link ?? '/', nav.label)}
+          </div>
+        );
       })}
     </Space>
   );
@@ -154,23 +187,60 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   className,
   children,
 }) => {
-  return (
-    <Router>
-      <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyBetween, className)}>
-        <div className={clsx(styles.flexCenter, styles.headerHeight)}>
+  const { screenWidth } = useScreen();
+  const isMobile = screenWidth < 768;
+
+  const FullHeader = () => (
+    <div className={clsx(styles.header, styles.flexCenter, rightElement && styles.justifyBetween, className)}>
+      <div className={clsx(styles.flexCenter, styles.headerHeight)}>
+        <div>
+          <a href={logoLink ?? '/'}>
+            <img src={logo} alt="SubQuery Logo" width={140} />
+          </a>
+        </div>
+
+        <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider />
+        <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} />
+      </div>
+
+      <>{rightElement}</>
+    </div>
+  );
+
+  const MenuHeader = () => {
+    const [showMenu, setShowMenu] = React.useState<boolean>(false);
+
+    const handleMenuClick = () => {
+      setShowMenu(!showMenu);
+    };
+
+    const MenuIcon = showMenu ? IoCloseSharp : AiOutlineMenu;
+
+    return (
+      <div>
+        <div className={clsx(styles.header, styles.flexCenter, styles.justifyBetween, styles.headerHeight, className)}>
           <div>
             <a href={logoLink ?? '/'}>
               <img src={logo} alt="SubQuery Logo" width={140} />
             </a>
           </div>
 
-          <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider />
-          <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} />
+          <MenuIcon onClick={handleMenuClick} size={20} className={styles.menu} />
         </div>
-
-        <>{rightElement}</>
+        {showMenu && (
+          <div>
+            <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider isMobile />
+            <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} isMobile />
+            <>{rightElement}</>
+          </div>
+        )}
       </div>
+    );
+  };
 
+  return (
+    <Router>
+      {isMobile ? <MenuHeader /> : <FullHeader />}
       {children}
     </Router>
   );
