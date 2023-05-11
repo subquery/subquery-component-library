@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  overflow-x: scroll;
 }
 
 .footer {
@@ -12,18 +13,20 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  max-width: 1440px;
-  height: 17rem;
-  padding: 40px 80px;
+  padding: 3rem 6rem;
+}
+
+.mFooter {
+  padding: 1rem 1.75rem;
 }
 
 .primaryRow {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
-  height: 95px;
+  margin-bottom: 1rem;
 }
 
 .secondaryRow {
@@ -31,26 +34,26 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  height: 60px;
   width: 400px;
 }
 
-.contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  font-size: 1.8em;
+.joinTitle {
+  font-size: 32px;
   font-weight: bold;
-  gap: 0.75rem;
 }
 
-.discord {
+.socialLinks {
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
+  column-gap: 2rem;
+  font-size: 24px;
+  margin: 1rem 0;
+}
 
-  height: 100%;
+.mSocialLinks {
+  font-size: 16px;
+  flex-direction: column;
+  row-gap: 1rem;
 }
 
 /* Simple */

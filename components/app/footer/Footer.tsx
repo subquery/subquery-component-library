@@ -13,7 +13,9 @@ import {
   BsTelegram,
   BsLinkedin,
 } from 'react-icons/bs';
+import useScreen from 'use-screen';
 import styles from './Footer.module.css';
+import clsx from 'clsx';
 
 const DISCORD_INVITE_URL = 'https://discord.com/invite/subquery';
 const CONTRIBUTE_URL = 'https://academy.subquery.network/miscellaneous/contributing.html';
@@ -57,22 +59,25 @@ export const IconLinks: React.FC<{ allLinks?: boolean }> = ({ allLinks = true })
 );
 
 const Default: React.FC = () => {
+  const { screenWidth } = useScreen();
+  const isMobile = screenWidth < 768;
+
   return (
     <div className={styles.footerWrapper}>
-      <div className={styles.footer}>
+      <div className={clsx(styles.footer, isMobile && styles.mFooter)}>
         <div className={styles.primaryRow}>
-          <div className={styles.contact}>
+          <div className={styles.joinTitle}>
             <h5>{JOIN}</h5>
-            <IconLinks allLinks={false} />
           </div>
-          <div className={styles.discord}>
+          <div className={clsx(styles.socialLinks, isMobile && styles.mSocialLinks)}>
+            <IconLinks allLinks={false} />
             <Button
               type="secondary"
               colorScheme="standard"
               href={DISCORD_INVITE_URL}
               leftItem={<BsDiscord />}
               label={GET_SUPPORT}
-              size="medium"
+              size={isMobile ? 'small' : 'medium'}
             />
           </div>
         </div>

@@ -9,7 +9,7 @@ export default {
   component: Input,
 } as ComponentMeta<typeof Input>;
 
-const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
+const Template: ComponentStory<typeof Input> = (args: any) => <Input {...args} />;
 
 export const Default = Template.bind({});
 
