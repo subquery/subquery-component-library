@@ -63,7 +63,10 @@ export default {
       exclude: [resolvePath("assets/**"), resolvePath("node_modules/**")],
       allowSyntheticDefaultImports: true,
     }),
-    css(),
+    css({
+      output: 'subquery-components.css',
+      minify: true,
+    }),
     svg(),
     terser()
   ],
