@@ -1,11 +1,17 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import path from 'node:path';
-import typescript from '@rollup/plugin-typescript';
-import css from "rollup-plugin-import-css";
-import svg from 'rollup-plugin-svg'
-import { terser } from "rollup-plugin-terser";
+/* eslint-disable @typescript-eslint/no-var-requires */
+// import path from 'node:path';
+// import typescript from '@rollup/plugin-typescript';
+// import svg from 'rollup-plugin-svg'
+// import { terser } from "rollup-plugin-terser";
+// import postcss from 'rollup-plugin-postcss'
+const path = require('node:path')
+const typescript = require('@rollup/plugin-typescript')
+const svg = require("rollup-plugin-svg")
+const { terser } = require("rollup-plugin-terser")
+const postcss = require("rollup-plugin-postcss")
 
 const outputOptions = {
   // TODO arrange them.
@@ -63,9 +69,13 @@ export default {
       exclude: [resolvePath("assets/**"), resolvePath("node_modules/**")],
       allowSyntheticDefaultImports: true,
     }),
-    css({
-      output: 'subquery-components.css',
-      minify: true,
+    postcss({
+      minimize: true,
+      modules: true,
+      use: {
+          less: { javascriptEnabled: true }
+      }, 
+      extract: 'subquery-components.css'
     }),
     svg(),
     terser()
