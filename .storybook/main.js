@@ -13,4 +13,22 @@ module.exports = {
   ],
   framework: '@storybook/react',
   staticDirs: ['../assets'],
+  webpackFinal: async (config, { configType }) => {
+    config.module.rules.push({
+      test: /\.less$/,
+      use: [
+        'style-loader',
+        {
+          loader: require.resolve('css-loader'),
+          options: {
+            modules: true,
+          },
+        },
+        'less-loader',
+      ],
+      include: require('path').resolve(__dirname, '../components'),
+    });
+
+    return config;
+  },
 };
