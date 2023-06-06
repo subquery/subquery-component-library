@@ -3,6 +3,7 @@
 
 import 'graphiql/graphiql.css';
 import '@graphiql/plugin-explorer/dist/style.css';
+import './GraphiQLExplorer.module.css';
 
 import { useExplorerPlugin } from '@graphiql/plugin-explorer';
 import { GraphiQL } from 'graphiql';
