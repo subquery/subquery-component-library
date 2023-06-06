@@ -4,11 +4,11 @@
 import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { GraphiQL as GraphiQLPlayground, GraphiQLProps } from 'graphiql';
 import { useExplorerPlugin } from '@graphiql/plugin-explorer';
+import { useMemo, useState } from 'react';
 
 import 'graphiql/graphiql.min.css';
 import '@graphiql/plugin-explorer/dist/style.css';
 import './GraphiQL.module.css';
-import { useMemo, useState } from 'react';
 
 export interface IGraphiQL extends GraphiQLProps {
   bearToken?: string;
