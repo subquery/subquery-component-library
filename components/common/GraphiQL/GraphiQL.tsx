@@ -10,17 +10,23 @@ export interface IGraphiQL extends GraphiQLProps {
   url: string;
 }
 
-export const GraphiQL: React.FC<IGraphiQL> = ({ bearToken, url, fetcher, defaultQuery, ...graphiQLProps }) => {
+export const createSortedFetcher = ({ bearToken, url }: { bearToken?: string; url: string }) => {
   const headers = {
     'content-type': 'application/json',
   };
-
   const sortedHeaders = bearToken ? { ...headers, Authorization: `Bearer ${bearToken}` } : headers;
-
-  const sortedFetcher = createGraphiQLFetcher({
+  return createGraphiQLFetcher({
     url,
     headers: sortedHeaders,
   });
+};
 
-  return <GraphiQLPlayground fetcher={fetcher ?? sortedFetcher} defaultQuery={defaultQuery} {...graphiQLProps} />;
+export const GraphiQL: React.FC<IGraphiQL> = ({ bearToken, url, fetcher, defaultQuery, ...graphiQLProps }) => {
+  return (
+    <GraphiQLPlayground
+      fetcher={fetcher ?? createSortedFetcher({ bearToken, url })}
+      defaultQuery={defaultQuery}
+      {...graphiQLProps}
+    />
+  );
 };
