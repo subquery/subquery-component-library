@@ -26,4 +26,5 @@ Default.args = {
       indexerNodeVersion
     }
   }`,
+  explorerDefaultOpen: true,
 };

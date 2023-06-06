@@ -33,4 +33,3 @@ export { default as Toast } from './toast';
 export * from './typography';
 export * from './notification';
 export * from './GraphiQL';
-export * from './graphiql-explorer';
