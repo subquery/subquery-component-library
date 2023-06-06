@@ -45,6 +45,7 @@
     "typescript-plugin-css-modules": "^3.4.0"
   },
   "dependencies": {
+    "@graphiql/plugin-explorer": "0.1.12",
     "antd": "5.0.2",
     "clsx": "^1.2.1",
     "graphiql": "2.2.0",
