@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof GraphiQL> = (args) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  url: 'https://api.subquery.network/sq/subquery/kepler-testnet-subql-project',
+  url: 'https://api.subquery.network/sq/subquery/kepler-testnet',
   defaultQuery: ` 
   query {
     _metadata {
@@ -26,4 +26,5 @@ Default.args = {
       indexerNodeVersion
     }
   }`,
+  explorerDefaultOpen: true,
 };

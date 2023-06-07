@@ -1,0 +1,4 @@
+:global(.graphiql-explorer-root > div:first-child) {
+  /* Remove the 2nd horizontal scroll bar */
+  overflow: hidden !important;
+}
