@@ -2,7 +2,7 @@
   width: fit-content;
   background: white;
   border-radius: 8px;
-  overflow-x: scroll;
+  overflow-x: auto;
 
   padding: 0.25rem 0;
   display: flex;
