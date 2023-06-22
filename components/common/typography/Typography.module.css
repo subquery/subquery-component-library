@@ -2,73 +2,66 @@
   color: var(--sq-gray900);
   margin: 0;
   padding: 0;
+  font-family: var(--sq-font-family);
 }
 
 .h1 {
-  font-family: 'Futura';
+  font-family: var(--sq-font-family-header);
   font-size: 80px;
   line-height: 100px;
 }
 
 .h2 {
-  font-family: 'Futura';
+  font-family: var(--sq-font-family-header);
   font-size: 60px;
   line-height: 88px;
 }
 
 .h3 {
-  font-family: 'Futura';
+  font-family: var(--sq-font-family-header);
   font-size: 48px;
   line-height: 64px;
 }
 
 .h4 {
-  font-family: 'Inter', sans-serif;
   font-weight: bold;
   font-size: 32px;
   line-height: 48px;
 }
 
 .h5 {
-  font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 24px;
   line-height: 36px;
 }
 
 .h6 {
-  font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
 }
 
 .large {
-  font-family: 'Inter', sans-serif;
   font-size: 18px;
   line-height: 28px;
 }
 
 .text {
-  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 24px;
 }
 
 .medium {
-  font-family: 'Inter', sans-serif;
   font-size: 14px;
   line-height: 22px;
 }
 
 .small {
-  font-family: 'Inter', sans-serif;
   font-size: 12px;
   line-height: 18px;
 }
 
 .overline {
-  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 12px;
   line-height: 18px;
