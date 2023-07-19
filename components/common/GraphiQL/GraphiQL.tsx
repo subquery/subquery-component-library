@@ -4,16 +4,18 @@
 import { createGraphiQLFetcher } from '@graphiql/toolkit';
 import { GraphiQL as GraphiQLPlayground, GraphiQLProps } from 'graphiql';
 import { useExplorerPlugin } from '@graphiql/plugin-explorer';
-import { useMemo, useState } from 'react';
-
+import { useEffect, useMemo, useState } from 'react';
+import { useTheme } from '@graphiql/react';
 import 'graphiql/graphiql.min.css';
 import '@graphiql/plugin-explorer/dist/style.css';
 import './GraphiQL.module.css';
 
-export interface IGraphiQL extends GraphiQLProps {
-  bearToken?: string;
+export interface IGraphiQL extends Omit<GraphiQLProps, 'fetcher'> {
   url: string;
+  bearToken?: string;
   explorerDefaultOpen?: boolean;
+  fetcher?: GraphiQLProps['fetcher'];
+  theme?: 'dark' | 'light';
 }
 
 const defaultHeaders = {
@@ -27,8 +29,10 @@ export const GraphiQL: React.FC<IGraphiQL> = ({
   defaultQuery,
   explorerDefaultOpen,
   onEditQuery,
+  theme = 'light',
   ...graphiQLProps
 }) => {
+  const { setTheme } = useTheme();
   // The fetcher is defined once and doesnt need to be re-rendered everytime
   const sortedFetcher = useMemo(() => {
     const sortedHeaders = bearToken //
@@ -62,6 +66,10 @@ export const GraphiQL: React.FC<IGraphiQL> = ({
     plugins: [explorerPlugin],
     visiblePlugin: explorerDefaultOpen ? explorerPlugin.title : '',
   };
+
+  useEffect(() => {
+    setTheme(theme);
+  }, [theme]);
 
   return <GraphiQLPlayground {...props} />;
 };
