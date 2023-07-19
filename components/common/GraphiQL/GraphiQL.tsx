@@ -11,11 +11,11 @@ import '@graphiql/plugin-explorer/dist/style.css';
 import './GraphiQL.module.css';
 
 export interface IGraphiQL extends Omit<GraphiQLProps, 'fetcher'> {
-  bearToken?: string;
   url: string;
+  bearToken?: string;
   explorerDefaultOpen?: boolean;
   fetcher?: GraphiQLProps['fetcher'];
-  theme: 'dark' | 'light';
+  theme?: 'dark' | 'light';
 }
 
 const defaultHeaders = {
