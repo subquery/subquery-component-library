@@ -12,7 +12,13 @@ export default {
 const Template: ComponentStory<typeof GraphiQL> = (args) => {
   return (
     <div style={{ height: '100vh' }}>
-      <GraphiQL {...args} theme="dark" />
+      <GraphiQL
+        {...args}
+        theme="dark"
+        onQueryResponse={(res) => {
+          console.warn(res);
+        }}
+      />
     </div>
   );
 };
