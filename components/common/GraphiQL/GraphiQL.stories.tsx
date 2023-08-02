@@ -9,16 +9,18 @@ export default {
   component: GraphiQL,
 } as ComponentMeta<typeof GraphiQL>;
 
-const Template: ComponentStory<typeof GraphiQL> = (args) => (
-  <div style={{ height: '100vh' }}>
-    <GraphiQL {...args} />
-  </div>
-);
+const Template: ComponentStory<typeof GraphiQL> = (args) => {
+  return (
+    <div style={{ height: '100vh' }}>
+      <GraphiQL {...args} theme="dark" />
+    </div>
+  );
+};
 
 export const Default = Template.bind({});
 
 Default.args = {
-  url: 'https://api.subquery.network/sq/subquery/kepler-testnet-subql-project',
+  url: 'https://api.subquery.network/sq/subquery/kepler-testnet',
   defaultQuery: ` 
   query {
     _metadata {
@@ -26,4 +28,5 @@ Default.args = {
       indexerNodeVersion
     }
   }`,
+  explorerDefaultOpen: true,
 };

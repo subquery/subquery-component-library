@@ -3,4 +3,5 @@
   padding: 2px 8px;
   border-radius: 4px;
   gap: 10px;
+  font-family: var(--sq-font-family);
 }

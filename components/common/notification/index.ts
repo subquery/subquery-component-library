@@ -29,7 +29,7 @@ export const openNotification = ({
     description: description,
     style: {
       borderBottom: `4px solid ${borderColorMapping[type]}`,
-      overflow: 'scroll',
+      overflow: 'auto',
     },
     duration,
     className,

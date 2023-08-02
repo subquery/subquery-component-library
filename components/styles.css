@@ -78,10 +78,14 @@
 
   --sq-font-body: 16px;
   --sq-line-body: 24px;
+
+  /* Family */
+  --sq-font-family: 'Inter', sans-serif;
+  --sq-font-family-header: 'Futura';
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--sq-font-family);
   font-size: 16px;
 }
 
