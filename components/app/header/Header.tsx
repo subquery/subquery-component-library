@@ -10,8 +10,8 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
-import logo from '../../../assets/logo.svg';
-import appIcon from '../../../assets/appIcon.svg';
+import logo from '../../assets/logo.svg';
+import appIcon from '../../assets/appIcon.svg';
 
 export interface AppLink {
   label: string;

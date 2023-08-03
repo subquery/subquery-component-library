@@ -7,16 +7,12 @@
 // if upgrade them may cause storybook crush.
 // TODO: use other lightweight document replace storybook
 
-// import path from 'node:path';
-// import typescript from '@rollup/plugin-typescript';
-// import svg from 'rollup-plugin-svg'
-// import { terser } from "rollup-plugin-terser";
-// import postcss from 'rollup-plugin-postcss'
 const path = require('node:path');
 const typescript = require('@rollup/plugin-typescript');
 const svg = require('rollup-plugin-svg');
 const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
+const copy = require('rollup-plugin-copy');
 
 const outputOptions = {
   // TODO arrange them.
@@ -98,7 +94,19 @@ export default {
       // if do this, the other project that use this library may have a breaking change.
       // extract: 'subquery-components.css'
     }),
+    // url({
+    //   include: ['**/*.ttf'],
+    //   limit: Infinity,
+    // }),
     svg(),
     terser(),
+    copy({
+      targets: [
+        {
+          src: 'components/assets',
+          dest: 'dist',
+        },
+      ],
+    }),
   ],
 };
