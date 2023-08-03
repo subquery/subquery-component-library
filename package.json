@@ -9,8 +9,7 @@
   "module": "./dist/subquery-components.es.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc -d && yarn copy-css",
-    "build:rollup": "rimraf dist && rollup -c --bundleConfigAsCjs",
+    "build": "rimraf dist && rollup -c --bundleConfigAsCjs",
     "copy-css": "copyfiles -u 1 components/*.css components/**/*.css components/**/**/*.css dist/",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook",
