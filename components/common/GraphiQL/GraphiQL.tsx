@@ -1,7 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createGraphiQLFetcher } from '@graphiql/toolkit';
+import { createGraphiQLFetcher, FetcherParams, FetcherOpts, FetcherReturnType } from '@graphiql/toolkit';
 import { GraphiQL as GraphiQLPlayground, GraphiQLProps } from 'graphiql';
 import { useExplorerPlugin } from '@graphiql/plugin-explorer';
 import { useEffect, useMemo, useState } from 'react';
@@ -15,6 +15,7 @@ export interface IGraphiQL extends Omit<GraphiQLProps, 'fetcher'> {
   bearToken?: string;
   explorerDefaultOpen?: boolean;
   fetcher?: GraphiQLProps['fetcher'];
+  onQueryResponse?: (res: FetcherReturnType) => void;
   theme?: 'dark' | 'light';
 }
 
@@ -29,6 +30,7 @@ export const GraphiQL: React.FC<IGraphiQL> = ({
   defaultQuery,
   explorerDefaultOpen,
   onEditQuery,
+  onQueryResponse,
   theme = 'light',
   ...graphiQLProps
 }) => {
@@ -61,7 +63,12 @@ export const GraphiQL: React.FC<IGraphiQL> = ({
         onEditQuery(val);
       }
     },
-    fetcher: fetcher ?? sortedFetcher,
+    fetcher: async (graphQLParams: FetcherParams, opts?: FetcherOpts) => {
+      const func = fetcher ?? sortedFetcher;
+      const res = await func(graphQLParams, opts);
+      onQueryResponse && onQueryResponse(res);
+      return res;
+    },
     query,
     plugins: [explorerPlugin],
     visiblePlugin: explorerDefaultOpen ? explorerPlugin.title : '',
