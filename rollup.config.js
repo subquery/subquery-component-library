@@ -68,12 +68,6 @@ export default {
       name: 'esm',
       file: 'dist/subquery-components.es.js',
     },
-    {
-      ...outputOptions,
-      format: 'umd',
-      name: 'umd',
-      file: 'dist/subquery-components.umd.js',
-    },
   ],
   plugins: [
     typescript({
