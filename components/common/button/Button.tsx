@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import styles from './Button.module.css';
+import styles from './Button.module.less';
 import clsx from 'clsx';
 import Spinner from '../spinner';
 

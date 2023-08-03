@@ -3,7 +3,7 @@
 
 import { Card } from './Card';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import cardIcon from '../../../assets/Card-logo.svg';
+import cardIcon from '../../assets/Card-logo.svg';
 
 const description = '0 SQT';
 const title = 'You are DELEGATING';
