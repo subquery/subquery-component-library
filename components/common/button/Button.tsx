@@ -6,7 +6,7 @@ import styles from './Button.module.less';
 import clsx from 'clsx';
 import Spinner from '../spinner';
 
-type Props = {
+export type ButtonProps = {
   type?: 'primary' | 'secondary' | 'link';
   size?: 'large' | 'medium' | 'small';
   colorScheme?: 'gradient' | 'standard' | 'neutral';
@@ -20,7 +20,7 @@ type Props = {
   loading?: boolean;
 } & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-const Button: React.VFC<Props> = ({
+const Button: React.VFC<ButtonProps> = ({
   type = 'primary',
   size = 'large',
   colorScheme = 'gradient',
