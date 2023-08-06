@@ -84,14 +84,8 @@ export default {
       use: {
         less: { javascriptEnabled: true },
       },
-      // this config will extract all css to one single file.
-      // if do this, the other project that use this library may have a breaking change.
-      // extract: 'subquery-components.css'
+      extract: 'subquery-components.css',
     }),
-    // url({
-    //   include: ['**/*.ttf'],
-    //   limit: Infinity,
-    // }),
     svg(),
     terser(),
     copy({
