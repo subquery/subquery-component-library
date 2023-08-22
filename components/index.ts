@@ -3,7 +3,6 @@
 
 import './styles.css';
 
-// TODO: should explicit re export them for tree-shaking.
 export * from './app';
 export * from './common';
 

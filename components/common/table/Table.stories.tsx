@@ -1,7 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { TableTitle, TableText, Table } from '.';
+import { TableTitle, TableText, SubqlTable as Table } from '.';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 export default {
@@ -12,7 +12,7 @@ export default {
 const columns = [
   {
     dataIndex: 'id',
-    title: <TableTitle title="id" />,
+    title: 'id',
     render: (val: string) => <TableText>{val}</TableText>,
   },
   {
@@ -27,7 +27,7 @@ const dataSource = [
   { id: 1, text: 'text1' },
 ];
 
-const Template: ComponentStory<any> = (args) => <Table tableProps={{ columns, rowKey: 'id', dataSource }} />;
+const Template: ComponentStory<any> = (args) => <Table {...{ columns, rowKey: 'id', dataSource }} />;
 
 export const Default = Template.bind({});
 

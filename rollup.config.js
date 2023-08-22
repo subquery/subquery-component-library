@@ -80,7 +80,7 @@ export default {
     }),
     postcss({
       minimize: true,
-      modules: true,
+      modules: false,
       use: {
         less: { javascriptEnabled: true },
       },

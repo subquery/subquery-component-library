@@ -8,11 +8,10 @@ export interface TableTitleProps {
   title?: string;
   className?: string;
   tooltip?: string;
-  // tooltipIcon?: boolean;
   children?: string | React.ReactNode;
 }
 
-export const TableTitle: React.FC<TableTitleProps> = ({ title, children: childrenArg, tooltip, ...props }) => {
+export const TableTitle: React.FC<TableTitleProps> = ({ title, children: childrenArg, tooltip }) => {
   const children = childrenArg && typeof childrenArg === 'string' ? childrenArg.toUpperCase() : childrenArg;
   const content = title && title.toUpperCase();
   return (

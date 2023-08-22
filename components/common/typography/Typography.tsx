@@ -5,6 +5,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import styles from './Typography.module.css';
 import { Space, Tooltip } from 'antd';
+import { createBEM } from 'components/utilities/createBem';
 
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
@@ -25,12 +26,19 @@ export const Typography: React.FC<Props> = ({
   className,
   ...htmlProps
 }) => {
+  const bem = createBEM('subql-typography');
+  const inner = () => (
+    <p {...htmlProps} className={clsx(bem(), styles.t, styles[variant], styles[type], styles[`w${weight}`], className)}>
+      {children}
+    </p>
+  );
+  if (!tooltip) {
+    return <Space>{inner()}</Space>;
+  }
   return (
     <Tooltip title={tooltip} placement="topLeft" className={tooltip && styles.tooltip}>
       <Space>
-        <p {...htmlProps} className={clsx(styles.t, styles[variant], styles[type], styles[`w${weight}`], className)}>
-          {children}
-        </p>
+        {inner()}
 
         {tooltipIcon}
       </Space>
