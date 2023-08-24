@@ -2,34 +2,30 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import { Pagination, Table as AntdTable, PaginationProps, TableProps } from 'antd';
+import { Table, TableProps } from 'antd';
+
 import clsx from 'clsx';
+import { createBEM } from 'components/utilities/createBem';
 
-export interface AntDTableProps {
-  customPagination?: boolean;
-  paginationProps?: PaginationProps;
-  tableProps: any; // TODO: TableProps version issue
-}
+import './Table.less';
 
-export const Table: React.FC<AntDTableProps> = ({ customPagination = false, paginationProps, tableProps }) => {
-  if (!customPagination) {
-    return <AntdTable className={'tableStyle'} {...paginationProps} {...tableProps} />;
-  }
+export type SubqlTableProps = TableProps<Record<PropertyKey, any>>;
 
-  return (
-    <>
-      <AntdTable
-        pagination={false} // offset function get partial data but antD fill from page 1
-        className={'tableStyle'}
-        {...tableProps}
-      />
-      <Pagination
-        className={clsx('flex-end', 'verticalMargin')}
-        defaultCurrent={1}
-        showSizeChanger={false}
-        pageSize={10}
-        {...paginationProps}
-      />
-    </>
-  );
+export const SubqlTable: React.FC<SubqlTableProps> = (props) => {
+  const bem = createBEM('subql-table');
+  const pageSize = React.useMemo(() => {
+    if (props.pagination) {
+      return props.pagination.pageSize || 10;
+    }
+    return 10;
+  }, [props.pagination]);
+
+  const hidePaginationCls = React.useMemo(() => {
+    if ((props.dataSource?.length ?? 0) <= pageSize) {
+      return bem('page', { hide: 'hide' });
+    }
+    return '';
+  }, [pageSize, props.dataSource]);
+
+  return <Table {...props} className={clsx(bem(), hidePaginationCls, props.className)}></Table>;
 };

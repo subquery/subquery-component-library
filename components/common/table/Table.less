@@ -1,0 +1,39 @@
+
+.subql-table {
+  font-family: var(--sq-font-family);
+  .ant-table {
+    &-content {
+      .ant-table-thead {
+        .ant-table-cell {
+          font-size: 12px;
+          color: var(--sq-gray600);
+          font-family: var(--sq-font-family);
+          text-transform: uppercase;
+
+          &:hover {
+            .subql-typography {
+              color: var(--sq-gray500);
+            }
+            color: var(--sq-gray500);
+          }
+        }
+      }
+
+      .ant-table-tbody {
+        .ant-table-cell {
+          font-size: 14px;
+          color: var(--sq-gray900);
+          font-family: var(--sq-font-family);
+        }
+      }
+    }
+  }
+
+  &__page {
+    &--hide {
+      .ant-pagination {
+        display: none;
+      }
+    }
+  }
+}
