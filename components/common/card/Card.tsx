@@ -4,8 +4,9 @@
 import * as React from 'react';
 import { Avatar, Card as AntCard, CardProps as AntCardProps, Dropdown as AntDropdown, Button as AntButton } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import { MoreOutlined, RightOutlined } from '@ant-design/icons';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import MoreOutlined from '@ant-design/icons/MoreOutlined';
+import RightOutlined from '@ant-design/icons/RightOutlined';
+import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
 import clsx from 'clsx';
 import { Typography } from '../typography';
 import styles from './Card.module.css';
@@ -49,7 +50,6 @@ export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   ...props
 }) => {
   const sortedTooltipIcon = titleTooltip && (titleTooltipIcon ?? <InfoCircleOutlined className={styles.tooltipIcon} />);
-
   return (
     <AntCard className={clsx(styles.card, className)} {...props}>
       {customDropdown && <div className={styles.menu}>{customDropdown}</div>}

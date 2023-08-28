@@ -4,7 +4,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { DropDownProps as AntdDropdownProps, Dropdown as AntdDropdown, Menu, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import DownOutlined from '@ant-design/icons/DownOutlined';
 import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
 import styles from './Dropdown.module.css';
 import { Typography } from '../typography';
