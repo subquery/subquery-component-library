@@ -40,7 +40,10 @@ const outputOptions = {
 const resolvePath = (str) => path.resolve(__dirname, str);
 
 export default {
-  input: path.resolve('components/index.ts'),
+  input: {
+    'subquery-components.es': path.resolve('components/index.ts'),
+    'common/GraphiQL/index': path.resolve('components/common/GraphiQL/index.ts'),
+  },
   external: [
     'react',
     'react-dom',
@@ -49,9 +52,8 @@ export default {
     'react-router-dom',
     'react/jsx-runtime',
     'clsx',
-    '@ant-design/icons',
     'graphiql',
-    '@graphiql/toolkit',
+    /^@graphiql\/.*/,
     'use-screen',
     'react-icons/ai',
     'react-icons/io5',
@@ -60,13 +62,15 @@ export default {
     'react-icons/bs',
     'antd/dist/reset.css',
     'graphiql/graphiql.min.css',
+    /^@ant-design\/icons\/.*/,
   ],
   output: [
     {
       ...outputOptions,
       format: 'es',
       name: 'esm',
-      file: 'dist/subquery-components.es.js',
+      // file: 'dist/subquery-components.es.js',
+      dir: 'dist',
     },
   ],
   plugins: [

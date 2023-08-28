@@ -4,7 +4,7 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { DropDownProps as AntdDropdownProps, Dropdown as AntdDropdown, Menu, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+// import DownOutlined from '@ant-design/icons/DownOutlined';
 import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
 import styles from './Dropdown.module.css';
 import { Typography } from '../typography';
@@ -34,7 +34,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <Space className={clsx(styles.dropdownLabel, styles.pointer, (isOpen || active) && styles.isOnHover)}>
       {LeftLabelIcon}
       <Typography className={styles.colorInherit}>{label ?? 'Dropdown'}</Typography>
-      {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}
+      {/* {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />} */}
+      {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <div />}
     </Space>
   );
 
