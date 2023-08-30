@@ -10,8 +10,8 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
 import styles from './Header.module.css';
 import { Button, Dropdown, MenuWithDesc, Typography } from '../../common';
-import logo from '../../assets/logo.svg';
-import appIcon from '../../assets/appIcon.svg';
+
+const logo = 'https://static.subquery.network/design/images/logo.svg';
 
 export interface AppLink {
   label: string;
@@ -81,7 +81,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, showDivider, isMobile }: LeftH
     >
       <Dropdown
         label={dropdownLinks.label}
-        LeftLabelIcon={<img src={appIcon} alt="SubQuery Apps" />}
+        LeftLabelIcon={<img src="https://static.subquery.network/design/images/appIcon.svg" alt="SubQuery Apps" />}
         menuitem={dropdownLinks.links.map((label, key) => ({
           key,
           label: <MenuWithDesc title={label.label} description={label.description} className={styles.dropMenu} />,
