@@ -120,7 +120,7 @@ const MiddleHeader = ({ middleElement, appNavigation, isMobile }: MiddleHeaderPr
             <div key={nav.link} className={clsx(bem('item'), `middle-item-${index}`)}>
               <Dropdown
                 rootClassName={clsx(bem('menu-wrapper'))}
-                menuClassName={theme === 'dark' ? clsx(bem('menu', { dark: 'dark' })) : ''}
+                menuClassName={clsx(bem('menu', { dark: theme === 'dark' ? 'dark' : null }))}
                 menuitem={dropdownMenu}
                 label={nav.label}
                 trigger={[isMobile ? 'click' : 'hover']}
