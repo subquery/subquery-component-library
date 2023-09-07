@@ -33,3 +33,4 @@ export { default as Toast } from './toast';
 export * from './typography';
 export * from './notification';
 export type { IGraphiQL } from './GraphiQL';
+export { default as SubqlProvider } from './provider';
