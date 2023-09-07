@@ -22,7 +22,9 @@ export const SubqlTable: React.FC<SubqlTableProps> = (props) => {
 
   const hidePaginationCls = React.useMemo(() => {
     if ((props.dataSource?.length ?? 0) <= pageSize) {
-      return bem('page', { hide: 'hide' });
+      if (props.pagination && (props.pagination.total ?? 0) <= pageSize) {
+        return bem('page', { hide: 'hide' });
+      }
     }
     return '';
   }, [pageSize, props.dataSource]);

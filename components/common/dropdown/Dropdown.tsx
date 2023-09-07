@@ -33,8 +33,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   const sortedLabel = (
     <Space className={clsx(styles.dropdownLabel, styles.pointer, (isOpen || active) && styles.isOnHover)}>
       {LeftLabelIcon}
-      <Typography className={styles.colorInherit}>{label ?? 'Dropdown'}</Typography>
-      {LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}
+      <Typography>{label ?? 'Dropdown'}</Typography>
+      <Typography>{LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}</Typography>
     </Space>
   );
 
@@ -67,14 +67,15 @@ export interface MenuWithDescProps {
   title: string;
   description: string;
   className?: string;
+  width?: string | number;
 }
-export const MenuWithDesc = ({ title, description, className }: MenuWithDescProps) => {
+export const MenuWithDesc = ({ title, description, className, width }: MenuWithDescProps) => {
   return (
-    <div className={clsx(styles.menuWithDesc, className)}>
+    <div className={clsx(styles.menuWithDesc, className)} style={{ width }}>
       <Typography weight={500} className={styles.title}>
         {title}
       </Typography>
-      <Typography variant="small" className={styles.description}>
+      <Typography variant="small" type="secondary">
         {description}
       </Typography>
     </div>
