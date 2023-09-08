@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, BrowserRouter, useNavigate } from 'react-router-dom';
 import { Space } from 'antd';
 import useScreen from 'use-screen';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -231,9 +231,9 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   };
 
   return (
-    <>
+    <BrowserRouter>
       {isMobile ? <MenuHeader /> : <FullHeader />}
       {children}
-    </>
+    </BrowserRouter>
   );
 };
