@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, BrowserRouter, useNavigate } from 'react-router-dom';
 import { Space } from 'antd';
 import useScreen from 'use-screen';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -231,9 +231,18 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   };
 
   return (
-    <>
+    // TODO: find a better way to do
+    // problems in here:
+    //   react-router would better have one BrowserRouter instance.
+    //   For the projects that use this library
+    //   the BrowserRouter actually will have two instance(import from different node_modules source)
+    //   and useNavigate must have a BrowserRouter to wrapper. the project's instance is not equal to this library instance.
+    //   so must have a instance in here. so there have a potential bug but not very critical.
+
+    // maybe just move react-router-dom to peerDenpendency can solve.
+    <BrowserRouter>
       {isMobile ? <MenuHeader /> : <FullHeader />}
       {children}
-    </>
+    </BrowserRouter>
   );
 };
