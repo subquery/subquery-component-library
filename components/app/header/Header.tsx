@@ -3,9 +3,9 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { NavLink, BrowserRouter, useNavigate } from 'react-router-dom';
 import { Space } from 'antd';
 import useScreen from 'use-screen';
+import { matchPath } from 'react-router-dom';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
 import { Dropdown, MenuWithDesc, Typography } from '../../common';
@@ -37,12 +37,13 @@ export interface AppNavigation {
   label: string;
   link?: string;
   dropdown?: AppLink[];
+  active?: (link: string) => boolean;
   onClick?: (key: any) => void;
 }
 
 const isExternalLink = (to: string) => to.startsWith('https') || to.startsWith('http');
 
-const renderLink = (to: string, label: string) => {
+const renderLink = (to: string, label: string, active: (link: string) => boolean) => {
   const bem = createBEM('subql-header-navlink');
   return (
     <Typography>
@@ -51,9 +52,7 @@ const renderLink = (to: string, label: string) => {
           {label}
         </a>
       ) : (
-        <NavLink to={to} className={({ isActive }) => clsx(bem(), isActive ? bem({ active: 'active' }) : '')}>
-          {label}
-        </NavLink>
+        <a className={clsx(bem({ active: active?.(to) ? 'active' : null }))}>{label}</a>
       )}
     </Typography>
   );
@@ -102,9 +101,24 @@ export interface MiddleHeaderProps {
   middleElement?: React.ReactNode;
   appNavigation?: AppNavigation[];
   isMobile?: boolean;
+  navigate?: (link: string) => void;
+  active?: (link: string) => boolean;
 }
-const MiddleHeader = ({ middleElement, appNavigation, isMobile }: MiddleHeaderProps) => {
-  const navigate = useNavigate();
+const MiddleHeader = ({
+  middleElement,
+  appNavigation,
+  isMobile,
+  navigate = (link) => {
+    window.location.replace(link);
+  },
+  active = (link) =>
+    !!matchPath(
+      {
+        path: link,
+      },
+      window.location.pathname,
+    ),
+}: MiddleHeaderProps) => {
   const { theme } = React.useContext(Context);
   const bem = createBEM('subql-middle-header');
   const sortedAppNavigation = !middleElement && appNavigation && (
@@ -141,8 +155,18 @@ const MiddleHeader = ({ middleElement, appNavigation, isMobile }: MiddleHeaderPr
           );
         }
         return (
-          <div className={clsx(bem('item'))} key={nav.link}>
-            {renderLink(nav.link ?? '/', nav.label)}
+          <div
+            className={clsx(bem('item'))}
+            key={nav.link}
+            onClickCapture={(e) => {
+              if (!isExternalLink(nav.link ?? '/')) {
+                navigate(nav.link ?? '/');
+                e.stopPropagation();
+                e.preventDefault();
+              }
+            }}
+          >
+            {renderLink(nav.link ?? '/', nav.label, nav.active || active)}
           </div>
         );
       })}
@@ -157,12 +181,10 @@ const MiddleHeader = ({ middleElement, appNavigation, isMobile }: MiddleHeaderPr
   );
 };
 
-export interface HeaderProps {
+export interface HeaderProps extends MiddleHeaderProps {
   logoLink?: string;
   dropdownLinks?: DropdownLink;
-  appNavigation?: AppNavigation[];
   leftElement?: React.ReactElement;
-  middleElement?: React.ReactElement;
   rightElement?: React.ReactElement;
   className?: string;
 }
@@ -176,6 +198,8 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   rightElement,
   className,
   children,
+  navigate,
+  active,
 }) => {
   const { screenWidth } = useScreen();
   const isMobile = screenWidth < 768;
@@ -191,7 +215,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
         </div>
 
         <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider />
-        <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} />
+        <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} navigate={navigate} active={active} />
       </div>
 
       <>{rightElement}</>
@@ -222,7 +246,13 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
         {showMenu && (
           <div className={clsx(bem('menu', { dark: theme === 'dark' ? 'dark' : null }))}>
             <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider isMobile />
-            <MiddleHeader middleElement={middleElement} appNavigation={appNavigation} isMobile />
+            <MiddleHeader
+              middleElement={middleElement}
+              appNavigation={appNavigation}
+              isMobile
+              navigate={navigate}
+              active={active}
+            />
             <>{rightElement}</>
           </div>
         )}
@@ -231,18 +261,9 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   };
 
   return (
-    // TODO: find a better way to do
-    // problems in here:
-    //   react-router would better have one BrowserRouter instance.
-    //   For the projects that use this library
-    //   the BrowserRouter actually will have two instance(import from different node_modules source)
-    //   and useNavigate must have a BrowserRouter to wrapper. the project's instance is not equal to this library instance.
-    //   so must have a instance in here. so there have a potential bug but not very critical.
-
-    // maybe just move react-router-dom to peerDenpendency can solve.
-    <BrowserRouter>
+    <>
       {isMobile ? <MenuHeader /> : <FullHeader />}
       {children}
-    </BrowserRouter>
+    </>
   );
 };
