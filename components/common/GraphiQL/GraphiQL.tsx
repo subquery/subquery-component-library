@@ -3,7 +3,7 @@
 
 import { createGraphiQLFetcher, FetcherParams, FetcherOpts, FetcherReturnType } from '@graphiql/toolkit';
 import { GraphiQL as GraphiQLPlayground, GraphiQLProps } from 'graphiql';
-import { useExplorerPlugin } from '@graphiql/plugin-explorer';
+import { explorerPlugin } from '@graphiql/plugin-explorer';
 import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '@graphiql/react';
 import 'graphiql/graphiql.min.css';
@@ -46,9 +46,7 @@ export const GraphiQL: React.FC<IGraphiQL> = ({
   // Controlled query, so we can edit it on both explorer/designer and editor
   const [query, setQuery] = useState(defaultQuery || '');
   // Explorer/designer plugin options
-  const explorerPlugin = useExplorerPlugin({
-    query,
-    onEdit: setQuery,
+  const explorerPlugins = explorerPlugin({
     showAttribution: true,
   });
 
@@ -70,8 +68,8 @@ export const GraphiQL: React.FC<IGraphiQL> = ({
       return res;
     },
     query,
-    plugins: [explorerPlugin],
-    visiblePlugin: explorerDefaultOpen ? explorerPlugin.title : '',
+    plugins: [explorerPlugins],
+    visiblePlugin: explorerDefaultOpen ? explorerPlugins.title : '',
   };
 
   useEffect(() => {
