@@ -40,7 +40,7 @@ const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' })
         src={`data:image/svg+xml;utf8,${encodeURIComponent(toSvg(address, iconSize))}`}
         alt=""
       />
-      <Typography variant={size === 'small' ? 'medium' : 'text'} className={clsx(bem('text', size))} type="secondary">
+      <Typography variant={size === 'small' ? 'small' : 'medium'} className={clsx(bem('text', size))} type="secondary">
         {truncated ? truncateAddress(address) : address}
       </Typography>
     </div>
