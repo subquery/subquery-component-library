@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import * as React from 'react';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { toSvg } from 'jdenticon';
 import { Typography } from '../typography';
-import styles from './Address.module.css';
+import { createBEM } from 'components/utilities/createBem';
+import clsx from 'clsx';
+import './Addres.less';
 
 export function truncateAddress(address: string): string {
   if (!address) {
@@ -29,11 +31,16 @@ const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' })
         return 32;
     }
   }, [size]);
+  const bem = createBEM('subql-address');
 
   return (
-    <div className={styles.container}>
-      <Jazzicon diameter={iconSize} seed={jsNumberForAddress(address)} />
-      <Typography variant={size === 'small' ? 'medium' : 'text'} className={styles[size]}>
+    <div className={clsx(bem())}>
+      <img
+        className={clsx(bem('icon'))}
+        src={`data:image/svg+xml;utf8,${encodeURIComponent(toSvg(address, iconSize))}`}
+        alt=""
+      />
+      <Typography variant={size === 'small' ? 'small' : 'medium'} className={clsx(bem('text', size))} type="secondary">
         {truncated ? truncateAddress(address) : address}
       </Typography>
     </div>
