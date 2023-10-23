@@ -1,6 +1,6 @@
 {
   "name": "@subql/components",
-  "version": "1.0.3-17",
+  "version": "1.0.3-18",
   "description": "React UI components for SubQuery front ends",
   "repository": "git@github.com:subquery/subql-copmonents.git",
   "author": "Subquery",
