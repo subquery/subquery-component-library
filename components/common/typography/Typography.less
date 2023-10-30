@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   font-family: var(--sq-font-family);
-
+  display: inline;
 
   &__h1 {
     font-family: var(--sq-font-family-header);
@@ -137,6 +137,24 @@
 
     &.subql-typography__secondary {
       color: var(--sq-gray400);
+    }
+  }
+
+  &-link {
+    .subql-typography {
+      transition: .1s all linear;
+      color: var(--sq-gray600);
+    }
+    &:hover {
+      .subql-typography {
+        color: var(--sq-blue400);
+      }
+    }
+
+    &--active {
+      .subql-typography {
+        color: var(--sq-blue400);
+      }
     }
   }
 }

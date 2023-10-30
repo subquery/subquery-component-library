@@ -7,6 +7,7 @@ import './Typography.less';
 import { Space, Tooltip } from 'antd';
 import { createBEM } from 'components/utilities/createBem';
 import { Context } from '../provider';
+import { attachPropertiesToComponent } from 'components/utilities/attachPropertiesToCompnent';
 
 type Props = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
@@ -17,7 +18,16 @@ type Props = {
   tooltipIcon?: React.ReactNode;
 } & React.HTMLProps<HTMLParagraphElement>;
 
-export const Typography: React.FC<Props> = ({
+export interface LinkProps {
+  href: string;
+  children?: React.ReactNode;
+  active?: boolean;
+}
+
+const bem = createBEM('subql-typography');
+const linkBem = createBEM('subql-typography-link');
+
+const TypographyInner: React.FC<Props> = ({
   children,
   variant = 'text',
   type = 'default',
@@ -27,11 +37,10 @@ export const Typography: React.FC<Props> = ({
   className,
   ...htmlProps
 }) => {
-  const bem = createBEM('subql-typography');
   const { theme } = React.useContext(Context);
 
   const inner = () => (
-    <p
+    <article
       {...htmlProps}
       className={clsx(
         bem(),
@@ -43,7 +52,7 @@ export const Typography: React.FC<Props> = ({
       )}
     >
       {children}
-    </p>
+    </article>
   );
   if (!tooltip) {
     return <Space>{inner()}</Space>;
@@ -58,3 +67,17 @@ export const Typography: React.FC<Props> = ({
     </Tooltip>
   );
 };
+
+const Link: React.FC<LinkProps> = (props) => {
+  const { href, children, active = false } = props;
+
+  return (
+    <a href={href} className={clsx(linkBem({ active }))}>
+      <Typography>{children}</Typography>
+    </a>
+  );
+};
+
+export const Typography = attachPropertiesToComponent(TypographyInner, {
+  Link: Link,
+});
