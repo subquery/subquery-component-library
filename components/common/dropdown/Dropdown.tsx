@@ -8,12 +8,14 @@ import DownOutlined from '@ant-design/icons/DownOutlined';
 import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
 import styles from './Dropdown.module.css';
 import { Typography } from '../typography';
+import { Context } from '../provider';
 
 export interface DropdownProps extends Partial<AntdDropdownProps> {
   label?: string;
   menuitem: ItemType[];
   menuClassName?: string;
   onMenuItemClick?: MenuClickEventHandler;
+  onLableClick?: () => void;
   LeftLabelIcon?: React.ReactElement;
   RightLabelIcon?: React.ReactElement;
   active?: boolean;
@@ -27,14 +29,33 @@ export const Dropdown: React.FC<DropdownProps> = ({
   menuClassName,
   active,
   onMenuItemClick,
+  onLableClick,
   ...props
 }) => {
+  const { theme } = React.useContext(Context);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const sortedLabel = (
     <Space className={clsx(styles.dropdownLabel, styles.pointer, (isOpen || active) && styles.isOnHover)}>
       {LeftLabelIcon}
-      <Typography>{label ?? 'Dropdown'}</Typography>
-      <Typography>{LeftLabelIcon ? undefined : RightLabelIcon ? RightLabelIcon : <DownOutlined />}</Typography>
+      <Typography
+        onClick={() => {
+          onLableClick?.();
+        }}
+      >
+        {label ?? 'Dropdown'}
+      </Typography>
+      <Typography>
+        {LeftLabelIcon ? undefined : RightLabelIcon ? (
+          RightLabelIcon
+        ) : (
+          <DownOutlined
+            style={{
+              fontSize: 12,
+              color: theme === 'dark' ? '#fff' : 'var(--sq-gray600)',
+            }}
+          />
+        )}
+      </Typography>
     </Space>
   );
 

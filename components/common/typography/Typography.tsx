@@ -18,8 +18,8 @@ type Props = {
   tooltipIcon?: React.ReactNode;
 } & React.HTMLProps<HTMLParagraphElement>;
 
-export interface LinkProps {
-  href: string;
+export interface LinkProps extends Props {
+  href?: string;
   children?: React.ReactNode;
   active?: boolean;
 }
@@ -68,12 +68,12 @@ const TypographyInner: React.FC<Props> = ({
   );
 };
 
-const Link: React.FC<LinkProps> = (props) => {
-  const { href, children, active = false } = props;
+const Link: React.FC<LinkProps & React.HTMLProps<HTMLParagraphElement>> = (props) => {
+  const { href, children, active = false, ...rest } = props;
 
   return (
     <a href={href} className={clsx(linkBem({ active }))}>
-      <Typography>{children}</Typography>
+      <Typography {...rest}>{children}</Typography>
     </a>
   );
 };
