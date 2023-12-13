@@ -19,8 +19,8 @@ const previewBem = createBEM('subql-markdown-preview');
 export interface SubqlMarkdown {
   value?: string | undefined;
   onChange?: (val: string | undefined) => void;
-  inputProps: TextAreaProps;
-  previewProps: Options;
+  inputProps?: TextAreaProps;
+  previewProps?: Options;
 }
 
 const MarkdownPreview: FC<Options> = (props) => {
@@ -52,9 +52,9 @@ const Markdown: FC<SubqlMarkdown> = (props) => {
           <Radio value={'preview'}>Preview</Radio>
         </Radio.Group>
         <span style={{ flex: 1 }}></span>
-        <Typography type="secondary">
+        <Typography type="secondary" variant="small">
           This entry supports{' '}
-          <Typography.Link href="https://commonmark.org/help/" active>
+          <Typography.Link href="https://commonmark.org/help/" active variant="small">
             &#32;basic markdown
           </Typography.Link>
         </Typography>
@@ -64,6 +64,14 @@ const Markdown: FC<SubqlMarkdown> = (props) => {
         {tabVal === 'edit' && (
           <Input.TextArea
             rows={20}
+            placeholder={`You can provide a detailed description of your SubQuery project.
+
+# hello world
+- you can use lists
+- *Italics*
+- *bold*
+- [Links](http://subquery.network)
+                    `}
             {...props.inputProps}
             value={markdownVal}
             onChange={(val) => {
