@@ -3,14 +3,21 @@
 
 import * as React from 'react';
 import { Modal as AntdModal, ModalProps as AntdModalProps, StepsProps, StepProps } from 'antd';
-import { Button, Typography, Steps } from '..';
-import styles from './Modal.module.css';
+import { Typography, Steps } from '..';
+import { useBem } from 'components/utilities/useBem';
+import clsx from 'clsx';
+
+import './Modal.less';
+import { attachPropertiesToComponent } from 'components/utilities/attachPropertiesToCompnent';
 
 export interface ModalProps extends AntdModalProps {
-  title?: string;
+  title?: React.ReactNode;
+  /**
+   * @deprecated The method should not be used
+   */
   description?: string | React.ReactNode;
-  submitText?: string;
-  cancelText?: string;
+  submitText?: React.ReactNode;
+  cancelText?: React.ReactNode;
   danger?: boolean;
   onSubmit?: () => void | Promise<void>;
   onCancel?: () => void;
@@ -19,10 +26,9 @@ export interface ModalProps extends AntdModalProps {
   currentStep?: number;
 }
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
+export const innerModal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   title,
   description,
-  submitText,
   onSubmit,
   cancelText,
   onCancel,
@@ -31,11 +37,13 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
   steps,
   stepsProps,
   currentStep,
+  className,
   ...modalProps
 }) => {
+  const bem = useBem('subql-modal');
   const [loading, setLoading] = React.useState<boolean>(false);
   const sortedDescription = description ? (
-    <div className={styles.description}>
+    <div style={{ marginTop: 24 }}>
       {typeof description === 'string' ? <Typography>{description}</Typography> : description}
     </div>
   ) : undefined;
@@ -57,14 +65,13 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
         </Typography>
       }
       cancelText={cancelText}
-      okText={submitText}
       onOk={handleSubmit}
       onCancel={onCancel}
-      cancelButtonProps={{ shape: 'round' }}
-      okButtonProps={{ shape: 'round', danger }}
+      cancelButtonProps={{ shape: 'round', size: 'large' }}
+      okButtonProps={{ shape: 'round', size: 'large', danger }}
       confirmLoading={loading}
       {...modalProps}
-      className={'modalStyle'}
+      className={clsx(bem(), className)}
     >
       <>
         {steps && <Steps steps={steps} current={currentStep} {...stepsProps} />}
@@ -74,3 +81,11 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
     </AntdModal>
   );
 };
+
+export const Modal = attachPropertiesToComponent(innerModal, {
+  success: AntdModal.success,
+  confirm: AntdModal.confirm,
+  info: AntdModal.info,
+  error: AntdModal.error,
+  warning: AntdModal.warning,
+});
