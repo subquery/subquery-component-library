@@ -188,6 +188,7 @@ const MiddleHeader = ({
 
 export interface HeaderProps extends MiddleHeaderProps {
   logoLink?: string;
+  customLogo?: React.ReactNode;
   dropdownLinks?: DropdownLink;
   leftElement?: React.ReactElement;
   rightElement?: React.ReactElement;
@@ -196,6 +197,7 @@ export interface HeaderProps extends MiddleHeaderProps {
 
 export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   logoLink,
+  customLogo,
   dropdownLinks,
   appNavigation,
   leftElement,
@@ -222,9 +224,13 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
             className={clsx(mobileHeaderBem(), theme === 'dark' ? mobileHeaderBem({ dark: 'dark' }) : '', className)}
           >
             <div>
-              <a href={logoLink ?? '/'}>
-                <img src={logoMobile} alt="SubQuery Logo" width={48} />
-              </a>
+              {customLogo ? (
+                customLogo
+              ) : (
+                <a href={logoLink ?? '/'}>
+                  <img src={logoMobile} alt="SubQuery Logo" width={48} />
+                </a>
+              )}
             </div>
 
             <MenuIcon
@@ -253,9 +259,13 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
         <div className={clsx(bem(), theme === 'dark' ? bem({ dark: 'dark' }) : '', className)}>
           <div className={clsx(bem('inner'))}>
             <div>
-              <a href={logoLink ?? '/'}>
-                <img src={theme === 'light' ? logo : logoDark} alt="SubQuery Logo" width={140} />
-              </a>
+              {customLogo ? (
+                customLogo
+              ) : (
+                <a href={logoLink ?? '/'}>
+                  <img src={theme === 'light' ? logo : logoDark} alt="SubQuery Logo" width={140} />
+                </a>
+              )}
             </div>
 
             <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider />
