@@ -36,6 +36,10 @@ export interface CardProps extends AntCardProps {
   customDropdown?: React.ReactNode;
   action?: Button;
 }
+
+/**
+ * @deprecated
+ */
 export const Card: React.FC<React.PropsWithChildren<CardProps>> = ({
   title,
   titleTooltip,

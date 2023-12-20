@@ -32,6 +32,8 @@ export { default as TextInput } from './textInput';
 export { default as Toast } from './toast';
 export { Typography } from './typography';
 export { default as SubqlCheckbox } from './checkbox';
+export { SubqlCard } from './subqlCard';
+export { SubqlTabs } from './subqlTabs';
 export * from './notification';
 export type { IGraphiQL } from './GraphiQL';
 export { default as SubqlProvider } from './provider';

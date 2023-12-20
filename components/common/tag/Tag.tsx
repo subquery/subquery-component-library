@@ -4,24 +4,25 @@
 import * as React from 'react';
 import { Tag as AntTag, TagProps as AntTagProps, TagType as AntTagType } from 'antd';
 import { Typography } from '../typography';
-import styles from './Tag.module.css';
 import clsx from 'clsx';
+import { useBem } from 'components/utilities/useBem';
+import './Tag.less';
 
 export interface TagProps extends AntTagProps, Partial<AntTagType> {
   className?: string;
-  state?: 'error' | 'success' | 'info' | 'warning' | 'default';
+  color?: 'error' | 'success' | 'info' | 'warning' | 'default';
 }
 
 export const Tag: React.FC<React.PropsWithChildren<TagProps>> = ({
+  color = 'default',
   children,
   className,
-  state = 'default',
   ...props
 }) => {
-  const sortedColor = state === 'info' ? 'processing' : state;
+  const bem = useBem('subql-tag');
   return (
-    <AntTag className={clsx(styles.tag, className)} color={sortedColor} {...props}>
-      {children ?? <Typography>{state}</Typography>}
+    <AntTag {...props} className={clsx(bem({ [color]: color }), className)}>
+      {children ?? <Typography>{color}</Typography>}
     </AntTag>
   );
 };
