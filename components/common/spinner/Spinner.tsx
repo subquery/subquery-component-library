@@ -16,8 +16,8 @@ const Spinner: React.FC<Props> = ({ size, color, className }) => {
       ? {
           height: size,
           width: size,
-          'border-color': color,
-          'border-right-color': 'transparent',
+          borderColor: color,
+          borderRightColor: 'transparent',
         }
       : undefined;
 

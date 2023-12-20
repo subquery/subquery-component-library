@@ -3,15 +3,17 @@
 
 import * as React from 'react';
 import { Steps as AntSteps, StepsProps as AntStepsProps, StepProps } from 'antd';
-import styles from './Steps.module.css';
 import clsx from 'clsx';
+import { useBem } from 'components/utilities/useBem';
+import './Steps.less';
 
 export interface StepsProps extends AntStepsProps {
   steps: Array<StepProps>;
 }
 export const Steps: React.FC<React.PropsWithChildren<StepsProps>> = ({ steps, ...props }) => {
+  const bem = useBem('subql-steps');
   return (
-    <AntSteps size="small" {...props} className={clsx(styles.steps, props.className)}>
+    <AntSteps size="small" {...props} className={clsx(bem(), props.className)}>
       {steps?.map((stepProps, idx) => (
         <AntSteps.Step {...stepProps} key={idx}></AntSteps.Step>
       ))}

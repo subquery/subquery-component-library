@@ -17,6 +17,10 @@ export interface TabProps {
   onTabClick?: (any: any) => void;
 }
 
+/**
+ *
+ * @deprecated
+ */
 export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
   label,
   active,
