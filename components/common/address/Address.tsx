@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { toSvg } from 'jdenticon';
-import { Typography } from '../typography';
+import { TypographProps, Typography } from '../typography';
 import { createBEM } from 'components/utilities/createBem';
 import clsx from 'clsx';
 import './Addres.less';
@@ -18,20 +18,33 @@ export function truncateAddress(address: string): string {
 type Props = {
   address: string;
   truncated?: boolean;
-  size?: 'small' | 'large';
+  size?: 'small' | 'large' | 'bigger';
 };
 
 const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' }) => {
+  const bem = createBEM('subql-address');
+
   const iconSize = React.useMemo(() => {
     switch (size) {
       case 'small':
         return 18;
       case 'large':
+        return 32;
+      case 'bigger':
+        return 48;
       default:
         return 32;
     }
   }, [size]);
-  const bem = createBEM('subql-address');
+
+  const fontSize = React.useMemo(() => {
+    const sizeDict = {
+      small: 'small',
+      large: 'medium',
+      bigger: 'large',
+    };
+    return sizeDict[size] as TypographProps['variant'];
+  }, [size]);
 
   return (
     <div className={clsx(bem())}>
@@ -40,7 +53,7 @@ const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' })
         src={`data:image/svg+xml;utf8,${encodeURIComponent(toSvg(address, iconSize))}`}
         alt=""
       />
-      <Typography variant={size === 'small' ? 'small' : 'medium'} className={clsx(bem('text', size))} type="secondary">
+      <Typography variant={fontSize} className={clsx(bem('text', size))} type="secondary">
         {truncated ? truncateAddress(address) : address}
       </Typography>
     </div>

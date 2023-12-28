@@ -9,7 +9,7 @@ import { createBEM } from 'components/utilities/createBem';
 import { Context } from '../provider';
 import { attachPropertiesToComponent } from 'components/utilities/attachPropertiesToCompnent';
 
-type Props = {
+export type TypographProps = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
   type?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral';
   weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
@@ -18,7 +18,7 @@ type Props = {
   tooltipIcon?: React.ReactNode;
 } & React.HTMLProps<HTMLParagraphElement>;
 
-export interface LinkProps extends Props {
+export interface LinkProps extends TypographProps {
   href?: string;
   children?: React.ReactNode;
   active?: boolean;
@@ -27,7 +27,7 @@ export interface LinkProps extends Props {
 const bem = createBEM('subql-typography');
 const linkBem = createBEM('subql-typography-link');
 
-const TypographyInner: React.FC<Props> = ({
+const TypographyInner: React.FC<TypographProps> = ({
   children,
   variant = 'text',
   type = 'default',
