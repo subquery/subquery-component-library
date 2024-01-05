@@ -12,6 +12,7 @@ import { usePropsValue } from 'components/utilities/usePropsValue';
 import { TextAreaProps } from 'antd/es/input';
 
 import './markdown.less';
+import { Context } from '../provider';
 
 const bem = createBEM('subql-markdown');
 const previewBem = createBEM('subql-markdown-preview');
@@ -24,8 +25,10 @@ export interface SubqlMarkdown {
 }
 
 const MarkdownPreview: FC<Options> = (props) => {
+  const { theme } = React.useContext(Context);
+
   return (
-    <div className={clsx(previewBem())}>
+    <div className={clsx(previewBem({ dark: theme === 'dark' }))}>
       <MarkdownCompiler {...props}></MarkdownCompiler>
     </div>
   );
