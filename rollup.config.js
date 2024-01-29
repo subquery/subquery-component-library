@@ -63,6 +63,10 @@ export default {
     'antd/dist/reset.css',
     'graphiql/graphiql.min.css',
     /^@ant-design\/icons\/.*/,
+    'react-markdown',
+    'jdenticon',
+    'lodash-es',
+    'ahooks',
   ],
   output: [
     {

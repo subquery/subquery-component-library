@@ -3,8 +3,9 @@
 
 import clsx from 'clsx';
 import * as React from 'react';
-import { Button, Typography } from '..';
 import styles from './Dialog.module.css';
+import { Typography } from '../typography';
+import Button from '../button';
 
 type Props = {
   title: string;

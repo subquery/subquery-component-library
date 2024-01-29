@@ -3,10 +3,10 @@
 
 import clsx from 'clsx';
 import * as React from 'react';
-import { Typography } from '..';
 import { OptionalProp } from '../../types';
 
 import styles from './TextInput.module.css';
+import { Typography } from '../typography';
 
 type InputProps = React.HTMLProps<HTMLInputElement>;
 type TextAreaProps = React.HTMLProps<HTMLTextAreaElement>;

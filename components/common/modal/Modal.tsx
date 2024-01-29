@@ -3,12 +3,13 @@
 
 import * as React from 'react';
 import { Modal as AntdModal, ModalProps as AntdModalProps, StepsProps, StepProps } from 'antd';
-import { Typography, Steps } from '..';
 import { useBem } from 'components/utilities/useBem';
 import clsx from 'clsx';
 
 import './Modal.less';
 import { attachPropertiesToComponent } from 'components/utilities/attachPropertiesToCompnent';
+import { Typography } from '../typography';
+import { Steps } from '../steps';
 
 export interface ModalProps extends AntdModalProps {
   title?: React.ReactNode;

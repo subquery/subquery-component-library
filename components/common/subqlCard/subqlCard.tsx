@@ -3,13 +3,13 @@
 
 import React, { FC } from 'react';
 import { BsInfoCircle } from 'react-icons/bs';
-import { Typography } from '@subql/components';
 import { Card, CardProps, Tooltip } from 'antd';
 import clsx from 'clsx';
 import { isString } from 'lodash-es';
 
 import './subqlCard.less';
 import { useBem } from 'components/utilities/useBem';
+import { Typography } from '../typography';
 
 interface SubqlCardProps extends CardProps {
   title?: React.ReactNode;
