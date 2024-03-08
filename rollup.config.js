@@ -39,7 +39,28 @@ const outputOptions = {
 
 const resolvePath = (str) => path.resolve(__dirname, str);
 
-export default {
+const plugins = [
+  postcss({
+    minimize: true,
+    modules: false,
+    use: {
+      less: { javascriptEnabled: true },
+    },
+    extract: 'subquery-components.css',
+  }),
+  svg(),
+  terser(),
+  copy({
+    targets: [
+      {
+        src: 'components/assets',
+        dest: 'dist',
+      },
+    ],
+  }),
+];
+
+const esConfig = {
   input: {
     'subquery-components.es': path.resolve('components/index.ts'),
     'common/GraphiQL/index': path.resolve('components/common/GraphiQL/index.ts'),
@@ -72,12 +93,11 @@ export default {
     {
       ...outputOptions,
       format: 'es',
-      name: 'esm',
-      // file: 'dist/subquery-components.es.js',
       dir: 'dist',
     },
   ],
   plugins: [
+    ...plugins,
     typescript({
       tsconfig: path.resolve(__dirname, 'tsconfig.json'),
       rootDir: resolvePath('components/'),
@@ -86,23 +106,33 @@ export default {
       exclude: [resolvePath('assets/**'), resolvePath('node_modules/**')],
       allowSyntheticDefaultImports: true,
     }),
-    postcss({
-      minimize: true,
-      modules: false,
-      use: {
-        less: { javascriptEnabled: true },
-      },
-      extract: 'subquery-components.css',
-    }),
-    svg(),
-    terser(),
-    copy({
-      targets: [
-        {
-          src: 'components/assets',
-          dest: 'dist',
-        },
-      ],
+  ],
+};
+
+const cjsConfig = {
+  ...esConfig,
+  input: {
+    'subquery-components.cjs': path.resolve('components/index.ts'),
+    'common/GraphiQL/index.cjs': path.resolve('components/common/GraphiQL/index.ts'),
+  },
+  output: [
+    {
+      ...outputOptions,
+      format: 'cjs',
+      dir: 'dist',
+    },
+  ],
+  plugins: [
+    ...plugins,
+    typescript({
+      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+      rootDir: resolvePath('components/'),
+      declaration: true,
+      declarationDir: resolvePath('dist'),
+      exclude: [resolvePath('assets/**'), resolvePath('node_modules/**')],
+      allowSyntheticDefaultImports: true,
     }),
   ],
 };
+
+export default [esConfig, cjsConfig];
