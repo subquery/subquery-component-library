@@ -14,6 +14,61 @@ const { terser } = require('rollup-plugin-terser');
 const postcss = require('rollup-plugin-postcss');
 const copy = require('rollup-plugin-copy');
 
+const fs = require('fs');
+
+function getExtension(filename) {
+  const match = filename.match(/(\.d\.ts)$/);
+  return match ? match[1] : path.extname(filename);
+}
+
+function getSubfolders(directoryPath) {
+  let result = [];
+  const subfolders = fs
+    .readdirSync(directoryPath, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => path.join(directoryPath, dirent.name));
+
+  result = result.concat(subfolders);
+
+  subfolders.forEach((subfolder) => {
+    result = result.concat(getSubfolders(subfolder));
+  });
+
+  return result;
+}
+
+function renameDeclarationFiles() {
+  return {
+    name: 'rename-declaration-files',
+    writeBundle() {
+      const directories = [path.join(__dirname, 'dist'), ...getSubfolders(path.join(__dirname, 'dist'))];
+
+      directories.forEach((directoryPath) => {
+        fs.readdir(directoryPath, (err, files) => {
+          if (err) {
+            return console.log('Unable to scan directory: ' + err);
+          }
+
+          files.forEach((file) => {
+            if (getExtension(file) === '.d.ts') {
+              const oldPath = path.join(directoryPath, file);
+              let newPath = path.join(directoryPath, file.replace('.d.ts', '.cjs.d.ts'));
+              if (newPath.includes('dist/index.cjs.d.ts')) {
+                newPath = newPath.replace('dist/index.cjs.d.ts', 'dist/subquery-components.cjs.d.ts');
+              }
+              fs.copyFile(oldPath, newPath, (err) => {
+                if (err) {
+                  console.log('Error renaming file: ' + err);
+                }
+              });
+            }
+          });
+        });
+      });
+    },
+  };
+}
+
 const outputOptions = {
   // TODO arrange them.
   globals: {
@@ -132,6 +187,7 @@ const cjsConfig = {
       exclude: [resolvePath('assets/**'), resolvePath('node_modules/**')],
       allowSyntheticDefaultImports: true,
     }),
+    renameDeclarationFiles(),
   ],
 };
 
