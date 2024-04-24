@@ -11,17 +11,19 @@ import { attachPropertiesToComponent } from 'components/utilities/attachProperti
 
 export type TypographProps = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
-  type?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral';
+  type?: 'default' | 'info' | 'secondary' | 'success' | 'warning' | 'danger' | 'neutral';
   weight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   tooltip?: string;
   className?: string;
   tooltipIcon?: React.ReactNode;
+  disabled?: boolean;
 } & React.HTMLProps<HTMLParagraphElement>;
 
 export interface LinkProps extends TypographProps {
   href?: string;
   children?: React.ReactNode;
   active?: boolean;
+  type?: 'default' | 'info' | 'danger';
 }
 
 const bem = createBEM('subql-typography');
@@ -35,6 +37,7 @@ const TypographyInner: React.FC<TypographProps> = ({
   tooltip,
   tooltipIcon,
   className,
+  disabled,
   ...htmlProps
 }) => {
   const { theme } = React.useContext(Context);
@@ -48,6 +51,7 @@ const TypographyInner: React.FC<TypographProps> = ({
         bem(variant),
         bem(type),
         bem(`w${weight}`),
+        bem({ disabled }),
         className,
       )}
     >
@@ -59,7 +63,7 @@ const TypographyInner: React.FC<TypographProps> = ({
   }
   return (
     <Tooltip title={tooltip} placement="topLeft" className={tooltip && clsx(bem({ tooltip: 'tooltip' }))}>
-      <Space>
+      <Space className={clsx(bem({ space: 'space' }))}>
         {inner()}
 
         {tooltipIcon}
