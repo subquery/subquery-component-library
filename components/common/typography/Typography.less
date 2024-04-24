@@ -70,6 +70,10 @@
   &__success {
     color: var(--sq-success);
   }
+
+  &__info {
+    color: var(--sq-blue600);
+  }
   
   &__warning {
     color: var(--sq-warning);
@@ -77,6 +81,7 @@
   
   &__danger {
     color: var(--sq-error);
+
   }
   
   &__secondary {
@@ -140,22 +145,61 @@
     }
   }
 
+  &--disabled {
+    color: var(--sq-gray400);
+    cursor: not-allowed;
+  }
+
   &-link {
     cursor: pointer;
     .subql-typography {
       transition: .1s all linear;
       color: var(--sq-gray600);
+
+      &__info {
+        color: var(--sq-blue600);
+      }
+
+      &__danger {
+        color: var(--sq-error);
+      }
+
+      &--disabled {
+        color: var(--sq-gray400);
+      }
     }
+
     &:hover {
       .subql-typography {
         color: var(--sq-blue400);
+
+        &__info {
+          color: var(--sq-blue400);
+        }
+
+        &__danger {
+          color: var(--sq-error-hover);
+        }
+
+        &--disabled {
+          color: var(--sq-gray400);
+        }
       }
     }
 
     &--active {
       .subql-typography {
         color: var(--sq-blue400);
+
+        &__info {
+          color: var(--sq-blue400);
+        }
+
+        &__danger {
+          color: var(--sq-error-hover);
+        }
       }
     }
+
   }
 }
