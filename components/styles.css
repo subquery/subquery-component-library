@@ -17,6 +17,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Futura';
+  src: local('Futura') url('https://static.subquery.network/design/fonts/Futura-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
 :root {
   --sq-primary-pink: #ff4581;
   --sq-primary-blue: #1677ff;
@@ -92,7 +98,7 @@
   --sq-border-radius: 8px;
 
   /* Family */
-  --sq-font-family: 'Inter', sans-serif;
+  --sq-font-family: 'Inter', Arial, sans-serif;
   --sq-font-family-header: 'Futura';
 }
 
