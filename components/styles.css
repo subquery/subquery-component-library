@@ -19,7 +19,7 @@
 
 @font-face {
   font-family: 'Futura';
-  src: local('Futura') url('https://static.subquery.network/design/fonts/Futura-Medium.ttf') format('truetype');
+  src: url('https://static.subquery.network/design/fonts/Futura-Medium.ttf') format('truetype');
   font-display: swap;
 }
 
@@ -99,7 +99,7 @@
 
   /* Family */
   --sq-font-family: 'Inter', Arial, sans-serif;
-  --sq-font-family-header: 'Futura';
+  --sq-font-family-header: 'Futura', Arial, sans-serif;
 }
 
 body {
