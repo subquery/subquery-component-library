@@ -1,0 +1,30 @@
+.subql-dropdown {
+  cursor: pointer;
+  height: 100%;
+
+  &__icon {
+    font-size: 12px;
+    color: var(--sq-gray600);
+
+    &--dark {
+      color: #fff;
+    }
+  }
+
+  &--active {
+    color: var(--sq-blue600);
+    .subql-typography {
+      color: var(--sq-blue600);
+    }
+
+    .subql-dropdown__icon {
+      color: var(--sq-blue600);
+    }
+  }
+
+  &-desc {
+    &__title {
+      margin: 0.25rem 0;
+    }
+  }
+}

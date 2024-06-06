@@ -6,9 +6,10 @@ import clsx from 'clsx';
 import { DropDownProps as AntdDropdownProps, Dropdown as AntdDropdown, Menu, Space } from 'antd';
 import DownOutlined from '@ant-design/icons/DownOutlined';
 import { ItemType, MenuClickEventHandler } from 'rc-menu/lib/interface';
-import styles from './Dropdown.module.css';
+import './Dropdown.less';
 import { Typography } from '../typography';
 import { Context } from '../provider';
+import { useBem } from 'components/utilities/useBem';
 
 export interface DropdownProps extends Partial<AntdDropdownProps> {
   label?: string;
@@ -33,9 +34,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
   ...props
 }) => {
   const { theme } = React.useContext(Context);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [, setIsOpen] = React.useState<boolean>(false);
+  const bem = useBem('subql-dropdown');
   const sortedLabel = (
-    <Space className={clsx(styles.dropdownLabel, styles.pointer, (isOpen || active) && styles.isOnHover)}>
+    <Space className={clsx(bem({ active: active ? 'active' : undefined }))}>
       {LeftLabelIcon}
       <Typography
         onClick={() => {
@@ -48,12 +50,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         {LeftLabelIcon ? undefined : RightLabelIcon ? (
           RightLabelIcon
         ) : (
-          <DownOutlined
-            style={{
-              fontSize: 12,
-              color: theme === 'dark' ? '#fff' : 'var(--sq-gray600)',
-            }}
-          />
+          <DownOutlined className={clsx(bem('icon', { dark: theme === 'dark' ? 'dark' : undefined }))} />
         )}
       </Typography>
     </Space>
@@ -91,9 +88,11 @@ export interface MenuWithDescProps {
   width?: string | number;
 }
 export const MenuWithDesc = ({ title, description, className, width }: MenuWithDescProps) => {
+  const bem = useBem('subql-dropdown-desc');
+
   return (
-    <div className={clsx(styles.menuWithDesc, className)} style={{ width }}>
-      <Typography weight={500} className={styles.title}>
+    <div className={clsx(bem(), className)} style={{ width }}>
+      <Typography weight={500} className={clsx(bem('title'))}>
         {title}
       </Typography>
       <Typography variant="small" type="secondary">

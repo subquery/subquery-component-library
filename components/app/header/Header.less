@@ -46,10 +46,10 @@
       color: #fff;
 
       &:hover {
-        color: var(--sq-primary-blue);
+        color: var(--sq-blue600);
       }
       &--active {
-        color: var(--sq-primary-blue);
+        color: var(--sq-blue600);
       }
     }
   }
@@ -59,6 +59,7 @@
 .@{middle} {
   margin-left: 24px;
   &__menu {
+
     &--dark.@{middle}__menu--dark.@{middle}__menu--dark {
       background-color: var(--dark-mode-card);
       padding: 0;
@@ -115,15 +116,15 @@
 
   &:hover {
     text-decoration: underline;
-    color: var(--sq-primary-blue);
+    color: var(--sq-blue600);
   }
 
   &--active {
-    color: var(--sq-primary-blue);
+    color: var(--sq-blue600);
   }
 }
 
-@media  screen and (max-width: 700px) {
+@media  screen and (max-width: 768px) {
 
   .@{left} {
     margin-left: 0;
@@ -133,6 +134,7 @@
     &__wrapper {
       width: 100%;
       margin-top: 4px;
+      margin-right: 0;
     }
 
     &--dark {
@@ -184,7 +186,13 @@
       }
 
       &-item.@{middle}__menu-item.@{middle}__menu-item {
-        padding: 16px 0;
+        padding: 10px 32px;
+        width: 100vw;
+        margin-left: -24px;
+
+        &--active {
+          background: #4388DD1A;
+        }
       }
     }
 
@@ -211,10 +219,38 @@
     }
 
     &__menu {
+      .ant-drawer-header {
+        padding: 20px;
+      }
+
+      .ant-drawer-header-title {
+        display: none;
+      }
+      .ant-drawer-extra {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .ant-drawer-body {
+        padding: 0;
+      }
+
+      .@{left} {
+        border-bottom: 1px solid var(--sq-gray200);
+      }
+
+      .@{middle} {
+        &__item {
+          border-bottom: 1px solid var(--sq-gray200);
+        }
+      }
+
       &--dark {
         .@{middle} {
           &__item {
-            border-bottom: 1px solid #34414B;
+            border-bottom: 1px solid var(--dark-mode-border);
           }
         }
       }
@@ -226,11 +262,11 @@
       color: #fff;
       &:hover {
         text-decoration: underline;
-        color: var(--sq-primary-blue);
+        color: var(--sq-blue600);
       }
     
       &--active {
-        color: var(--sq-primary-blue);
+        color: var(--sq-blue600);
       }
     }
   }

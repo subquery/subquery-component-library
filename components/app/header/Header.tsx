@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import clsx from 'clsx';
-import { Space } from 'antd';
+import { Drawer, Space } from 'antd';
 import useScreen from 'use-screen';
 import { matchPath } from 'react-router-dom';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -128,7 +128,11 @@ const MiddleHeader = ({
     <>
       <>{middleElement}</>
       {!middleElement && appNavigation && (
-        <Space className={clsx(bem({ wrapper: 'wrapper' }))} direction={isMobile ? 'vertical' : 'horizontal'} size={24}>
+        <Space
+          className={clsx(bem({ wrapper: 'wrapper' }))}
+          direction={isMobile ? 'vertical' : 'horizontal'}
+          size={isMobile ? 0 : 24}
+        >
           {appNavigation.map((nav, index) => {
             if (nav.dropdown) {
               return (
@@ -139,9 +143,19 @@ const MiddleHeader = ({
                     menuitem={nav.dropdown.map((menu) => ({
                       key: menu.link,
                       label: <Typography>{menu.label}</Typography>,
-                      className: clsx(bem('menu-item'), theme === 'dark' && bem('menu-item', { dark: 'dark' })), // should refoctor
+                      className: clsx(
+                        bem('menu-item', {
+                          active: active?.(menu.link) ? 'active' : undefined,
+                          dark: theme === 'dark' ? 'dark' : undefined,
+                        }),
+                      ), // should refoctor
                     }))}
                     label={nav.label}
+                    active={
+                      nav.dropdown
+                        ? active?.(nav.link || '????') || nav.dropdown.some((i) => active?.(i.link))
+                        : active?.(nav.link || '????')
+                    }
                     trigger={[isMobile ? 'click' : 'hover']}
                     onMenuItemClick={({ key }) => {
                       if (nav.onClick) {
@@ -193,6 +207,7 @@ export interface HeaderProps extends MiddleHeaderProps {
   leftElement?: React.ReactElement;
   rightElement?: React.ReactElement;
   className?: string;
+  closeDrawerAfterNavigate?: boolean;
 }
 
 export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
@@ -207,6 +222,7 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   children,
   navigate,
   active,
+  closeDrawerAfterNavigate,
 }) => {
   const { theme } = React.useContext(Context);
   const bem = useBem('subql-header');
@@ -241,19 +257,52 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
               style={{ cursor: 'pointer' }}
             />
           </div>
-          {showMenu && (
-            <div className={clsx(mobileHeaderBem('menu', { dark: theme === 'dark' ? 'dark' : null }))}>
-              <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider isMobile />
-              <MiddleHeader
-                middleElement={middleElement}
-                appNavigation={appNavigation}
-                isMobile
-                navigate={navigate}
-                active={active}
-              />
-              <>{rightElement}</>
-            </div>
-          )}
+          <Drawer
+            open={showMenu}
+            placement="left"
+            onClose={() => {
+              setShowMenu(false);
+            }}
+            width={'100vw'}
+            rootClassName={clsx(mobileHeaderBem('menu', { dark: theme === 'dark' ? 'dark' : null }))}
+            extra={
+              <>
+                <div>
+                  {customLogo ? (
+                    customLogo
+                  ) : (
+                    <a href={logoLink ?? '/'}>
+                      <img src={logoMobile} alt="SubQuery Logo" width={48} />
+                    </a>
+                  )}
+                </div>
+
+                <MenuIcon
+                  onClick={() => {
+                    setShowMenu(!showMenu);
+                  }}
+                  size={40}
+                  style={{ cursor: 'pointer' }}
+                />
+              </>
+            }
+          >
+            <LeftHeader leftElement={leftElement} dropdownLinks={dropdownLinks} showDivider isMobile />
+            <MiddleHeader
+              middleElement={middleElement}
+              appNavigation={appNavigation}
+              isMobile
+              navigate={(link) => {
+                if (closeDrawerAfterNavigate) {
+                  navigate?.(link);
+                  setShowMenu(false);
+                }
+                navigate?.(link);
+              }}
+              active={active}
+            />
+            <>{rightElement}</>
+          </Drawer>
         </div>
       ) : (
         <div className={clsx(bem(), theme === 'dark' ? bem({ dark: 'dark' }) : '', className)}>
