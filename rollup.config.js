@@ -191,4 +191,5 @@ const cjsConfig = {
   ],
 };
 
+// cjsConfig
 export default [esConfig, cjsConfig];

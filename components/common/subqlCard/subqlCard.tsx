@@ -52,7 +52,7 @@ export const SubqlCard: FC<SubqlCardProps> = ({
       }
       style={{ width: width ? `${width}px` : 'auto', ...style }}
     >
-      {children && <div className={clsx(bem(['split']))}></div>}
+      {children && <div className={clsx(bem('split'))}></div>}
       {children}
     </Card>
   );
