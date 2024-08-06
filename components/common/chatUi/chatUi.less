@@ -55,6 +55,8 @@
     flex: 1;
     background: #26262680;
     position: relative;
+    display: flex;
+
   }
 
   &__chat-input-group {
@@ -117,6 +119,7 @@
 
   &__chat-placeholder {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,5 +144,51 @@
     &--active {
       background: #262626;
     }
+  }
+
+  &-conversation-message {
+    overflow: auto;
+    flex: 1;
+    height: calc(100% - 122px);
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+      padding: 16px 12.5%;
+      overflow-wrap: anywhere;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgb(209, 213, 219);
+    }
+
+    &__assistant {
+      background: rgb(68,70,84);
+      position: relative;
+      &--lastOne {
+        .subql-chat-conversation-message__item-span {
+          &::after {
+            content: "▍";
+            align-self: flex-end;
+            margin-left: 8px;;
+          }
+        }
+      }
+
+      &--lastOne&--loading {
+        .subql-chat-conversation-message__item-span {
+          &::after {
+            animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0;
   }
 }
