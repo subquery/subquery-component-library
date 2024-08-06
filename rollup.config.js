@@ -86,6 +86,9 @@ const outputOptions = {
     'react-icons/io5': 'react-icons/io5',
     'react-jazzicon': 'react-jazzicon',
     'react-icons/bs': 'react-icons/bs',
+    'react-icons/pi': 'react-icons/pi',
+    'react-icons/fa6': 'react-icons/fa6',
+    'react-icons/fi': 'react-icons/fi',
     'antd/es/card/Meta': 'antd/es/card/Meta',
     'antd/dist/reset.css': 'antd/dist/reset.css',
     'graphiql/graphiql.min.css': 'graphiql/graphiql.min.css',
@@ -136,6 +139,11 @@ const esConfig = {
     'react-jazzicon',
     'antd/es/card/Meta',
     'react-icons/bs',
+    'react-icons/pi',
+    'react-icons/fa6',
+    'react-icons/fi',
+    'uuid',
+    'localforage',
     'antd/dist/reset.css',
     'graphiql/graphiql.min.css',
     /^@ant-design\/icons\/.*/,
@@ -192,4 +200,4 @@ const cjsConfig = {
 };
 
 // cjsConfig
-export default [esConfig, cjsConfig];
+export default [esConfig];
