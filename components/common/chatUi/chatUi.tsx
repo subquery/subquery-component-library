@@ -108,6 +108,7 @@ export const ConversationMessage = forwardRef<
       outerRef.current?.scrollTo(0, outerRef.current?.scrollHeight);
     },
   }));
+
   return (
     <div className={clsx(bem())} ref={outerRef}>
       {property.messages.map((message, index) => {
@@ -149,12 +150,12 @@ const workspaceName = 'subql-chat-workspace';
 export const chatWithStream = async (url: string, body: { messages: Message[] }) => {
   const res = await fetch(url, {
     headers: {
-      accept: 'application/json',
-      'Content-Type': 'text/event-stream',
+      accept: 'text/event-stream',
+      'Content-Type': 'application/json',
     },
     method: 'POST',
     body: JSON.stringify({
-      model: 'llama3',
+      model: 'gemma2',
       messages: body.messages,
       stream: true,
     }),
@@ -257,14 +258,13 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       await pushNewMsgToChat(newChat, robotAnswer);
 
       // set user's message first, then get the response
-      const res = await chatWithStream(newChat.chatUrl, {
+      const res = await chatWithStream(newChat.messages.length - 1 > 0 ? newChat.chatUrl : chatUrl, {
         messages: prompt ? [{ role: 'system' as const, content: prompt }, ...newChat.messages] : newChat.messages,
       });
 
       if (res) {
         const decoder = new TextDecoder();
         const reader = res.getReader();
-
         while (true) {
           const { value, done } = await reader.read();
           const chunkValue = decoder.decode(value);
@@ -273,16 +273,22 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
             break;
           }
 
-          const parsed: { message: Message } = JSON.parse(chunkValue);
+          const parts = chunkValue.split('\n\n');
+          for (const part of parts) {
+            const partWithHandle = part.startsWith('data: ') ? part.slice(6, part.length).trim() : part;
+            if (part) {
+              const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(partWithHandle);
+              robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
 
-          robotAnswer.content += parsed.message.content;
-
-          await pushNewMsgToChat(newChat, robotAnswer);
+              await pushNewMsgToChat(newChat, robotAnswer);
+            }
+          }
         }
       }
 
       setAnswerStatus(ChatBotAnswerStatus.Success);
     } catch (e) {
+      console.error(e);
       setAnswerStatus(ChatBotAnswerStatus.Error);
     }
   };
