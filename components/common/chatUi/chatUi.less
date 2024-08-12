@@ -56,7 +56,22 @@
     background: #26262680;
     position: relative;
     display: flex;
+  }
 
+  &__chat-url {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    max-height: 40px;
+    overflow: auto;
+    color: #fff;
+    padding: 5px 12.5%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
+    width: 100%;
   }
 
   &__chat-input-group {
@@ -149,7 +164,8 @@
   &-conversation-message {
     overflow: auto;
     flex: 1;
-    height: calc(100% - 122px);
+    height: calc(100% - 162px);
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
 

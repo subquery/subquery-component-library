@@ -1,7 +1,7 @@
 // Copyright 2020-2022 SubQuery Pte Ltd authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { FC, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { FC, forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import './chatUi.less';
 import { useBem } from 'components/utilities/useBem';
 import clsx from 'clsx';
@@ -9,7 +9,8 @@ import { PiChatTextBold, PiTrash } from 'react-icons/pi';
 import { FaPlus } from 'react-icons/fa6';
 import { FiUser, FiSend } from 'react-icons/fi';
 import { RiRobot2Line } from 'react-icons/ri';
-import { Button, Input } from 'antd';
+import { AiFillApi } from 'react-icons/ai';
+import { Button, Input, message } from 'antd';
 import localforage from 'localforage';
 import { Typography } from '../typography';
 import { v4 as uuidv4 } from 'uuid';
@@ -160,7 +161,7 @@ export const chatWithStream = async (url: string, body: { messages: Message[] })
       stream: true,
     }),
   });
-  return res.body;
+  return res;
 };
 
 export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholder, width, height }) => {
@@ -170,6 +171,11 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
   const [currentInput, setCurrentInput] = useState('');
   const [answerStatus, setAnswerStatus] = useState<ChatBotAnswerStatus>(ChatBotAnswerStatus.Empty);
   const messageArea = useRef<{ scrollToBottom: () => void }>(null);
+
+  const selectedServer = useMemo(() => {
+    const split = currentChat?.chatUrl?.split('select=');
+    return split?.[1] || 'No Server Available';
+  }, [currentChat?.chatUrl]);
 
   const createNewChat = async () => {
     let oldWorkspace = await localforage.getItem<Array<ConversationItemProps['property']>>(workspaceName);
@@ -221,6 +227,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
 
   const sendMessage = async () => {
     if (!currentInput || !currentChat) {
+      message.error('Please select a chat to continue');
       return;
     }
     setAnswerStatus(ChatBotAnswerStatus.Loading);
@@ -232,9 +239,10 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
 
       const newChat = {
         ...currentChat,
-        messages: [...currentChat.messages, newMessage],
+        messages: [...currentChat.messages, newMessage].filter((i) => i.content),
         name: currentChat.messages.length ? currentChat.name : currentInput.slice(0, 40),
       };
+      newChat.chatUrl = newChat.messages.length - 1 > 0 ? newChat.chatUrl : chatUrl;
 
       const newChats = cloneDeep(chats).map((chat) => {
         if (chat.id === currentChat.id) {
@@ -258,13 +266,13 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       await pushNewMsgToChat(newChat, robotAnswer);
 
       // set user's message first, then get the response
-      const res = await chatWithStream(newChat.messages.length - 1 > 0 ? newChat.chatUrl : chatUrl, {
+      const res = await chatWithStream(newChat.chatUrl, {
         messages: prompt ? [{ role: 'system' as const, content: prompt }, ...newChat.messages] : newChat.messages,
       });
 
-      if (res) {
+      if (res.status === 200 && res.body) {
         const decoder = new TextDecoder();
-        const reader = res.getReader();
+        const reader = res.body.getReader();
         while (true) {
           const { value, done } = await reader.read();
           const chunkValue = decoder.decode(value);
@@ -274,6 +282,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
           }
 
           const parts = chunkValue.split('\n\n');
+
           for (const part of parts) {
             const partWithHandle = part.startsWith('data: ') ? part.slice(6, part.length).trim() : part;
             if (part) {
@@ -284,6 +293,10 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
             }
           }
         }
+      } else {
+        robotAnswer.content = 'Sorry, The Server is not available now.';
+        await pushNewMsgToChat(newChat, robotAnswer);
+        setAnswerStatus(ChatBotAnswerStatus.Error);
       }
 
       setAnswerStatus(ChatBotAnswerStatus.Success);
@@ -355,6 +368,14 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       </div>
 
       <div className={clsx(bem('area'))}>
+        {currentChat?.messages.length ? (
+          <div className={clsx(bem('chat-url'))}>
+            <AiFillApi style={{ fontSize: 30, flexShrink: 0, color: 'rgb(243,244,246)', alignSelf: 'flex-start' }} />
+            {selectedServer}
+          </div>
+        ) : (
+          ''
+        )}
         {currentChat?.messages.length ? (
           <ConversationMessage
             property={currentChat}
