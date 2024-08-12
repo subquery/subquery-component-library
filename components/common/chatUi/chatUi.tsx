@@ -10,11 +10,18 @@ import { FaPlus } from 'react-icons/fa6';
 import { FiUser, FiSend } from 'react-icons/fi';
 import { RiRobot2Line } from 'react-icons/ri';
 import { AiFillApi } from 'react-icons/ai';
-import { Button, Input, message } from 'antd';
+import { Button, Input, InputRef, message } from 'antd';
 import localforage from 'localforage';
 import { Typography } from '../typography';
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep, isString } from 'lodash-es';
+import Address from '../address';
+
+const indexerName: { [key in string]: string } = {
+  '0xd0af1919af890cfdd8d12be5cf1b1421224fc29a': 'Mainnet Operator',
+  '0x21e86cf290992a0773107e63cbc1f609f772e931': 'Phoenix Rebirth',
+  '0xa10af672bcdd1dd61b6a63a18295e55e5f3ea842': 'subquerynetwork.eth',
+};
 
 // expect
 export interface ChatUiProps {
@@ -170,19 +177,29 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
   const [currentChat, setCurrentChat] = useState<ConversationItemProps['property']>();
   const [currentInput, setCurrentInput] = useState('');
   const [answerStatus, setAnswerStatus] = useState<ChatBotAnswerStatus>(ChatBotAnswerStatus.Empty);
+  const [conversationSearch, setConversationSearch] = useState('');
   const messageArea = useRef<{ scrollToBottom: () => void }>(null);
-
+  const inputRef = useRef<InputRef>(null);
   const selectedServer = useMemo(() => {
     const split = currentChat?.chatUrl?.split('select=');
     return split?.[1] || 'No Server Available';
   }, [currentChat?.chatUrl]);
 
-  const createNewChat = async () => {
-    let oldWorkspace = await localforage.getItem<Array<ConversationItemProps['property']>>(workspaceName);
-
-    if (!oldWorkspace || !Array.isArray(oldWorkspace)) {
-      oldWorkspace = [];
+  const renderChats = useMemo(() => {
+    if (conversationSearch) {
+      return chats.filter((chat) => chat.name.includes(conversationSearch));
     }
+
+    return chats;
+  }, [conversationSearch, chats]);
+
+  const createNewChat = async () => {
+    // let oldWorkspace = await localforage.getItem<Array<ConversationItemProps['property']>>(workspaceName);
+
+    // if (!oldWorkspace || !Array.isArray(oldWorkspace)) {
+    //   oldWorkspace = [];
+    // }
+    const oldWorkspace = cloneDeep(chats);
 
     const chat = {
       id: uuidv4(),
@@ -193,13 +210,25 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
     };
 
     oldWorkspace.unshift(chat);
-    await localforage.setItem(workspaceName, oldWorkspace);
+    // await localforage.setItem(workspaceName, oldWorkspace);
     setChats(oldWorkspace);
     setCurrentChat(chat);
+
+    return {
+      chats: oldWorkspace,
+      chat,
+    };
   };
 
-  const pushNewMsgToChat = async (newChat: ConversationProperty, newMessage: Message) => {
-    if (!currentChat) return;
+  const pushNewMsgToChat = async (
+    newChat: ConversationProperty,
+    newMessage: Message,
+    curChat?: ConversationItemProps['property'],
+    curChats?: ConversationItemProps['property'][],
+  ) => {
+    const cur = curChat || currentChat;
+    const curs = curChats || chats;
+    if (!cur) return;
 
     setCurrentChat({
       ...newChat,
@@ -210,8 +239,8 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       messageArea.current?.scrollToBottom();
     });
 
-    const newChats = cloneDeep(chats).map((chat) => {
-      if (chat.id === currentChat.id) {
+    const newChats = cloneDeep(curs).map((chat) => {
+      if (chat.id === cur.id) {
         return {
           ...newChat,
           messages: [...newChat.messages, newMessage],
@@ -222,12 +251,24 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
     });
 
     setChats(newChats);
-    await localforage.setItem(workspaceName, newChats);
+    // await localforage.setItem(workspaceName, newChats);
   };
 
   const sendMessage = async () => {
-    if (!currentInput || !currentChat) {
-      message.error('Please select a chat to continue');
+    let curChat = currentChat;
+    let curChats = chats;
+    if (!currentInput) {
+      return;
+    }
+
+    if (!currentChat) {
+      const { chats: newChats, chat } = await createNewChat();
+      curChats = newChats;
+      curChat = chat;
+    }
+
+    if (!curChat) {
+      message.error('Failed to create new chat, please create manually.');
       return;
     }
     setAnswerStatus(ChatBotAnswerStatus.Loading);
@@ -238,14 +279,14 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       };
 
       const newChat = {
-        ...currentChat,
-        messages: [...currentChat.messages, newMessage].filter((i) => i.content),
-        name: currentChat.messages.length ? currentChat.name : currentInput.slice(0, 40),
+        ...curChat,
+        messages: [...curChat.messages, newMessage].filter((i) => i.content),
+        name: curChat.messages.length ? curChat.name : currentInput.slice(0, 40),
       };
       newChat.chatUrl = newChat.messages.length - 1 > 0 ? newChat.chatUrl : chatUrl;
 
-      const newChats = cloneDeep(chats).map((chat) => {
-        if (chat.id === currentChat.id) {
+      const newChats = cloneDeep(curChats).map((chat) => {
+        if (chat.id === curChat.id) {
           return newChat;
         }
 
@@ -255,7 +296,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       setCurrentInput('');
       setChats(newChats);
       setCurrentChat(newChat);
-      await localforage.setItem(workspaceName, newChats);
+      // await localforage.setItem(workspaceName, newChats);
       messageArea.current?.scrollToBottom();
 
       const robotAnswer = {
@@ -263,7 +304,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
         content: '',
       };
 
-      await pushNewMsgToChat(newChat, robotAnswer);
+      await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
 
       // set user's message first, then get the response
       const res = await chatWithStream(newChat.chatUrl, {
@@ -273,6 +314,8 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       if (res.status === 200 && res.body) {
         const decoder = new TextDecoder();
         const reader = res.body.getReader();
+        let invalidJson = '';
+
         while (true) {
           const { value, done } = await reader.read();
           const chunkValue = decoder.decode(value);
@@ -282,39 +325,69 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
           }
 
           const parts = chunkValue.split('\n\n');
-
           for (const part of parts) {
             const partWithHandle = part.startsWith('data: ') ? part.slice(6, part.length).trim() : part;
-            if (part) {
-              const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(partWithHandle);
-              robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+            if (!part.startsWith('data: ')) {
+              try {
+                invalidJson += partWithHandle;
+                const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+                robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
 
-              await pushNewMsgToChat(newChat, robotAnswer);
+                await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
+                invalidJson = '';
+              } catch (e) {
+                // handle it until
+              }
+              continue;
             }
+
+            if (partWithHandle) {
+              try {
+                const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(partWithHandle);
+                robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+
+                await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
+              } catch (e) {
+                invalidJson += partWithHandle;
+              }
+            }
+          }
+        }
+
+        if (invalidJson) {
+          try {
+            const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+            robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+
+            await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
+          } catch (e) {
+            // to reach this code, it means the response is not valid or the code have something wrong.
           }
         }
       } else {
         robotAnswer.content = 'Sorry, The Server is not available now.';
-        await pushNewMsgToChat(newChat, robotAnswer);
+        await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
         setAnswerStatus(ChatBotAnswerStatus.Error);
       }
-
+      inputRef.current?.focus();
       setAnswerStatus(ChatBotAnswerStatus.Success);
     } catch (e) {
       console.error(e);
+      inputRef.current?.focus();
       setAnswerStatus(ChatBotAnswerStatus.Error);
     }
   };
 
   const init = async () => {
-    const workspace = await localforage.getItem<Array<ConversationItemProps['property']>>(workspaceName);
+    // const workspace = await localforage.getItem<Array<ConversationItemProps['property']>>(workspaceName);
 
-    if (!workspace || !Array.isArray(workspace)) {
-      return;
-    }
+    // if (!workspace || !Array.isArray(workspace)) {
+    //   return;
+    // }
 
-    setChats(workspace);
-    setCurrentChat(workspace[0]);
+    // setChats(workspace);
+    // setCurrentChat(workspace[0]);
+    createNewChat();
   };
 
   useEffect(() => {
@@ -329,19 +402,32 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
 
       <div className={clsx(bem('workspace'))}>
         <Button
-          style={{ display: 'flex', alignItems: 'center', gap: 4, width: '100%', justifyContent: 'center' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            width: '100%',
+            justifyContent: 'center',
+          }}
           onClick={() => {
+            if (answerStatus === ChatBotAnswerStatus.Loading) return;
             createNewChat();
           }}
         >
           <FaPlus /> New Chat
         </Button>
 
-        <Input className={clsx(bem('workspace-search'))} placeholder="Search chats"></Input>
+        <Input
+          className={clsx(bem('workspace-search'))}
+          placeholder="Search chats"
+          onChange={(e) => {
+            setConversationSearch(e.target.value);
+          }}
+        ></Input>
 
         <div className={clsx(bem('chats'))}>
-          {chats.length ? (
-            chats.map((chat) => {
+          {renderChats.length ? (
+            renderChats.map((chat) => {
               return (
                 <ConversationItem
                   key={chat.id}
@@ -349,6 +435,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
                   active={chat.id === currentChat?.id}
                   onSelect={() => {
                     setCurrentChat(chat);
+                    inputRef.current?.focus();
                   }}
                   onRemove={async (item) => {
                     const filtered = chats.filter((c) => c.id !== item.id);
@@ -370,8 +457,24 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       <div className={clsx(bem('area'))}>
         {currentChat?.messages.length ? (
           <div className={clsx(bem('chat-url'))}>
-            <AiFillApi style={{ fontSize: 30, flexShrink: 0, color: 'rgb(243,244,246)', alignSelf: 'flex-start' }} />
-            {selectedServer}
+            <AiFillApi style={{ fontSize: 30, flexShrink: 0, color: 'rgb(243,244,246)' }} />
+            {/* {selectedServer} */}
+            <Address
+              address={selectedServer}
+              size="bigger"
+              customLabel={
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginLeft: 8,
+                  }}
+                >
+                  <Typography variant="medium">{indexerName[selectedServer]}</Typography>
+                  <Typography variant="medium">{selectedServer}</Typography>
+                </div>
+              }
+            ></Address>
           </div>
         ) : (
           ''
@@ -394,6 +497,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
 
         <div className={clsx(bem('chat-input-group'))}>
           <Input
+            ref={inputRef}
             className={clsx(bem('chat-input'))}
             placeholder="Ask anything"
             value={currentInput}
