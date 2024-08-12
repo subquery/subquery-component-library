@@ -15,6 +15,13 @@ import localforage from 'localforage';
 import { Typography } from '../typography';
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep, isString } from 'lodash-es';
+import Address from '../address';
+
+const indexerName: { [key in string]: string } = {
+  '0xd0af1919af890cfdd8d12be5cf1b1421224fc29a': 'Mainnet Operator',
+  '0x21e86cf290992a0773107e63cbc1f609f772e931': 'Phoenix Rebirth',
+  '0xa10af672bcdd1dd61b6a63a18295e55e5f3ea842': 'subquerynetwork.eth',
+};
 
 // expect
 export interface ChatUiProps {
@@ -179,7 +186,6 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
   }, [currentChat?.chatUrl]);
 
   const renderChats = useMemo(() => {
-    console.warn(conversationSearch);
     if (conversationSearch) {
       return chats.filter((chat) => chat.name.includes(conversationSearch));
     }
@@ -347,6 +353,17 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
             }
           }
         }
+
+        if (invalidJson) {
+          try {
+            const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+            robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+
+            await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
+          } catch (e) {
+            // to reach this code, it means the response is not valid or the code have something wrong.
+          }
+        }
       } else {
         robotAnswer.content = 'Sorry, The Server is not available now.';
         await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
@@ -440,8 +457,24 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       <div className={clsx(bem('area'))}>
         {currentChat?.messages.length ? (
           <div className={clsx(bem('chat-url'))}>
-            <AiFillApi style={{ fontSize: 30, flexShrink: 0, color: 'rgb(243,244,246)', alignSelf: 'flex-start' }} />
-            {selectedServer}
+            <AiFillApi style={{ fontSize: 30, flexShrink: 0, color: 'rgb(243,244,246)' }} />
+            {/* {selectedServer} */}
+            <Address
+              address={selectedServer}
+              size="bigger"
+              customLabel={
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginLeft: 8,
+                  }}
+                >
+                  <Typography variant="medium">{indexerName[selectedServer]}</Typography>
+                  <Typography variant="medium">{selectedServer}</Typography>
+                </div>
+              }
+            ></Address>
           </div>
         ) : (
           ''

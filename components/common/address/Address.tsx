@@ -19,9 +19,10 @@ type Props = {
   address: string;
   truncated?: boolean;
   size?: 'small' | 'large' | 'bigger';
+  customLabel?: React.ReactNode;
 };
 
-const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' }) => {
+const Address: React.FC<Props> = ({ address, customLabel, truncated = true, size = 'small' }) => {
   const bem = createBEM('subql-address');
 
   const iconSize = React.useMemo(() => {
@@ -53,9 +54,13 @@ const Address: React.FC<Props> = ({ address, truncated = true, size = 'small' })
         src={`data:image/svg+xml;utf8,${encodeURIComponent(toSvg(address, iconSize))}`}
         alt=""
       />
-      <Typography variant={fontSize} className={clsx(bem('text', size))} type="secondary">
-        {truncated ? truncateAddress(address) : address}
-      </Typography>
+      {customLabel ? (
+        customLabel
+      ) : (
+        <Typography variant={fontSize} className={clsx(bem('text', size))} type="secondary">
+          {truncated ? truncateAddress(address) : address}
+        </Typography>
+      )}
     </div>
   );
 };
