@@ -32,6 +32,7 @@
     flex-direction: column;
     gap: 8px;
     width: 290px;
+    height: 100%;
     &-search {
       background: rgb(10, 10, 10);
       border: 1px solid #262626;
@@ -47,8 +48,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 8px;
+    flex: 1;
+    overflow: auto;
   }
 
   &__area {
@@ -181,18 +183,12 @@
     &__assistant {
       background: rgb(68,70,84);
       position: relative;
-      &--lastOne {
+      &--lastOne&--loading {
         .subql-chat-conversation-message__item-span {
           &::after {
             content: "▍";
             align-self: flex-end;
-            margin-left: 8px;;
-          }
-        }
-      }
-      &--lastOne&--loading {
-        .subql-chat-conversation-message__item-span {
-          &::after {
+            margin-left: 8px;
             animation: pulseCursor 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
           }
