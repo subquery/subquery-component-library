@@ -326,10 +326,9 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
 
           const parts = chunkValue.split('\n\n');
           for (const part of parts) {
-            const partWithHandle = part.startsWith('data: ') ? part.slice(6, part.length).trim() : part;
-            if (!part.startsWith('data: ')) {
+            if (invalidJson) {
               try {
-                invalidJson += partWithHandle;
+                invalidJson += part;
                 const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
                 robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
 
@@ -340,6 +339,8 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
               }
               continue;
             }
+
+            const partWithHandle = part.startsWith('data: ') ? part.slice(6, part.length).trim() : part;
 
             if (partWithHandle) {
               try {
@@ -361,6 +362,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
 
             await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
           } catch (e) {
+            console.warn('Reach this code', invalidJson);
             // to reach this code, it means the response is not valid or the code have something wrong.
           }
         }
