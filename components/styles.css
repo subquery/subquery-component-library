@@ -1,8 +1,9 @@
 @font-face {
-  font-family: 'PPNeue-Bold';
+  font-family: 'PPNeue';
   src: local('PPNeueMontreal-Bold'),
     url('https://static.subquery.network/design/fonts/PPNeueMontreal-Bold.ttf') format('truetype');
   font-display: swap;
+  font-weight: bold;
 }
 
 @font-face {
@@ -15,6 +16,7 @@
 :root {
   --sq-primary: #e968dd;
   --sq-primary-card-hover: #e968dd33;
+  --sq-primary-card-deephover: #e968dd66;
   --sq-primary-link-hover: #d25ec7;
 
   --sq-primary-pink: #ff4581;

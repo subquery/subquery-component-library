@@ -178,6 +178,12 @@
       align-items: center;
       gap: 12px;
       color: rgb(209, 213, 219);
+
+      .subql-markdown-preview {
+        p {
+          margin-top: 0;
+        }
+      }
     }
 
     &__assistant {
@@ -185,12 +191,13 @@
       position: relative;
       &--lastOne&--loading {
         .subql-chat-conversation-message__item-span {
-          &::after {
-            content: "▍";
-            align-self: flex-end;
-            margin-left: 8px;
-            animation: pulseCursor 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
+          .subql-markdown-preview {
+            &::after {
+              content: "▍";
+              align-self: flex-end;
+              margin-left: 8px;
+              animation: pulseCursor 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
           }
         }
       }

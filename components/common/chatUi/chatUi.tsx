@@ -16,6 +16,7 @@ import { Typography } from '../typography';
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep, isString } from 'lodash-es';
 import Address from '../address';
+import Markdown from '../markdown/Markdown';
 
 const indexerName: { [key in string]: string } = {
   '0xd0af1919af890cfdd8d12be5cf1b1421224fc29a': 'Mainnet Operator',
@@ -31,6 +32,7 @@ export interface ChatUiProps {
   placeholder?: React.ReactNode;
   width?: number;
   height?: number;
+  model?: string;
 }
 
 export type AiMessageType = 'text' | 'image_url';
@@ -127,7 +129,9 @@ export const ConversationMessage = forwardRef<
               bem('item'),
               bem(message.role, {
                 [answerStatus]:
-                  index === property.messages.length - 1 && message.role === 'assistant' ? true : undefined,
+                  index === property.messages.length - 1 && message.role === 'assistant' && !message?.content?.length
+                    ? true
+                    : undefined,
                 lastOne: index === property.messages.length - 1 && message.role === 'assistant' ? true : undefined,
               }),
             )}
@@ -142,7 +146,9 @@ export const ConversationMessage = forwardRef<
               ></RiRobot2Line>
             )}
             {/* TODO: support array */}
-            <span className={clsx(bem('item-span'))}>{isString(message.content) ? message.content : ''}</span>
+            <div className={clsx(bem('item-span'))}>
+              {isString(message.content) ? <Markdown.Preview>{message.content}</Markdown.Preview> : ''}
+            </div>
           </div>
         );
       })}
@@ -155,7 +161,8 @@ ConversationMessage.displayName = 'ConversationMessage';
 // maybe later support custom workspace name
 const workspaceName = 'subql-chat-workspace';
 
-export const chatWithStream = async (url: string, body: { messages: Message[] }) => {
+export const chatWithStream = async (url: string, body: { messages: Message[]; model?: string }) => {
+  const { model = 'gemma2' } = body;
   const res = await fetch(url, {
     headers: {
       accept: 'text/event-stream',
@@ -163,7 +170,7 @@ export const chatWithStream = async (url: string, body: { messages: Message[] })
     },
     method: 'POST',
     body: JSON.stringify({
-      model: 'gemma2',
+      model,
       messages: body.messages,
       stream: true,
     }),
@@ -171,7 +178,7 @@ export const chatWithStream = async (url: string, body: { messages: Message[] })
   return res;
 };
 
-export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholder, width, height }) => {
+export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholder, width, height, model }) => {
   const bem = useBem('subql-chat');
   const [chats, setChats] = React.useState<ConversationItemProps['property'][]>([]);
   const [currentChat, setCurrentChat] = useState<ConversationItemProps['property']>();
@@ -206,7 +213,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       name: 'New Conversation',
       chatUrl,
       messages: [],
-      prompt: prompt || '',
+      prompt: '',
     };
 
     oldWorkspace.unshift(chat);
@@ -284,6 +291,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
         name: curChat.messages.length ? curChat.name : currentInput.slice(0, 40),
       };
       newChat.chatUrl = newChat.messages.length - 1 > 0 ? newChat.chatUrl : chatUrl;
+      newChat.prompt = newChat.prompt || prompt || '';
 
       const newChats = cloneDeep(curChats).map((chat) => {
         if (chat.id === curChat.id) {
@@ -305,10 +313,12 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
       };
 
       await pushNewMsgToChat(newChat, robotAnswer, curChat, curChats);
-
       // set user's message first, then get the response
       const res = await chatWithStream(newChat.chatUrl, {
-        messages: prompt ? [{ role: 'system' as const, content: prompt }, ...newChat.messages] : newChat.messages,
+        messages: newChat.prompt
+          ? [{ role: 'system' as const, content: newChat.prompt }, ...newChat.messages]
+          : newChat.messages,
+        model,
       });
 
       if (res.status === 200 && res.body) {
