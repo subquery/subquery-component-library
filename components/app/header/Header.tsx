@@ -73,7 +73,7 @@ const LeftHeader = ({ leftElement, dropdownLinks, isMobile }: LeftHeaderProps) =
     <div className={clsx(bem(), theme === 'dark' ? bem({ dark: 'dark' }) : '')} id="leftHeader">
       <Dropdown
         label={dropdownLinks.label}
-        LeftLabelIcon={<img src="https://static.subquery.network/design/images/appIcon.svg" alt="SubQuery Apps" />}
+        LeftLabelIcon={<img src="https://static.subquery.network/design/images/app-icon.svg" alt="SubQuery Apps" />}
         menuitem={dropdownLinks.links.map((label, key) => ({
           key,
           label: <MenuWithDesc title={label.label} description={label.description} width={isMobile ? '100%' : 366} />,

@@ -1,29 +1,24 @@
 @font-face {
-  font-family: 'Inter';
-  src: local('Inter-Regular'), url('https://static.subquery.network/design/fonts/Inter-Regular.ttf') format('truetype');
+  font-family: 'PPNeue';
+  src: local('PPNeueMontreal-Bold'),
+    url('https://static.subquery.network/design/fonts/PPNeueMontreal-Bold.ttf') format('truetype');
   font-display: swap;
+  font-weight: bold;
 }
 
 @font-face {
-  font-family: 'Inter-SemiBold';
-  src: local('Inter-SemiBold'),
-    url('https://static.subquery.network/design/fonts/Inter-SemiBold.ttf') format('truetype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter-Bold';
-  src: local('Inter-Bold'), url('https://static.subquery.network/design/fonts/Inter-Bold.ttf') format('truetype');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Futura';
-  src: url('https://static.subquery.network/design/fonts/Futura-Medium.ttf') format('truetype');
+  font-family: 'PPNeue';
+  src: local('PPNeue-Regular'),
+    url('https://static.subquery.network/design/fonts/PPNeueMontreal-Regular.ttf') format('truetype');
   font-display: swap;
 }
 
 :root {
+  --sq-primary: #e968dd;
+  --sq-primary-card-hover: #e968dd33;
+  --sq-primary-card-deephover: #e968dd66;
+  --sq-primary-link-hover: #d25ec7;
+
   --sq-primary-pink: #ff4581;
   --sq-primary-blue: #1677ff;
   --sq-gradient: linear-gradient(96.26deg, var(--sq-primary-blue) 13.8%, var(--sq-primary-pink) 82.83%);
@@ -50,6 +45,7 @@
   --sq-pink400: #ff6a9a;
   --sq-pink500: #ff588e;
   --sq-pink600: #ff4581;
+  --sq-pink700: #e968dd;
 
   /* Gray */
   --sq-gray100: #f9fafb;
@@ -98,8 +94,8 @@
   --sq-border-radius: 8px;
 
   /* Family */
-  --sq-font-family: 'Inter', Arial, sans-serif;
-  --sq-font-family-header: 'Futura', Arial, sans-serif;
+  --sq-font-family: 'PPNeue', Arial, sans-serif;
+  --sq-font-family-header: 'PPNeue', Arial, sans-serif;
 }
 
 body {
