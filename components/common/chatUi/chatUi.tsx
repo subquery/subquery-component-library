@@ -11,7 +11,7 @@ import { FiUser, FiSend } from 'react-icons/fi';
 import { RiRobot2Line } from 'react-icons/ri';
 import { AiFillApi } from 'react-icons/ai';
 import { Button, Input, InputRef, message } from 'antd';
-import localforage from 'localforage';
+// import localforage from 'localforage';
 import { Typography } from '../typography';
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep, isString } from 'lodash-es';
@@ -453,7 +453,7 @@ export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholde
                     const filtered = chats.filter((c) => c.id !== item.id);
                     setChats(filtered);
                     setCurrentChat(filtered[0]);
-                    await localforage.setItem(workspaceName, filtered);
+                    // await localforage.setItem(workspaceName, filtered);
                   }}
                 ></ConversationItem>
               );

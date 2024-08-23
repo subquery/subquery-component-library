@@ -4,10 +4,11 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import './Typography.less';
-import { Space, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import { createBEM } from 'components/utilities/createBem';
 import { Context } from '../provider';
 import { attachPropertiesToComponent } from 'components/utilities/attachPropertiesToCompnent';
+import { useMemo } from 'react';
 
 export type TypographProps = {
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'large' | 'text' | 'medium' | 'small' | 'overline';
@@ -17,7 +18,23 @@ export type TypographProps = {
   className?: string;
   tooltipIcon?: React.ReactNode;
   disabled?: boolean;
+  center?: boolean;
+  maxWidth?: string | number | undefined;
 } & React.HTMLProps<HTMLParagraphElement>;
+
+const componentsName: { [key in string]: keyof JSX.IntrinsicElements } = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  large: 'article',
+  text: 'article',
+  medium: 'article',
+  small: 'article',
+  overline: 'article',
+};
 
 export interface LinkProps extends TypographProps {
   href?: string;
@@ -38,12 +55,20 @@ const TypographyInner: React.FC<TypographProps> = ({
   tooltipIcon,
   className,
   disabled,
+  center,
+  style,
+  width,
+  maxWidth,
+  color,
   ...htmlProps
 }) => {
+  const Component = useMemo<keyof JSX.IntrinsicElements>(() => componentsName[variant], [variant]);
   const { theme } = React.useContext(Context);
-
   const inner = () => (
-    <article
+    // TODO: fix this type
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    <Component
       {...htmlProps}
       className={clsx(
         bem(),
@@ -54,20 +79,19 @@ const TypographyInner: React.FC<TypographProps> = ({
         bem({ disabled }),
         className,
       )}
+      style={{ textAlign: center ? 'center' : undefined, width, maxWidth, color, ...style }}
     >
       {children}
-    </article>
+    </Component>
   );
   if (!tooltip) {
-    return <Space>{inner()}</Space>;
+    return inner();
   }
   return (
     <Tooltip title={tooltip} placement="topLeft" className={tooltip && clsx(bem({ tooltip: 'tooltip' }))}>
-      <Space className={clsx(bem({ space: 'space' }))}>
-        {inner()}
+      {inner()}
 
-        {tooltipIcon}
-      </Space>
+      {tooltipIcon}
     </Tooltip>
   );
 };
