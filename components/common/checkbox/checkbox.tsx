@@ -21,10 +21,11 @@ const innerCheckBox: FC<SubqlCheckboxProps> = ({ className, ...rest }) => {
 const innerCheckboxGroup: FC<
   {
     optionType?: 'plain' | 'button';
+    shape?: 'round' | 'square';
   } & CheckboxGroupProps
-> = ({ className, optionType = 'plain', ...rest }) => {
+> = ({ className, optionType = 'plain', shape = 'round', ...rest }) => {
   const bem = useBem('subql-checkbox-group');
-  return <Checkbox.Group className={clsx(bem([optionType]), className)} {...rest}></Checkbox.Group>;
+  return <Checkbox.Group className={clsx(bem([optionType, shape]), className)} {...rest}></Checkbox.Group>;
 };
 
 export const SubqlCheckbox = attachPropertiesToComponent(innerCheckBox, {

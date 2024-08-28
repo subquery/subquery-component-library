@@ -97,10 +97,10 @@ const TypographyInner: React.FC<TypographProps> = ({
 };
 
 const Link: React.FC<LinkProps & React.HTMLProps<HTMLParagraphElement>> = (props) => {
-  const { href, children, active = false, ...rest } = props;
+  const { href, children, active = false, target, ...rest } = props;
 
   return (
-    <a href={href} className={clsx(linkBem({ active }))}>
+    <a href={href} target={target} className={clsx(linkBem({ active }))}>
       <Typography {...rest}>{children}</Typography>
     </a>
   );
