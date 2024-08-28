@@ -59,7 +59,6 @@
 .@{middle} {
   margin-left: 24px;
   &__menu {
-
     &--dark.@{middle}__menu--dark.@{middle}__menu--dark {
       background-color: var(--dark-mode-card);
       padding: 0;
@@ -106,6 +105,14 @@
 
 .@{mobileHeader} {
   color: var(--sq-gray800);
+
+  &__menu {
+    &--dark {
+      .ant-drawer-content {
+        background: var(--dark-mode-background);
+      }
+    }
+  }
 }
 
 .subql-header-navlink {
@@ -248,6 +255,10 @@
       }
 
       &--dark {
+        .@{left} {
+          border-bottom: 1px solid rgba(52, 65, 75, 0.6);
+        }
+
         .@{middle} {
           &__item {
             border-bottom: 1px solid var(--dark-mode-border);
