@@ -1,0 +1,52 @@
+.subql-app-header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  transition: all 1s ease;
+  gap: 18px;
+
+  &-navigator-item {
+    padding: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+
+    &__popover {
+      width: 100vw;
+      .ant-popover-content {
+        .ant-popover-inner {
+          background: var(--dark-mode-background);
+          border-radius: 0;
+          box-shadow: none;
+          padding: 24px;
+        }
+      }
+    }
+
+    &__dropdown {
+      display: inline-flex;
+      row-gap: 32px;
+      column-gap: 24px;
+      flex-wrap: wrap;
+      &-wrapper {
+        display: flex;
+        gap: 60px;
+      }
+
+      &-item {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    &--dropdown {
+      &:hover {
+        background: var(--sq-primary-card-hover);
+        border-radius: 8px;
+      }
+    }
+  }
+}

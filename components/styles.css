@@ -83,9 +83,9 @@
   --sq-shadow2: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08),
     0px 9px 28px 8px rgba(0, 0, 0, 0.05);
 
-  --dark-mode-card: #1b2545;
+  --dark-mode-card: #1a1a1a;
   --dark-mode-border: #34414b;
-  --dark-mode-background: #060f32;
+  --dark-mode-background: #000;
 
   /* Sizes */
 

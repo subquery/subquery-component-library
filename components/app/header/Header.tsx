@@ -210,6 +210,7 @@ export interface HeaderProps extends MiddleHeaderProps {
   closeDrawerAfterNavigate?: boolean;
 }
 
+// @deprecated
 export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   logoLink,
   customLogo,

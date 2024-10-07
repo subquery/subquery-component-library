@@ -90,6 +90,7 @@ const outputOptions = {
     'react-icons/fa6': 'react-icons/fa6',
     'react-icons/fi': 'react-icons/fi',
     'react-icons/ri': 'react-icons/ri',
+    'react-icons/md': 'react-icons/md',
     'antd/es/card/Meta': 'antd/es/card/Meta',
     'antd/dist/reset.css': 'antd/dist/reset.css',
     'graphiql/graphiql.min.css': 'graphiql/graphiql.min.css',
