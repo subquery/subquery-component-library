@@ -58,7 +58,7 @@ const defaultDropdownDescription: FC<{ title?: string; content?: string }> = ({ 
       </div>
 
       <img
-        src="http://localhost:3000/design/images/header-flowers.png"
+        src="https://static.subquery.network/design/images/header-flowers.png"
         width={266}
         style={{ marginTop: -24, width: '267px', objectFit: 'contain' }}
       ></img>
