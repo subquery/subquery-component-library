@@ -11,6 +11,7 @@ import { Drawer, Popover } from 'antd';
 import useScreen from 'use-screen';
 import { IoCloseSharp } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { useSize } from 'ahooks';
 
 interface ISubqlHeaderNavigatorItem {
   key: string;
@@ -42,9 +43,14 @@ interface ISubqlHeader {
   extraNavigators?: React.ReactNode;
 }
 
-const defaultDropdownDescription: FC<{ title?: string; content?: string }> = ({ title, content }) => {
+const useIsMobile = () => {
   const { screenWidth } = useScreen();
   const isMobile = useMemo(() => screenWidth < 768, [screenWidth]);
+  return isMobile;
+};
+
+const defaultDropdownDescription: FC<{ title?: string; content?: string }> = ({ title, content }) => {
+  const isMobile = useIsMobile();
   if (isMobile) {
     return '';
   }
@@ -81,6 +87,8 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
     dropdown,
   } = props;
   const bem = useBem('subql-app-header-navigator-item');
+  const isMobile = useIsMobile();
+
   return (
     <Popover
       overlayClassName={clsx(bem('popover'))}
@@ -113,7 +121,7 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
                   </Typography.Link>
 
                   {item.description && (
-                    <Typography variant="medium" type="secondary" width={360}>
+                    <Typography variant="medium" type="secondary" width={isMobile ? '100%' : 360}>
                       {item.description}
                     </Typography>
                   )}
@@ -146,7 +154,7 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
         target="_blank"
       >
         {label}
-        {dropdown ? <MdKeyboardArrowUp style={{ fontSize: 16 }}></MdKeyboardArrowUp> : ''}
+        {dropdown ? <MdKeyboardArrowUp style={{ fontSize: '1rem' }}></MdKeyboardArrowUp> : ''}
       </Typography.Link>
     </Popover>
   );
@@ -165,7 +173,13 @@ const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigato
         logo
       ) : (
         <a className={clsx(bem('logo'))} href={logoHref || '/'}>
-          <img src="https://static.subquery.network/logo/subquery_logo_white.svg" alt="SubQuery Logo" width={140} />
+          <img
+            src="https://static.subquery.network/logo/subquery_logo_white.svg"
+            alt="SubQuery Logo"
+            style={{
+              width: '8.75rem',
+            }}
+          />
         </a>
       )}
 
@@ -197,7 +211,9 @@ const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigato
                       <img
                         src="https://static.subquery.network/logo/subquery_logo_white.svg"
                         alt="SubQuery Logo"
-                        width={140}
+                        style={{
+                          width: '8.75rem',
+                        }}
                       />
                     </a>
                   )}
@@ -213,13 +229,15 @@ const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigato
               </>
             }
           >
-            {mainNavigators
-              ? mainNavigators.map((mainNavigator) => (
-                  <SubqlHeaderNavigatorItem {...mainNavigator} key={mainNavigator.key}></SubqlHeaderNavigatorItem>
-                ))
-              : ''}
+            <div className={clsx(bem('mobile-body'))}>
+              {mainNavigators
+                ? mainNavigators.map((mainNavigator) => (
+                    <SubqlHeaderNavigatorItem {...mainNavigator} key={mainNavigator.key}></SubqlHeaderNavigatorItem>
+                  ))
+                : ''}
 
-            {extraNavigators}
+              {extraNavigators}
+            </div>
           </Drawer>
         </>
       ) : (

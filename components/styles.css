@@ -14,6 +14,7 @@
 }
 
 :root {
+  --base-rem: 16px;
   --sq-primary: #e968dd;
   --sq-primary-card-hover: #e968dd33;
   --sq-primary-card-deephover: #e968dd66;
@@ -102,9 +103,13 @@
   --sq-font-family-header: 'PPNeue', Arial, sans-serif;
 }
 
+html {
+  font-size: var(--base-rem);
+}
+
 body {
   font-family: var(--sq-font-family);
-  font-size: 16px;
+  font-size: var(--base-rem);
 }
 
 /*
