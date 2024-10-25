@@ -29,7 +29,18 @@ const MarkdownPreview: FC<Options> = (props) => {
 
   return (
     <div className={clsx(previewBem({ dark: theme === 'dark' }))}>
-      <MarkdownCompiler {...props}></MarkdownCompiler>
+      <MarkdownCompiler
+        {...props}
+        components={{
+          a: ({ href, target }) => {
+            return (
+              <Typography.Link href={href} target={target} type="info">
+                {href}
+              </Typography.Link>
+            );
+          },
+        }}
+      ></MarkdownCompiler>
     </div>
   );
 };
