@@ -51,6 +51,7 @@ const linkBem = createBEM('subql-typography-link');
 const whiteListLinks = [
   /.*\.{0,1}subquery\.network/,
   /.*\.{0,1}subquery\.foundation/,
+  /.*\.{0,1}onfinality\.io/,
   /.*\.{0,1}github\.com/,
   /.*\.{0,1}discord\.com/,
   /.*\.{0,1}twitter\.com/,
