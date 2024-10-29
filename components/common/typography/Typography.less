@@ -151,6 +151,39 @@
     cursor: not-allowed;
   }
 
+  &--withShadow {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      filter: blur(25px);
+      background: #000;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  &__shadow {
+    &left{
+      &::before {
+        left: -50%;
+      }
+    }
+    &right {
+      &::before {
+        left: 100%;
+      }
+    }
+    &center {
+      &::before {
+        left: 0;
+      }
+    }
+  }
+
   &-link {
     cursor: pointer;
     .subql-typography {

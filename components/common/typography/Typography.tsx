@@ -20,6 +20,8 @@ export type TypographProps = {
   disabled?: boolean;
   center?: boolean;
   maxWidth?: string | number | undefined;
+  withShadow?: boolean;
+  shadowPosition?: 'center' | 'left' | 'right';
 } & React.HTMLProps<HTMLParagraphElement>;
 
 const componentsName: { [key in string]: keyof JSX.IntrinsicElements } = {
@@ -60,6 +62,8 @@ const TypographyInner: React.FC<TypographProps> = ({
   width,
   maxWidth,
   color,
+  withShadow = false,
+  shadowPosition = 'center',
   ...htmlProps
 }) => {
   const Component = useMemo<keyof JSX.IntrinsicElements>(() => componentsName[variant], [variant]);
@@ -77,11 +81,13 @@ const TypographyInner: React.FC<TypographProps> = ({
         bem(type),
         bem(`w${weight}`),
         bem({ disabled }),
+        bem({ withShadow }),
+        bem(`shadow${shadowPosition}`),
         className,
       )}
       style={{ textAlign: center ? 'center' : undefined, width, maxWidth, color, ...style }}
     >
-      {children}
+      {withShadow ? <span style={{ position: 'relative', zIndex: 1 }}>{children}</span> : children}
     </Component>
   );
   if (!tooltip) {
