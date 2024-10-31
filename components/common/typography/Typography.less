@@ -239,5 +239,264 @@
       }
     }
 
+    &--underline {
+      text-decoration: underline;
+      .subql-typography {
+        text-decoration: underline;
+      }
+    }
+
+    &__external-link-modal {
+      .ant-modal-content {
+        padding: 32px;
+      }
+      .ant-modal-confirm-paragraph {
+        max-width: 100%;
+      }
+      
+      .ant-modal-confirm-btns {
+        display: flex;
+        justify-content: space-between;
+  
+        .ant-btn {
+          width: 100%;
+        }
+  
+        .ant-btn:not(:disabled):focus-visible {
+          outline: unset;
+          outline-offset: 0;
+        }
+      }
+  }
+  }
+}
+
+.v2 {
+  .subql-typography {
+    color: var(--sq-gray900);
+    margin: 0;
+    padding: 0;
+    font-family: var(--sq-font-family);
+    display: inline-block;
+  
+    &__h1 {
+      font-family: var(--sq-font-family-header);
+      font-size: 80px;
+      line-height: 100px;
+    }
+    
+    &__h2 {
+      font-family: var(--sq-font-family-header);
+      font-size: 60px;
+      line-height: 88px;
+    }
+    
+    &__h3 {
+      font-family: var(--sq-font-family-header);
+      font-size: 48px;
+      line-height: 64px;
+    }
+    
+    &__h4 {
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 48px;
+    }
+    
+    &__h5 {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 36px;
+    }
+    
+    &__h6 {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+    }
+    
+    &__large {
+      font-size: 18px;
+      line-height: 28px;
+    }
+    
+    &__text {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    
+    &__medium {
+      font-size: 14px;
+      line-height: 22px;
+    }
+    
+    &__small {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    
+    &__overline {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+    }
+    
+    &__success {
+      color: var(--sq-success);
+    }
+  
+    &__info {
+      color: var(--sq-blue600);
+    }
+    
+    &__warning {
+      color: var(--sq-warning);
+    }
+    
+    &__danger {
+      color: var(--sq-error);
+  
+    }
+    
+    &__secondary {
+      color: var(--sq-gray600);
+    }
+    
+    &__neutral {
+      color: #919eab;
+    }
+    
+    &__w100 {
+      font-weight: 100;
+    }
+    
+    &__w200 {
+      font-weight: 200;
+    }
+    
+    &__w300 {
+      font-weight: 300;
+    }
+    
+    &__w400 {
+      font-weight: 400;
+    }
+    
+    &__w500 {
+      font-weight: 500;
+    }
+    
+    &__w600 {
+      font-weight: 600;
+    }
+    
+    &__w700 {
+      font-weight: 700;
+    }
+    
+    &__w800 {
+      font-weight: 800;
+    }
+    
+    &__w900 {
+      font-weight: 900;
+    }
+  
+    &--tooltip {
+      cursor: pointer;
+      color: inherit;
+  
+      &:hover {
+        color: var(--sq-gray500);
+      }
+    }
+    
+    &--dark {
+      color: #fff;
+  
+      &.subql-typography__secondary {
+        color: var(--sq-gray400);
+      }
+    }
+  
+    &--disabled {
+      color: var(--sq-gray400);
+      cursor: not-allowed;
+    }
+  
+    &-link {
+      cursor: pointer;
+      .subql-typography {
+        transition: .1s all linear;
+        color: var(--sq-gray600);
+  
+        &__info {
+          color: var(--sq-blue600);
+        }
+  
+        &__danger {
+          color: var(--sq-error);
+        }
+  
+        &--disabled {
+          color: var(--sq-gray400);
+        }
+      }
+  
+      &:hover {
+        .subql-typography {
+          color: var(--sq-blue400);
+  
+          &__info {
+            color: var(--sq-blue400);
+          }
+  
+          &__danger {
+            color: var(--sq-error-hover);
+          }
+  
+          &--disabled {
+            color: var(--sq-gray400);
+          }
+        }
+      }
+  
+      &--active {
+        .subql-typography {
+          color: var(--sq-blue400);
+  
+          &__info {
+            color: var(--sq-blue400);
+          }
+  
+          &__danger {
+            color: var(--sq-error-hover);
+          }
+        }
+      }
+    }
+  
+    &__external-link-modal {
+        .ant-modal-content {
+          padding: 32px;
+        }
+        .ant-modal-confirm-paragraph {
+          max-width: 100%;
+        }
+        
+        .ant-modal-confirm-btns {
+          display: flex;
+          justify-content: space-between;
+    
+          .ant-btn {
+            width: 100%;
+          }
+    
+          .ant-btn:not(:disabled):focus-visible {
+            outline: unset;
+            outline-offset: 0;
+          }
+        }
+    }
   }
 }

@@ -46,6 +46,7 @@ export interface LinkProps extends TypographProps {
   children?: React.ReactNode;
   active?: boolean;
   type?: 'default' | 'info' | 'danger';
+  underline?: boolean;
 }
 
 const bem = createBEM('subql-typography');
@@ -91,7 +92,7 @@ const TypographyInner: React.FC<TypographProps> = ({
     <Component
       {...htmlProps}
       className={clsx(
-        bem(),
+        // seems wrong
         theme === 'dark' ? bem({ dark: 'dark' }) : '',
         bem(variant),
         bem(type),
@@ -119,12 +120,12 @@ const TypographyInner: React.FC<TypographProps> = ({
 };
 
 const Link: React.FC<LinkProps & React.HTMLProps<HTMLAnchorElement>> = (props) => {
-  const { href, children, onClick, target, active = false, ...rest } = props;
+  const { href, children, onClick, target, underline = false, active = false, ...rest } = props;
 
   return (
     <a
       href={href}
-      className={clsx(linkBem({ active }))}
+      className={clsx(linkBem({ active, underline }))}
       target={target}
       onClick={async (e) => {
         if (onClick) {
@@ -143,7 +144,7 @@ const Link: React.FC<LinkProps & React.HTMLProps<HTMLAnchorElement>> = (props) =
         }
 
         const validHref = new URL(href);
-        console.warn(validHref.hostname, whiteListLinks);
+
         if (
           !whiteListLinks.some((link) => {
             return new RegExp(link).test(validHref.hostname);
