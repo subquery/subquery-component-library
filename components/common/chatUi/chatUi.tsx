@@ -557,7 +557,7 @@ const ChatBoxIcon: FC<{ className?: string }> = ({ className }) => (
 // maybe split to other file.
 export const ChatBox: FC<ChatBoxProps> = (props) => {
   const { chatUrl, prompt = '', model } = props;
-  const [popoverOpen, setPopoverOpen] = useState(true);
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const bem = useBem('subql-chatbox');
   const [currentInput, setCurrentInput] = useState('');
   const inputRef = useRef<InputRef>(null);
