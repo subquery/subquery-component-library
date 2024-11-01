@@ -19,6 +19,7 @@ import { cloneDeep, isString } from 'lodash-es';
 import Address from '../address';
 import Markdown from '../markdown/Markdown';
 import './chatUi.less';
+import { chatWithStream, ConversationProperty, Message } from 'components/utilities/chatWithStream';
 
 const indexerName: { [key in string]: string } = {
   '0xd0af1919af890cfdd8d12be5cf1b1421224fc29a': 'Mainnet Operator',
@@ -42,29 +43,6 @@ export interface ChatBoxProps {
   chatUrl: string;
   prompt?: string;
   model?: string;
-}
-
-export type AiMessageType = 'text' | 'image_url';
-
-export type AiMessageRole = 'assistant' | 'user' | 'system';
-
-export interface Content {
-  type: AiMessageType;
-  text?: string;
-  image_url?: string;
-}
-
-export interface Message {
-  role: AiMessageRole;
-  content: string | Content[];
-}
-
-export interface ConversationProperty {
-  id: string;
-  name: string;
-  chatUrl: string;
-  messages: Message[];
-  prompt: string;
 }
 
 export interface ConversationItemProps {
@@ -120,10 +98,20 @@ export const ConversationMessage = forwardRef<
   { scrollToBottom: () => void },
   { property: ConversationProperty; answerStatus: ChatBotAnswerStatus; version?: 'chat' | 'chatbox' }
 >(({ property, answerStatus, version = 'chat' }, ref) => {
-  const bem = useBem(version === 'chat' ? 'subql-chat-conversation-message' : 'subql-chatbox-coversation-message');
+  const bem = useBem(version === 'chat' ? 'subql-chat-conversation-message' : 'subql-chatbox-conversation-message');
   const outerRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => ({
-    scrollToBottom: () => {
+    scrollToBottom: (onlyWhenReachBottom = false) => {
+      if (onlyWhenReachBottom && outerRef.current) {
+        // 22 = 1em + line height
+        const ifReachBottom =
+          outerRef.current?.scrollTop >= outerRef.current?.scrollHeight - outerRef.current?.clientHeight - 22;
+        if (ifReachBottom) {
+          outerRef.current?.scrollTo(0, outerRef.current?.scrollHeight);
+        }
+
+        return;
+      }
       outerRef.current?.scrollTo(0, outerRef.current?.scrollHeight);
     },
   }));
@@ -160,9 +148,7 @@ export const ConversationMessage = forwardRef<
             ) : (
               <>
                 {message.role === 'assistant' ? (
-                  <div>
-                    <img src=""></img>
-                  </div>
+                  <img src="https://static.subquery.network/logo-with-bg.svg" width={40} height={40}></img>
                 ) : (
                   ''
                 )}
@@ -178,28 +164,7 @@ export const ConversationMessage = forwardRef<
     </div>
   );
 });
-
 ConversationMessage.displayName = 'ConversationMessage';
-
-// maybe later support custom workspace name
-const workspaceName = 'subql-chat-workspace';
-
-export const chatWithStream = async (url: string, body: { messages: Message[]; model?: string }) => {
-  const { model = 'gemma2' } = body;
-  const res = await fetch(url, {
-    headers: {
-      accept: 'text/event-stream',
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      model,
-      messages: body.messages,
-      stream: true,
-    }),
-  });
-  return res;
-};
 
 export const ChatUi: FC<ChatUiProps> = ({ chatUrl, prompt, className, placeholder, width, height, model }) => {
   const bem = useBem('subql-chat');
@@ -590,9 +555,150 @@ const ChatBoxIcon: FC<{ className?: string }> = ({ className }) => (
 );
 
 // maybe split to other file.
-export const ChatBox: FC<ChatBoxProps> = () => {
+export const ChatBox: FC<ChatBoxProps> = (props) => {
+  const { chatUrl, prompt = '', model } = props;
   const [popoverOpen, setPopoverOpen] = useState(true);
   const bem = useBem('subql-chatbox');
+  const [currentInput, setCurrentInput] = useState('');
+  const inputRef = useRef<InputRef>(null);
+  const messageRef = useRef<{ scrollToBottom: (argv?: boolean) => void }>(null);
+  const [currentChat, setCurrentChat] = useState<ConversationItemProps['property']>({
+    messages: [
+      {
+        role: 'assistant',
+        content: 'Hi, I’m SubQuery AI, how can I help? you can ask me anything you want',
+        type: 'welcome',
+      },
+    ],
+    id: '0',
+    name: 'SubQuery AI',
+    chatUrl,
+    prompt,
+  });
+  const [answerStatus, setAnswerStatus] = useState<ChatBotAnswerStatus>(ChatBotAnswerStatus.Loading);
+
+  const pushNewMsgToChat = async (
+    newChat: ConversationProperty,
+    newMessage: Message,
+    curChat?: ConversationItemProps['property'],
+  ) => {
+    const cur = curChat || currentChat;
+    if (!cur) return;
+
+    setCurrentChat({
+      ...newChat,
+      messages: [...newChat.messages, newMessage],
+    });
+  };
+
+  const sendMessage = async () => {
+    const curChat = currentChat;
+    if (!currentInput) {
+      return;
+    }
+
+    setAnswerStatus(ChatBotAnswerStatus.Loading);
+    try {
+      const newMessage = {
+        role: 'user' as const,
+        content: currentInput,
+      };
+
+      const newChat = {
+        ...curChat,
+        messages: [...curChat.messages, newMessage].filter((i) => i.content),
+        name: curChat.messages.length ? curChat.name : currentInput.slice(0, 40),
+      };
+      newChat.chatUrl = newChat.messages.length - 1 > 0 ? newChat.chatUrl : chatUrl;
+      newChat.prompt = newChat.prompt || prompt || '';
+
+      const robotAnswer: Message = {
+        role: 'assistant' as const,
+        content: '',
+      };
+
+      setCurrentInput('');
+      await pushNewMsgToChat(newChat, robotAnswer, curChat);
+      messageRef.current?.scrollToBottom();
+      // set user's message first, then get the response
+      const res = await chatWithStream(newChat.chatUrl, {
+        messages: newChat.prompt
+          ? [{ role: 'system' as const, content: newChat.prompt }, ...newChat.messages]
+          : newChat.messages,
+        model,
+      });
+
+      if (res.status === 200 && res.body) {
+        const decoder = new TextDecoder();
+        const reader = res.body.getReader();
+        let invalidJson = '';
+
+        while (true) {
+          const { value, done } = await reader.read();
+          const chunkValue = decoder.decode(value);
+
+          if (done || !chunkValue) {
+            break;
+          }
+
+          const parts = chunkValue.split('\n\n');
+          for (const part of parts) {
+            if (invalidJson) {
+              try {
+                invalidJson += part;
+                const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+                robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+
+                await pushNewMsgToChat(newChat, robotAnswer, curChat);
+                console.warn(messageRef);
+                messageRef.current?.scrollToBottom(true);
+                invalidJson = '';
+              } catch (e) {
+                // handle it until
+              }
+              continue;
+            }
+
+            const partWithHandle = part.startsWith('data: ') ? part.slice(6, part.length).trim() : part;
+
+            if (partWithHandle) {
+              try {
+                const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(partWithHandle);
+                robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+
+                await pushNewMsgToChat(newChat, robotAnswer, curChat);
+                messageRef.current?.scrollToBottom(true);
+              } catch (e) {
+                invalidJson += partWithHandle;
+              }
+            }
+          }
+        }
+
+        if (invalidJson) {
+          try {
+            const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+            robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+
+            await pushNewMsgToChat(newChat, robotAnswer, curChat);
+          } catch (e) {
+            console.warn('Reach this code', invalidJson);
+            // to reach this code, it means the response is not valid or the code have something wrong.
+          }
+        }
+      } else {
+        robotAnswer.content = 'Sorry, The Server is not available now.';
+        await pushNewMsgToChat(newChat, robotAnswer, curChat);
+        setAnswerStatus(ChatBotAnswerStatus.Error);
+      }
+      inputRef.current?.focus();
+      setAnswerStatus(ChatBotAnswerStatus.Success);
+    } catch (e) {
+      console.error(e);
+      inputRef.current?.focus();
+      setAnswerStatus(ChatBotAnswerStatus.Error);
+    }
+  };
 
   return (
     <Popover
@@ -619,28 +725,29 @@ export const ChatBox: FC<ChatBoxProps> = () => {
           </div>
           <div className={clsx(bem('content-main'))}>
             <ConversationMessage
-              property={{
-                messages: [
-                  {
-                    role: 'assistant',
-                    content: 'Welcome to SubQuery AI, how can I help you?',
-                  },
-                ],
-                id: '0',
-                name: 'SubQuery AI',
-                chatUrl: '',
-                prompt: '',
-              }}
-              answerStatus={ChatBotAnswerStatus.Success}
+              property={currentChat}
+              answerStatus={answerStatus}
               version="chatbox"
+              ref={messageRef}
             ></ConversationMessage>
           </div>
           <div className={clsx(bem('content-bottom'))}>
             <Input
+              ref={inputRef}
               className={clsx(bem('content-input'))}
               placeholder="Ask a question..."
+              value={currentInput}
+              onChange={(e) => {
+                setCurrentInput(e.target.value);
+              }}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  sendMessage();
+                }
+              }}
               suffix={
                 <BsFillArrowUpCircleFill
+                  onClick={() => sendMessage()}
                   style={{
                     color: 'var(--sq-gray300)',
                     fontSize: 32,
