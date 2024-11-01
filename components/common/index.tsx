@@ -35,7 +35,7 @@ export { default as SubqlCheckbox } from './checkbox';
 export { SubqlCard } from './subqlCard';
 export { SubqlTabs } from './subqlTabs';
 export * from './notification';
-export { ChatUi } from './chatUi';
+export { ChatUi, ChatBox } from './chatUi';
 export type { IGraphiQL } from './GraphiQL';
 export { default as SubqlProvider } from './provider';
 export { default as Markdown } from './markdown/Markdown';
