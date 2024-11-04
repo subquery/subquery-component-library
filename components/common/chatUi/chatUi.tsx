@@ -757,7 +757,7 @@ export const ChatBox: FC<ChatBoxProps> = (props) => {
             ></Input>
             <Typography variant="small" type="secondary">
               This AI App is powered by the{' '}
-              <Typography.Link variant="small" underline href="https://github.com/subquery/subql-ai-app-framework">
+              <Typography.Link variant="small" underline href="https://academy.subquery.network/ai/welcome.html">
                 SubQuery Network AI App Framework
               </Typography.Link>
             </Typography>
