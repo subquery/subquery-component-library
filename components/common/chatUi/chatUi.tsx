@@ -105,7 +105,7 @@ export const ConversationMessage = forwardRef<
       if (onlyWhenReachBottom && outerRef.current) {
         // 22 = 1em + line height
         const ifReachBottom =
-          outerRef.current?.scrollTop >= outerRef.current?.scrollHeight - outerRef.current?.clientHeight - 22;
+          outerRef.current?.scrollTop >= outerRef.current?.scrollHeight - outerRef.current?.clientHeight - 100;
         if (ifReachBottom) {
           outerRef.current?.scrollTo(0, outerRef.current?.scrollHeight);
         }
@@ -681,6 +681,7 @@ export const ChatBox: FC<ChatBoxProps> = (props) => {
             robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
 
             await pushNewMsgToChat(newChat, robotAnswer, curChat);
+            messageRef.current?.scrollToBottom(true);
           } catch (e) {
             console.warn('Reach this code', invalidJson);
             // to reach this code, it means the response is not valid or the code have something wrong.
