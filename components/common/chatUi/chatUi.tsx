@@ -43,6 +43,8 @@ export interface ChatBoxProps {
   chatUrl: string;
   prompt?: string;
   model?: string;
+  onSendMessage?: (message: string) => void;
+  onChatboxOpen?: () => void;
 }
 
 export interface ConversationItemProps {
@@ -556,7 +558,7 @@ const ChatBoxIcon: FC<{ className?: string }> = ({ className }) => (
 
 // maybe split to other file.
 export const ChatBox: FC<ChatBoxProps> = (props) => {
-  const { chatUrl, prompt = '', model } = props;
+  const { chatUrl, prompt = '', model, onSendMessage, onChatboxOpen } = props;
   const [popoverOpen, setPopoverOpen] = useState(false);
   const bem = useBem('subql-chatbox');
   const [currentInput, setCurrentInput] = useState('');
@@ -620,6 +622,9 @@ export const ChatBox: FC<ChatBoxProps> = (props) => {
       setCurrentInput('');
       await pushNewMsgToChat(newChat, robotAnswer, curChat);
       messageRef.current?.scrollToBottom();
+
+      onSendMessage?.(newMessage.content);
+
       // set user's message first, then get the response
       const res = await chatWithStream(newChat.chatUrl, {
         messages: newChat.prompt
@@ -706,6 +711,9 @@ export const ChatBox: FC<ChatBoxProps> = (props) => {
       open={popoverOpen}
       onOpenChange={(open) => {
         setPopoverOpen(open);
+        if (open) {
+          onChatboxOpen?.();
+        }
       }}
       trigger="click"
       placement="topLeft"
