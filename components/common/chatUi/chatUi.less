@@ -378,6 +378,18 @@
       }
     }
   }
+
+  &-tooltip-select-item {
+    display: flex;
+    gap: 8px;
+    transition: background .15s cubic-bezier(.4,0,.2,1);
+    border-radius: 6px;
+    padding: 4px 6px;
+    &:hover {
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.055);
+    }
+  }
 }
 
 @keyframes pulseCursor {
