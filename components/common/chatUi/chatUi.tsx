@@ -824,7 +824,7 @@ export const ChatBoxTooltipSelectItem: FC<{
       }}
     >
       <ChatBoxIcon width={16} height={18}></ChatBoxIcon>
-      <Typography variant="small" style={{ color: '#fff', lineHeight: '20px' }}>
+      <Typography className={clsx(bem('text'))} variant="small" style={{ color: '#fff', lineHeight: '20px' }}>
         {label}
       </Typography>
     </div>
