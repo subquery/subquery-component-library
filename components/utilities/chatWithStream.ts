@@ -23,6 +23,14 @@ export interface Message {
   role: AiMessageRole;
   content: string | Content[];
   type?: 'welcome'; // welcome should filter before send
+  id?: string;
+  conversation_id?: string;
+}
+
+export interface ResponseChunk {
+  id?: string;
+  conversation_id?: string;
+  choices: { delta: { content: string } }[];
 }
 
 export const chatWithStream = async (url: string, body: { messages: Message[]; model?: string }) => {

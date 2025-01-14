@@ -18,8 +18,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep, isString } from 'lodash-es';
 import Address from '../address';
 import Markdown from '../markdown/Markdown';
+import { FaRegThumbsUp, FaThumbsUp, FaRegThumbsDown, FaThumbsDown } from 'react-icons/fa';
 import './chatUi.less';
-import { chatWithStream, ConversationProperty, Message } from 'components/utilities/chatWithStream';
+import { chatWithStream, ConversationProperty, Message, ResponseChunk } from 'components/utilities/chatWithStream';
 
 const indexerName: { [key in string]: string } = {
   '0xd0af1919af890cfdd8d12be5cf1b1421224fc29a': 'Mainnet Operator',
@@ -45,6 +46,7 @@ export interface ChatBoxProps {
   model?: string;
   onSendMessage?: (message: string) => void;
   onChatboxOpen?: () => void;
+  onReaction?: (reaction: 'like' | 'dislike' | 'none', message: Message, userQuestion: Message) => void;
 }
 
 export interface ConversationItemProps {
@@ -102,10 +104,18 @@ export const ConversationItem: FC<ConversationItemProps> = ({ property, active, 
 
 export const ConversationMessage = forwardRef<
   { scrollToBottom: () => void },
-  { property: ConversationProperty; answerStatus: ChatBotAnswerStatus; version?: 'chat' | 'chatbox' }
->(({ property, answerStatus, version = 'chat' }, ref) => {
+  {
+    property: ConversationProperty;
+    answerStatus: ChatBotAnswerStatus;
+    version?: 'chat' | 'chatbox';
+    onReaction?: (reaction: 'like' | 'dislike' | 'none', message: Message, userQuestion: Message) => void;
+  }
+>(({ property, answerStatus, version = 'chat', onReaction }, ref) => {
   const bem = useBem(version === 'chat' ? 'subql-chat-conversation-message' : 'subql-chatbox-conversation-message');
   const outerRef = useRef<HTMLDivElement>(null);
+  const [reactionState, setReactionState] = useState<{
+    [key in string]: { status: 'like' | 'dislike' | 'none'; message: Message };
+  }>({});
   useImperativeHandle(ref, () => ({
     scrollToBottom: (onlyWhenReachBottom = false) => {
       if (onlyWhenReachBottom && outerRef.current) {
@@ -163,6 +173,66 @@ export const ConversationMessage = forwardRef<
             {/* TODO: support array */}
             <div className={clsx(bem('item-span'))}>
               {isString(message.content) ? <Markdown.Preview>{message.content}</Markdown.Preview> : ''}
+              {message.type !== 'welcome' && message.role === 'assistant' && message.content && (
+                <div className={clsx(bem('item-reaction'))}>
+                  {(reactionState[message.id || '0']?.status === 'none' || !reactionState[message.id || '0']) && (
+                    <FaRegThumbsUp
+                      onClick={() => {
+                        setReactionState({
+                          ...reactionState,
+                          [message.id || '0']: {
+                            status: 'like',
+                            message,
+                          },
+                        });
+                        onReaction?.('like', message, property.messages[index - 1]);
+                      }}
+                    ></FaRegThumbsUp>
+                  )}
+                  {reactionState[message.id || '0']?.status === 'like' && (
+                    <FaThumbsUp
+                    // onClick={() => {
+                    //   setReactionState({
+                    //     ...reactionState,
+                    //     [message.id || '0']: {
+                    //       status: 'none',
+                    //       message,
+                    //     },
+                    //   });
+                    //   onReaction?.('none', message);
+                    // }}
+                    ></FaThumbsUp>
+                  )}
+                  {reactionState[message.id || '0']?.status === 'dislike' && (
+                    <FaThumbsDown
+                    // onClick={() => {
+                    //   setReactionState({
+                    //     ...reactionState,
+                    //     [message.id || '0']: {
+                    //       status: 'none',
+                    //       message,
+                    //     },
+                    //   });
+                    //   onReaction?.('none', message);
+                    // }}
+                    ></FaThumbsDown>
+                  )}
+                  {(reactionState[message.id || '0']?.status === 'none' || !reactionState[message.id || '0']) && (
+                    <FaRegThumbsDown
+                      onClick={() => {
+                        setReactionState({
+                          ...reactionState,
+                          [message.id || '0']: {
+                            status: 'dislike',
+                            message,
+                          },
+                        });
+                        onReaction?.('dislike', message, property.messages[index - 1]);
+                      }}
+                    ></FaRegThumbsDown>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         );
@@ -574,7 +644,7 @@ export const ChatBoxIcon: FC<{ className?: string; width?: number; height?: numb
 
 // maybe split to other file.
 export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
-  const { chatUrl, prompt = '', model, onSendMessage, onChatboxOpen } = props;
+  const { chatUrl, prompt = '', model, onSendMessage, onChatboxOpen, onReaction } = props;
   const [popoverOpen, setPopoverOpen] = useState(false);
   const bem = useBem('subql-chatbox');
   const [currentInput, setCurrentInput] = useState('');
@@ -636,6 +706,8 @@ export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
       const robotAnswer: Message = {
         role: 'assistant' as const,
         content: '',
+        id: '0',
+        conversation_id: '0',
       };
 
       setCurrentInput('');
@@ -670,8 +742,10 @@ export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
             if (invalidJson) {
               try {
                 invalidJson += part;
-                const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+                const parsed: ResponseChunk = JSON.parse(invalidJson);
                 robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+                robotAnswer.id = parsed.id !== '0' ? parsed.id : '0';
+                robotAnswer.conversation_id = parsed.conversation_id !== '0' ? parsed.conversation_id : '0';
 
                 await pushNewMsgToChat(newChat, robotAnswer, curChat);
 
@@ -687,8 +761,10 @@ export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
 
             if (partWithHandle) {
               try {
-                const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(partWithHandle);
+                const parsed: ResponseChunk = JSON.parse(partWithHandle);
                 robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+                robotAnswer.id = parsed.id !== '0' ? parsed.id : '0';
+                robotAnswer.conversation_id = parsed.conversation_id !== '0' ? parsed.conversation_id : '0';
 
                 await pushNewMsgToChat(newChat, robotAnswer, curChat);
                 messageRef.current?.scrollToBottom(true);
@@ -701,8 +777,10 @@ export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
 
         if (invalidJson) {
           try {
-            const parsed: { choices: { delta: { content: string } }[] } = JSON.parse(invalidJson);
+            const parsed: ResponseChunk = JSON.parse(invalidJson);
             robotAnswer.content += parsed?.choices?.[0]?.delta?.content;
+            robotAnswer.id = parsed.id !== '0' ? parsed.id : '0';
+            robotAnswer.conversation_id = parsed.conversation_id !== '0' ? parsed.conversation_id : '0';
 
             await pushNewMsgToChat(newChat, robotAnswer, curChat);
             messageRef.current?.scrollToBottom(true);
@@ -715,7 +793,9 @@ export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
         robotAnswer.content = 'Sorry, The Server is not available now.';
         await pushNewMsgToChat(newChat, robotAnswer, curChat);
         setAnswerStatus(ChatBotAnswerStatus.Error);
+        return;
       }
+      // onResponse?.(robotAnswer);
       inputRef.current?.focus();
       setAnswerStatus(ChatBotAnswerStatus.Success);
     } catch (e) {
@@ -764,6 +844,7 @@ export const ChatBox = forwardRef<ChatBoxRef, ChatBoxProps>((props, ref) => {
               answerStatus={answerStatus}
               version="chatbox"
               ref={messageRef}
+              onReaction={onReaction}
             ></ConversationMessage>
           </div>
           <div className={clsx(bem('content-bottom'))}>
