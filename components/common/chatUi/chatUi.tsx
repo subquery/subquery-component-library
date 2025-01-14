@@ -942,3 +942,30 @@ export const ChatBoxTooltip: FC<{
     </Tooltip>
   );
 };
+
+export const ChatBoxPlanTextTrigger: FC<{
+  children: React.ReactNode;
+  triggerMsg: string;
+  chatBoxInstance?: ChatBoxRef;
+}> = (props) => {
+  const { children, triggerMsg, chatBoxInstance } = props;
+  return (
+    <Typography.Link
+      variant="small"
+      type="info"
+      style={{
+        display: 'flex',
+        gap: 6,
+        alignItems: 'center',
+        cursor: 'pointer',
+        margin: '8px 0',
+      }}
+      onClick={() => {
+        chatBoxInstance?.makeNewMsg(triggerMsg);
+      }}
+    >
+      <ChatBoxIcon width={14} height={14} fill={'#4388dd'} />
+      {children}
+    </Typography.Link>
+  );
+};
