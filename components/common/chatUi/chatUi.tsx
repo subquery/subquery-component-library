@@ -919,9 +919,12 @@ export const ChatBoxTooltip: FC<{
   chatBoxInstance?: ChatBoxRef;
 }> = (props) => {
   const { children, tooltipProps, options, chatBoxInstance } = props;
+  const bem = useBem('subql-chatbox-tooltip');
+
   return (
     <Tooltip
       {...tooltipProps}
+      overlayClassName={clsx(bem(), tooltipProps?.overlayClassName)}
       title={
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {options.map((option) => {
