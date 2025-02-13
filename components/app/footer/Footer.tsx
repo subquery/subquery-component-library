@@ -13,9 +13,9 @@ import {
   BsTelegram,
   BsLinkedin,
 } from 'react-icons/bs';
-import useScreen from 'use-screen';
 import styles from './Footer.module.css';
 import clsx from 'clsx';
+import { useIsMobile } from 'components/utilities/useIsMobile';
 
 const DISCORD_INVITE_URL = 'https://discord.com/invite/subquery';
 const CONTRIBUTE_URL = 'https://academy.subquery.network/miscellaneous/contributing.html';
@@ -59,8 +59,7 @@ export const IconLinks: React.FC<{ allLinks?: boolean }> = ({ allLinks = true })
 );
 
 const Default: React.FC = () => {
-  const { screenWidth } = useScreen();
-  const isMobile = screenWidth < 768;
+  const isMobile = useIsMobile();
 
   return (
     <div className={styles.footerWrapper}>

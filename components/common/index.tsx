@@ -2,18 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import './antd.css';
-import { ConfigProvider } from 'antd';
-import { COLORS } from '../utilities';
-
-ConfigProvider.config({
-  theme: {
-    primaryColor: COLORS.primary,
-    successColor: COLORS.success,
-    warningColor: COLORS.warning,
-    errorColor: COLORS.error,
-    infoColor: COLORS.info,
-  },
-});
 
 export { default as Address } from './address';
 export { default as Alert } from './alert';

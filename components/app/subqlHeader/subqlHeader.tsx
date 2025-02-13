@@ -8,10 +8,9 @@ import clsx from 'clsx';
 import { Typography } from 'components/common';
 import { MdKeyboardArrowUp } from 'react-icons/md';
 import { Drawer, Popover } from 'antd';
-import useScreen from 'use-screen';
 import { IoCloseSharp } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { useSize } from 'ahooks';
+import { useIsMobile } from 'components/utilities/useIsMobile';
 
 interface ISubqlHeaderNavigatorItem {
   key: string;
@@ -43,12 +42,6 @@ interface ISubqlHeader {
   extraNavigators?: React.ReactNode;
 }
 
-const useIsMobile = () => {
-  const { screenWidth } = useScreen();
-  const isMobile = useMemo(() => screenWidth < 768, [screenWidth]);
-  return isMobile;
-};
-
 const defaultDropdownDescription: FC<{ title?: string; content?: string }> = ({ title, content }) => {
   const isMobile = useIsMobile();
   if (isMobile) {
@@ -79,7 +72,10 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
     navigate,
     active = (path?: string) => {
       if (path) {
-        return window.location.pathname.includes(path);
+        if (typeof window !== 'undefined') {
+          return window.location.pathname.includes(path);
+        }
+        return false;
       }
 
       return false;
@@ -162,8 +158,7 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
 
 const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigators, extraNavigators }) => {
   const bem = useBem('subql-app-header');
-  const { screenWidth } = useScreen();
-  const isMobile = useMemo(() => screenWidth < 768, [screenWidth]);
+  const isMobile = useIsMobile();
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
   const MenuIcon = useMemo(() => (showMenu ? IoCloseSharp : AiOutlineMenu), [showMenu]);
 
