@@ -4,8 +4,12 @@
 import { useMemo } from 'react';
 import { useSize } from 'ahooks';
 
-export const useIsMobile = () => {
+export const useIsMobile = (initialRenderMode: 'desktop' | 'mobile' = 'desktop') => {
   const size = useSize(typeof window !== 'undefined' ? document?.body : null);
-  const isMobile = useMemo(() => (size?.width || 9999) < 768, [size?.width]);
+  const isMobile = useMemo(
+    () => (typeof window === 'undefined' ? initialRenderMode : (size?.width || 9999) < 768),
+    [size?.width, initialRenderMode],
+  );
+
   return isMobile;
 };

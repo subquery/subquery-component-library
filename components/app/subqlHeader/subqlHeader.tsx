@@ -31,6 +31,7 @@ interface ISubqlHeaderNavigatorItem {
       link: string;
     }[];
   };
+  initialRenderMode?: 'desktop' | 'mobile';
 }
 
 interface ISubqlHeader {
@@ -40,10 +41,15 @@ interface ISubqlHeader {
   navigate?: () => void;
   mainNavigators?: ISubqlHeaderNavigatorItem[];
   extraNavigators?: React.ReactNode;
+  initialRenderMode?: 'desktop' | 'mobile';
 }
 
-const defaultDropdownDescription: FC<{ title?: string; content?: string }> = ({ title, content }) => {
-  const isMobile = useIsMobile();
+const defaultDropdownDescription: FC<{
+  title?: string;
+  content?: string;
+  initialRenderMode?: 'desktop' | 'mobile';
+}> = ({ title, content, initialRenderMode }) => {
+  const isMobile = useIsMobile(initialRenderMode);
   if (isMobile) {
     return '';
   }
@@ -81,9 +87,11 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
       return false;
     },
     dropdown,
+    initialRenderMode,
   } = props;
+
   const bem = useBem('subql-app-header-navigator-item');
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(initialRenderMode);
 
   return (
     <Popover
@@ -156,9 +164,16 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
   );
 };
 
-const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigators, extraNavigators }) => {
+const SubqlHeader: FC<ISubqlHeader> = ({
+  logo,
+  logoHref,
+  className,
+  mainNavigators,
+  extraNavigators,
+  initialRenderMode,
+}) => {
   const bem = useBem('subql-app-header');
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(initialRenderMode);
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
   const MenuIcon = useMemo(() => (showMenu ? IoCloseSharp : AiOutlineMenu), [showMenu]);
 
@@ -227,7 +242,11 @@ const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigato
             <div className={clsx(bem('mobile-body'))}>
               {mainNavigators
                 ? mainNavigators.map((mainNavigator) => (
-                    <SubqlHeaderNavigatorItem {...mainNavigator} key={mainNavigator.key}></SubqlHeaderNavigatorItem>
+                    <SubqlHeaderNavigatorItem
+                      {...mainNavigator}
+                      key={mainNavigator.key}
+                      initialRenderMode={initialRenderMode}
+                    ></SubqlHeaderNavigatorItem>
                   ))
                 : ''}
 
