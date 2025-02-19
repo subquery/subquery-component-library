@@ -176,7 +176,7 @@ const SubqlHeader: FC<ISubqlHeader> = ({
   const isMobile = useIsMobile(initialRenderMode);
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
   const MenuIcon = useMemo(() => (showMenu ? IoCloseSharp : AiOutlineMenu), [showMenu]);
-  console.warn(initialRenderMode, 'isMobile');
+
   return (
     <div className={clsx(bem(), className)}>
       {logo ? (
