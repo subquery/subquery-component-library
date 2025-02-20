@@ -14939,11 +14939,6 @@ use-resize-observer@^9.1.0:
   dependencies:
     "@juggle/resize-observer" "^3.3.1"
 
-use-screen@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/use-screen/-/use-screen-1.1.3.tgz#826941e641d102a341936378556fd079d7f049e7"
-  integrity sha512-LgyCS2clyIXtKQuGHmpR3a7iL6/Qw9kOTQMyrf1BxdfBKKe/54NlhiI4PseZzaxYvNd2xeRb8+2uwbDiQr7ZCw==
-
 use-sidecar@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/use-sidecar/-/use-sidecar-1.1.2.tgz#2f43126ba2d7d7e117aa5855e5d8f0276dfe73c2"

@@ -8,10 +8,9 @@ import clsx from 'clsx';
 import { Typography } from 'components/common';
 import { MdKeyboardArrowUp } from 'react-icons/md';
 import { Drawer, Popover } from 'antd';
-import useScreen from 'use-screen';
 import { IoCloseSharp } from 'react-icons/io5';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { useSize } from 'ahooks';
+import { useIsMobile } from 'components/utilities/useIsMobile';
 
 interface ISubqlHeaderNavigatorItem {
   key: string;
@@ -32,6 +31,7 @@ interface ISubqlHeaderNavigatorItem {
       link: string;
     }[];
   };
+  initialRenderMode?: 'desktop' | 'mobile';
 }
 
 interface ISubqlHeader {
@@ -41,16 +41,15 @@ interface ISubqlHeader {
   navigate?: () => void;
   mainNavigators?: ISubqlHeaderNavigatorItem[];
   extraNavigators?: React.ReactNode;
+  initialRenderMode?: 'desktop' | 'mobile';
 }
 
-const useIsMobile = () => {
-  const { screenWidth } = useScreen();
-  const isMobile = useMemo(() => screenWidth < 768, [screenWidth]);
-  return isMobile;
-};
-
-const defaultDropdownDescription: FC<{ title?: string; content?: string }> = ({ title, content }) => {
-  const isMobile = useIsMobile();
+const defaultDropdownDescription: FC<{
+  title?: string;
+  content?: string;
+  initialRenderMode?: 'desktop' | 'mobile';
+}> = ({ title, content, initialRenderMode }) => {
+  const isMobile = useIsMobile(initialRenderMode);
   if (isMobile) {
     return '';
   }
@@ -79,15 +78,20 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
     navigate,
     active = (path?: string) => {
       if (path) {
-        return window.location.pathname.includes(path);
+        if (typeof window !== 'undefined') {
+          return window.location.pathname.includes(path);
+        }
+        return false;
       }
 
       return false;
     },
     dropdown,
+    initialRenderMode,
   } = props;
+
   const bem = useBem('subql-app-header-navigator-item');
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(initialRenderMode);
 
   return (
     <Popover
@@ -160,10 +164,16 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
   );
 };
 
-const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigators, extraNavigators }) => {
+const SubqlHeader: FC<ISubqlHeader> = ({
+  logo,
+  logoHref,
+  className,
+  mainNavigators,
+  extraNavigators,
+  initialRenderMode,
+}) => {
   const bem = useBem('subql-app-header');
-  const { screenWidth } = useScreen();
-  const isMobile = useMemo(() => screenWidth < 768, [screenWidth]);
+  const isMobile = useIsMobile(initialRenderMode);
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
   const MenuIcon = useMemo(() => (showMenu ? IoCloseSharp : AiOutlineMenu), [showMenu]);
 
@@ -232,7 +242,11 @@ const SubqlHeader: FC<ISubqlHeader> = ({ logo, logoHref, className, mainNavigato
             <div className={clsx(bem('mobile-body'))}>
               {mainNavigators
                 ? mainNavigators.map((mainNavigator) => (
-                    <SubqlHeaderNavigatorItem {...mainNavigator} key={mainNavigator.key}></SubqlHeaderNavigatorItem>
+                    <SubqlHeaderNavigatorItem
+                      {...mainNavigator}
+                      key={mainNavigator.key}
+                      initialRenderMode={initialRenderMode}
+                    ></SubqlHeaderNavigatorItem>
                   ))
                 : ''}
 

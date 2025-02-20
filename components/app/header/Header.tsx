@@ -4,7 +4,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { Drawer, Space } from 'antd';
-import useScreen from 'use-screen';
 import { matchPath } from 'react-router-dom';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { IoCloseSharp } from 'react-icons/io5';
@@ -14,6 +13,7 @@ import { useBem } from 'components/utilities/useBem';
 import './Header.less';
 import { useMemo } from 'react';
 import { createBEM } from 'components/utilities/createBem';
+import { useIsMobile } from 'components/utilities/useIsMobile';
 
 const logo = 'https://static.subquery.network/design/images/logo.svg';
 const logoDark = 'https://static.subquery.network/design/images/logo-light.svg';
@@ -93,7 +93,9 @@ const LeftHeader = ({ leftElement, dropdownLinks, isMobile }: LeftHeaderProps) =
         rootClassName={clsx(bem('dropdown', { wrapper: 'wrapper' }))}
         menuClassName={clsx(bem('dropdown'), theme === 'dark' ? bem('dropdown', { dark: 'dark' }) : '')}
         onMenuItemClick={({ key }) => {
-          window.open(dropdownLinks.links[parseInt(key)]?.link ?? '/', '_blank');
+          if (typeof window !== 'undefined') {
+            window.open(dropdownLinks.links[parseInt(key)]?.link ?? '/', '_blank');
+          }
         }}
         getPopupContainer={() => document.getElementById('leftHeader') as HTMLElement}
       />
@@ -120,14 +122,16 @@ const MiddleHeader = ({
   appNavigation,
   isMobile,
   navigate = (link) => {
-    window.location.replace(link);
+    if (typeof window !== 'undefined') {
+      window.location.replace(link);
+    }
   },
   active = (link) =>
     !!matchPath(
       {
         path: link,
       },
-      window.location.pathname,
+      typeof window !== 'undefined' ? window.location.pathname : '',
     ),
 }: MiddleHeaderProps) => {
   const { theme } = React.useContext(Context);
@@ -170,7 +174,9 @@ const MiddleHeader = ({
                       if (nav.onClick) {
                         nav.onClick(key);
                       } else if (isExternalLink(key)) {
-                        window.open(key, '_blank');
+                        if (typeof window !== 'undefined') {
+                          window.open(key, '_blank');
+                        }
                       } else {
                         navigate(key);
                       }
@@ -237,10 +243,9 @@ export const Header: React.FC<React.PropsWithChildren<HeaderProps>> = ({
   const { theme } = React.useContext(Context);
   const bem = useBem('subql-header');
   const mobileHeaderBem = useBem('subql-mobile-header');
-  const { screenWidth } = useScreen();
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
   const MenuIcon = useMemo(() => (showMenu ? IoCloseSharp : AiOutlineMenu), [showMenu]);
-  const isMobile = useMemo(() => screenWidth < 768, [screenWidth]);
+  const isMobile = useIsMobile();
 
   return (
     <>
