@@ -19,6 +19,8 @@ interface ISubqlHeaderNavigatorItem {
   link?: string;
   navigate?: (path?: string) => void;
   active?: (path?: string) => boolean;
+  dropdownClassName?: string;
+  popoverClassName?: string;
   dropdown?: {
     description?: React.ReactNode;
     defaultDescription?: {
@@ -39,6 +41,9 @@ interface ISubqlHeader {
   logoHref?: string;
   className?: string;
   navigate?: () => void;
+  dropdownClassName?: string;
+  popoverClassName?: string;
+  drawerClassName?: string;
   mainNavigators?: ISubqlHeaderNavigatorItem[];
   extraNavigators?: React.ReactNode;
   initialRenderMode?: 'desktop' | 'mobile';
@@ -87,6 +92,8 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
       return false;
     },
     dropdown,
+    dropdownClassName,
+    popoverClassName,
     initialRenderMode,
   } = props;
 
@@ -95,12 +102,12 @@ export const SubqlHeaderNavigatorItem: FC<ISubqlHeaderNavigatorItem> = (props) =
 
   return (
     <Popover
-      overlayClassName={clsx(bem('popover'))}
+      overlayClassName={clsx(bem('popover'), popoverClassName)}
       arrow={false}
       placement="bottom"
       content={
         dropdown ? (
-          <div className={clsx(bem('dropdown-wrapper'))}>
+          <div className={clsx(bem('dropdown-wrapper'), dropdownClassName)}>
             {dropdown.description || defaultDropdownDescription(dropdown.defaultDescription || {})}
             <div className={clsx(bem('dropdown'))}>
               {dropdown.items.map((item) => (
@@ -168,6 +175,9 @@ const SubqlHeader: FC<ISubqlHeader> = ({
   logo,
   logoHref,
   className,
+  dropdownClassName,
+  popoverClassName,
+  drawerClassName,
   mainNavigators,
   extraNavigators,
   initialRenderMode,
@@ -210,7 +220,7 @@ const SubqlHeader: FC<ISubqlHeader> = ({
               setShowMenu(false);
             }}
             width={'100vw'}
-            rootClassName={clsx(bem('menu'))}
+            rootClassName={clsx(bem('menu'), drawerClassName)}
             extra={
               <>
                 <div>
@@ -245,6 +255,8 @@ const SubqlHeader: FC<ISubqlHeader> = ({
                     <SubqlHeaderNavigatorItem
                       {...mainNavigator}
                       key={mainNavigator.key}
+                      dropdownClassName={dropdownClassName}
+                      popoverClassName={popoverClassName}
                       initialRenderMode={initialRenderMode}
                     ></SubqlHeaderNavigatorItem>
                   ))
@@ -258,7 +270,12 @@ const SubqlHeader: FC<ISubqlHeader> = ({
         <>
           {mainNavigators
             ? mainNavigators.map((mainNavigator) => (
-                <SubqlHeaderNavigatorItem {...mainNavigator} key={mainNavigator.key}></SubqlHeaderNavigatorItem>
+                <SubqlHeaderNavigatorItem
+                  dropdownClassName={dropdownClassName}
+                  popoverClassName={popoverClassName}
+                  {...mainNavigator}
+                  key={mainNavigator.key}
+                ></SubqlHeaderNavigatorItem>
               ))
             : ''}
 
